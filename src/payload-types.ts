@@ -1291,8 +1291,8 @@ export interface AdaptiveFactor {
  * via the `definition` "adaptive_portfolio".
  */
 export interface AdaptivePortfolio {
-  Heading?: string | null;
-  richText?: {
+  title?: string | null;
+  description?: {
     root: {
       type: string;
       children: {
@@ -1307,21 +1307,27 @@ export interface AdaptivePortfolio {
     };
     [k: string]: unknown;
   } | null;
-  protectionLevels?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  ProtectionLevels?:
+    | {
+        title?: string | null;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
   conclusion?: {
     root: {
       type: string;
@@ -2229,8 +2235,8 @@ export interface UnderstandingRisk {
  * via the `definition` "what_is_market".
  */
 export interface WhatIsMarket {
-  Heading?: string | null;
-  Descritpion?: {
+  title: string;
+  description?: {
     root: {
       type: string;
       children: {
@@ -2245,7 +2251,7 @@ export interface WhatIsMarket {
     };
     [k: string]: unknown;
   } | null;
-  richText?: {
+  protectionDetails?: {
     root: {
       type: string;
       children: {
@@ -2260,7 +2266,27 @@ export interface WhatIsMarket {
     };
     [k: string]: unknown;
   } | null;
-  image?: (string | null) | Media;
+  protectionDetailsArray?:
+    | {
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  imageSrc: string | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'what_is_market';
@@ -3209,9 +3235,15 @@ export interface AdaptiveFactorSelect<T extends boolean = true> {
  * via the `definition` "adaptive_portfolio_select".
  */
 export interface AdaptivePortfolioSelect<T extends boolean = true> {
-  Heading?: T;
-  richText?: T;
-  protectionLevels?: T;
+  title?: T;
+  description?: T;
+  ProtectionLevels?:
+    | T
+    | {
+        title?: T;
+        content?: T;
+        id?: T;
+      };
   conclusion?: T;
   id?: T;
   blockName?: T;
@@ -3563,10 +3595,16 @@ export interface UnderstandingRiskSelect<T extends boolean = true> {
  * via the `definition` "what_is_market_select".
  */
 export interface WhatIsMarketSelect<T extends boolean = true> {
-  Heading?: T;
-  Descritpion?: T;
-  richText?: T;
-  image?: T;
+  title?: T;
+  description?: T;
+  protectionDetails?: T;
+  protectionDetailsArray?:
+    | T
+    | {
+        content?: T;
+        id?: T;
+      };
+  imageSrc?: T;
   id?: T;
   blockName?: T;
 }

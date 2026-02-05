@@ -27,14 +27,36 @@ export const Hero_with_content: React.FC<Hero_with_contentProps> = ({
   Url2,
   target2 = '_self',
 }) => {
-  const renderText = (children?: SerializedLexicalNode[]) =>
-    children
-      ?.filter(
-        (c): c is SerializedTextNode =>
-          c.type === 'text' && 'text' in c
-      )
-      .map((c) => c.text)
-      .join(' ')
+
+  const renderTextNode = (node: SerializedTextNode, key: number) => {
+    let element: React.ReactNode = node.text
+
+    if (node.format & 1) {
+      element = <strong key={`b-${key}`}>{element}</strong>
+    }
+    if (node.format & 2) {
+      element = <em key={`i-${key}`}>{element}</em>
+    }
+    if (node.format & 4) {
+      element = <u key={`u-${key}`}>{element}</u>
+    }
+    if (node.format & 8) {
+      element = <s key={`s-${key}`}>{element}</s>
+    }
+
+    return <React.Fragment key={key}>{element}</React.Fragment>
+  }
+
+  const renderChildren = (children?: SerializedLexicalNode[]) => {
+    if (!children) return null
+
+    return children.map((child, index) => {
+      if (child.type === 'text') {
+        return renderTextNode(child, index)
+      }
+      return null
+    })
+  }
 
   const renderRichText = (state?: DefaultTypedEditorState) => {
     if (!state) return null
@@ -47,20 +69,18 @@ export const Hero_with_content: React.FC<Hero_with_contentProps> = ({
             className="para text-dark text-h4 leading-snug pl-24 [&_li]:list-disc space-y-24"
           >
             {node.children?.map((child, idx) => (
-              <li key={idx}>
-                {'children' in child ? renderText(child.children) : null}
-              </li>
+              <li key={idx}>{'children' in child ? renderChildren(child.children) : null}</li>
             ))}
           </ul>
         )
       }
 
       if (node.type === 'paragraph') {
-        return <p key={i}>{renderText(node.children)}</p>
+        return <p key={i}>{renderChildren(node.children)}</p>
       }
 
       if (node.type === 'heading') {
-        return <h3 key={i}>{renderText(node.children)}</h3>
+        return <h3 key={i}>{renderChildren(node.children)}</h3>
       }
 
       return null

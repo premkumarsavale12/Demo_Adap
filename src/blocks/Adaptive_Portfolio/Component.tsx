@@ -4,15 +4,21 @@ import React from "react";
 
 interface Adaptive_PortfolioProps {
 
-    Heading?: string,
-    richText: DefaultTypedEditorState,
-    protectionLevels: DefaultTypedEditorState,
-    conclusion: DefaultTypedEditorState,
+    title: string,
+    description: DefaultTypedEditorState,
+    ProtectionLevels?:
+    {
+        title?: string,
+        content: DefaultTypedEditorState,
+
+    }[],
+
+    conclusion?: DefaultTypedEditorState,
 
 
 }
 
-export const Adaptive_Portfolio: React.FC<Adaptive_PortfolioProps> = ({ Heading, richText, protectionLevels, conclusion }) => {
+export const Adaptive_Portfolio: React.FC<Adaptive_PortfolioProps> = ({ title, description, ProtectionLevels, conclusion }) => {
 
     // console.log(Heading, richText, protectionLevels, conclusion);
 
@@ -26,38 +32,37 @@ export const Adaptive_Portfolio: React.FC<Adaptive_PortfolioProps> = ({ Heading,
                         <div className="tool-content font-inter space-y-8">
                             <div className="text-h5">
                                 <p>
-                                    <strong> {Heading} </strong>
+                                    <strong dangerouslySetInnerHTML={{ __html: title }}></strong>
                                 </p>
                             </div>
                             <div
                                 className="text-black-300 space-y-4"
 
                             >
-                                {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}
-                            </div>
-                                   <ul className="text-gray-600 space-y-4 relative
-                                                        [&_li]:relative
-                                                        [&_li]:pl-6
-                                                        [&_li]:before:content-['']
-                                                        [&_li]:before:w-2
-                                                        [&_li]:before:h-2
-                                                        [&_li]:before:bg-gray-400
-                                                        [&_li]:before:rounded-full
-                                                        [&_li]:before:absolute
-                                                        [&_li]:before:top-[7px]
-                                                        [&_li]:before:left-0
-                                                        [&_li]:before:z-0"
-                            >
-                                {protectionLevels && (
-                                    <RichText
-                                        className="mb-0"
-                                        data={protectionLevels}
-                                        enableGutter={false}
-                                    />
-                                )}
-                            </ul>
+                                {description && <RichText className="mb-0" data={description} enableGutter={false} />}</div>
+                            <ul className="text-gray-600 space-y-4 relative [&_li]:relative [&_li]:pl-6 [&_li]:before:content-[''] [&_li]:before:w-2 [&_li]:before:h-2 [&_li]:before:bg-gray-400 [&_li]:before:rounded-full [&_li]:before:absolute [&_li]:before:top-[7px] [&_li]:before:left-0 [&_li]:before:z-0">
+                                {ProtectionLevels?.map((level, index) => (
+                                    <li key={index}>
+                                        <strong
 
-                            <div >     {conclusion && <RichText className="mb-0" data={conclusion} enableGutter={false} />} </div>
+                                        > {level.title} </strong>
+                                        <br />
+
+                                        <div>
+                                            {level.content && <RichText className="mb-0" data={level.content} enableGutter={false} />}</div>
+
+                                    </li>
+                                ))}
+                            </ul>
+                            {/* {conclusion && (
+                                <div>
+                                    <RichText data={conclusion} />
+                                </div>
+                            )} */}
+                            <div>
+                                {conclusion && <RichText className="mb-0" data={conclusion} enableGutter={false} />}</div>
+
+
                         </div>
                     </div>
                 </div>

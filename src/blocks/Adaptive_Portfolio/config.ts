@@ -13,12 +13,12 @@ export const Adaptive_Portfolio: Block = {
 
     fields: [
         {
-            name: 'Heading',
+            name: 'title',
             type: 'text',
-            label: 'Heading'
+            label: 'title'
         },
         {
-            name: 'richText',
+            name: 'description',
             type: 'richText',
             editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
@@ -34,19 +34,33 @@ export const Adaptive_Portfolio: Block = {
         },
 
         {
-            name: 'protectionLevels',
-            type: 'richText',
-            editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                    return [
-                        ...rootFeatures,
-                        HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                        FixedToolbarFeature(),
-                        InlineToolbarFeature(),
-                    ]
+            name: 'ProtectionLevels',
+            type: 'array',
+            fields: [
+                {
+                    name: 'title',
+                    type: 'text',
+                    label: 'title'
                 },
-            }),
-            label: 'Add protectionLevels ',
+
+
+
+                {
+                    name: 'content',
+                    type: 'richText',
+                    editor: lexicalEditor({
+                        features: ({ rootFeatures }) => {
+                            return [
+                                ...rootFeatures,
+                                HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                                FixedToolbarFeature(),
+                                InlineToolbarFeature(),
+                            ]
+                        },
+                    }),
+                    label: 'Add conclusion',
+                },
+            ]
         },
 
 
