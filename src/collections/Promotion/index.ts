@@ -115,29 +115,34 @@ export const Promotion: CollectionConfig<'promotion'> = {
                     fields: [
 
                         {
-                            name: 'intelligenceHeading',
-                            type: 'text',
-                            label: 'Heading',
+                            name: 'Intelligences',
+                            type: 'array',
+                            fields: [
+                                {
+                                    name: 'intelligenceHeading',
+                                    type: 'text',
+                                    label: 'Heading',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'richText',
+                                    editor: lexicalEditor({
+                                        features: ({ rootFeatures }) => [
+                                            ...rootFeatures,
+                                            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                                            BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                                            FixedToolbarFeature(),
+                                            InlineToolbarFeature(),
+                                            HorizontalRuleFeature(),
+                                        ],
+                                    }),
 
-
+                                    label: 'Add Description',
+                                    required: true,
+                                },
+                            ]
                         },
-                        {
-                            name: 'description',
-                            type: 'richText',
-                            editor: lexicalEditor({
-                                features: ({ rootFeatures }) => [
-                                    ...rootFeatures,
-                                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                                    FixedToolbarFeature(),
-                                    InlineToolbarFeature(),
-                                    HorizontalRuleFeature(),
-                                ],
-                            }),
 
-                            label: 'Add Description',
-                            required: true,
-                        },
                     ]
                 },
 

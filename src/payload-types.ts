@@ -2635,22 +2635,27 @@ export interface Promotion {
     [k: string]: unknown;
   };
   Image?: (string | null) | Media;
-  intelligenceHeading?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  Intelligences?:
+    | {
+        intelligenceHeading?: string | null;
+        description: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
   Video?: (string | null) | Media;
   ctaHeading?: string | null;
   descrip: {
@@ -3968,8 +3973,13 @@ export interface PromotionSelect<T extends boolean = true> {
   toolsHeading?: T;
   content?: T;
   Image?: T;
-  intelligenceHeading?: T;
-  description?: T;
+  Intelligences?:
+    | T
+    | {
+        intelligenceHeading?: T;
+        description?: T;
+        id?: T;
+      };
   Video?: T;
   ctaHeading?: T;
   descrip?: T;
