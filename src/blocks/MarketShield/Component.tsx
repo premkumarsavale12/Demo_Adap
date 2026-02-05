@@ -73,40 +73,40 @@ export const MarketShieldBlock: React.FC<MarketShieldProps> = ({
     titles.forEach((title) => observer.observe(title))
     return () => titles.forEach((title) => observer.unobserve(title))
   }, [])
-const isTextNode = (
-  node: SerializedLexicalNode
-): node is SerializedTextNode => {
-  return node.type === 'text'
-}
-const renderTextNode = (node: SerializedTextNode, key: number) => {
-  let element: React.ReactNode = node.text
 
-  if (node.format & 1) element = <strong key={`b-${key}`}>{element}</strong>
-  if (node.format & 2) element = <em key={`i-${key}`}>{element}</em>
-  if (node.format & 4) element = <u key={`u-${key}`}>{element}</u>
-  if (node.format & 8) element = <s key={`s-${key}`}>{element}</s>
+  const renderTextNode = (node: SerializedTextNode, key: number) => {
+    let element: React.ReactNode = node.text
 
-  return <React.Fragment key={key}>{element}</React.Fragment>
-}
-
- 
-  const renderChildren = (children?: SerializedLexicalNode[]) => {
-  if (!children) return null
-
-  return children.map((child, index) => {
-    if (isTextNode(child)) {
-      return renderTextNode(child, index)
+    if (node.format & 1) {
+      element = <strong key={`b-${key}`}>{element}</strong>
+    }
+    if (node.format & 2) {
+      element = <em key={`i-${key}`}>{element}</em>
+    }
+    if (node.format & 4) {
+      element = <u key={`u-${key}`}>{element}</u>
+    }
+    if (node.format & 8) {
+      element = <s key={`s-${key}`}>{element}</s>
     }
 
-    return null
-  })
-}
+    return <React.Fragment key={key}>{element}</React.Fragment>
+  }
 
+  const renderChildren = (children?: SerializedLexicalNode[]) => {
+    if (!children) return null
 
- 
+    return children.map((child, index) => {
+      if (child.type === 'text') {
+        return renderTextNode(child, index)
+      }
+      return null
+    })
+  }
+
   const renderRichText = (state?: DefaultTypedEditorState) => {
     if (!state) return null
- 
+
     return state.root.children.map((node, i) => {
       if (node.type === 'list') {
         return (
@@ -120,15 +120,15 @@ const renderTextNode = (node: SerializedTextNode, key: number) => {
           </ul>
         )
       }
- 
+
       if (node.type === 'paragraph') {
         return <p key={i}>{renderChildren(node.children)}</p>
       }
- 
+
       if (node.type === 'heading') {
         return <h3 key={i}>{renderChildren(node.children)}</h3>
       }
- 
+
       return null
     })
   }

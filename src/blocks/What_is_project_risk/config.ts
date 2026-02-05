@@ -124,5 +124,4 @@ export const What_is_project_risk: Block = {
 
     ]
 
-
 }

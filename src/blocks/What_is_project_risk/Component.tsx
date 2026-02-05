@@ -42,11 +42,12 @@ interface WhatIsProjectRiskProps {
   descritpion: DefaultTypedEditorState;
   Items?: RiskItem[];
   Category?: CategoryColumn[];
+  descrip: DefaultTypedEditorState,
 }
 
-export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({  Heading, descritpion, Items, Category }) => {
- // console.log( descritpion);
-   
+export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({ Heading, descritpion, Items, Category, descrip }) => {
+  // console.log( descritpion);
+
   return (
     <section className="t-section riskvalue-section bg-white-100 lg:py-[150px] md:py-[80px] sm:py-[50px] py-6 w-full border-b border-b-black-200">
       <div className="container">
@@ -64,7 +65,7 @@ export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({  Headin
             </div>
 
             <div className="text text-body font-inter font-normal space-y-4">
-                {extractTextFromLexical(descritpion?.root?.children)}
+              {extractTextFromLexical(descritpion?.root?.children)}
             </div>
           </div>
 
@@ -80,7 +81,7 @@ export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({  Headin
                 )}
 
                 <div>
-                    {extractTextFromLexical(measure.richText?.root?.children)}  
+                  {extractTextFromLexical(measure.richText?.root?.children)}
                 </div>
               </div>
             ))}
@@ -88,29 +89,33 @@ export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({  Headin
 
           {/* ===== CATEGORY TABLE ===== */}
           {Array.isArray(Category) && Category.length > 0 && (
-  <div className="definition space-y-8 font-inter font-normal">
-    <div className="lg:w-[60%] w-full overflow-x-auto">
-      <table className="md:w-full md:max-w-none max-w-[600px] text-left">
-        <thead className="bg-[#ededed]">
-          <tr>
-            <th className="p-3 font-medium">Project Risk</th>
-            <th className="p-3 font-medium">VIX Range</th>
-            <th className="p-3 font-medium">Notes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Category.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              <td className="border p-3">{row.project_risk}</td>
-              <td className="border p-3">{row.vix_range}</td>
-              <td className="border p-3">{row.notes}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-)}
+            <div className="definition space-y-8 font-inter font-normal">
+              <div className="lg:w-[60%] w-full overflow-x-auto">
+                <table className="md:w-full md:max-w-none max-w-[600px] text-left">
+                  <thead className="bg-[#ededed]">
+                    <tr>
+                      <th className="p-3 font-medium">Project Risk</th>
+                      <th className="p-3 font-medium">VIX Range</th>
+                      <th className="p-3 font-medium">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Category.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        <td className="border p-3">{row.project_risk}</td>
+                        <td className="border p-3">{row.vix_range}</td>
+                        <td className="border p-3">{row.notes}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          <div>
+            {extractTextFromLexical(descrip?.root?.children)}
+          </div>
 
 
         </div>

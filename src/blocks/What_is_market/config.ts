@@ -1,8 +1,6 @@
 import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Block } from "payload";
 
-
-
 export const What_is_market: Block = {
     slug: 'what_is_market',
     interfaceName: 'what_is_market',
@@ -10,16 +8,19 @@ export const What_is_market: Block = {
         singular: 'what_is_market',
         plural: 'what_is_markets'
     },
+
+
     fields: [
 
         {
-            name: 'Heading',
+            name: 'title',
             type: 'text',
-            label: 'Heading',
+            required: true,
+
         },
 
         {
-            name: 'Descritpion',
+            name: 'description',
             type: 'richText',
             editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
@@ -31,12 +32,11 @@ export const What_is_market: Block = {
                     ]
                 },
             }),
-            label: "Add Descritpion",
+            label: false,
         },
 
-
         {
-            name: 'richText',
+            name: 'protectionDetails',
             type: 'richText',
             editor: lexicalEditor({
                 features: ({ rootFeatures }) => {
@@ -48,17 +48,42 @@ export const What_is_market: Block = {
                     ]
                 },
             }),
-            label: "Add Content",
+            label: false,
         },
 
         {
-            name: 'image',
+            name: 'protectionDetailsArray',
+            type: 'array',
+
+
+            fields: [
+
+                {
+                    name: 'content',
+                    type: 'richText',
+                    editor: lexicalEditor({
+                        features: ({ rootFeatures }) => {
+                            return [
+                                ...rootFeatures,
+                                HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                                FixedToolbarFeature(),
+                                InlineToolbarFeature(),
+                            ]
+                        },
+                    }),
+                    label: false,
+                },
+            ],
+        },
+
+        {
+            name: 'imageSrc',
             type: 'upload',
             relationTo: 'media',
-            label: 'Upload Image'
+            required: true,
 
-        }
+        },
+    ],
+};
 
 
-    ]
-}

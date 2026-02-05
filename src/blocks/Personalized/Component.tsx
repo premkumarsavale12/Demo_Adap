@@ -17,7 +17,7 @@ interface PersonalizedProps {
 }
 
 export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
-   // console.log(Items);
+  // console.log(Items);
 
   return (
     <section className="tools-section">
@@ -44,19 +44,19 @@ export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
 
 
 
-             <div className="space-y-4">
-  {item.richText?.root?.children?.map((block: any, i: number) => {
-    if (block.type !== "paragraph") return null;
+                  <div className="space-y-4">
+                    {item.richText?.root?.children?.map((block: any, i: number) => {
+                      if (block.type !== "paragraph") return null;
 
-    return (
-      <p key={i}>
-        {block.children?.map((child: any, j: number) => (
-          <span key={j}>{child.text}</span>
-        ))}
-      </p>
-    );
-  })}
-</div>
+                      return (
+                        <p key={i}>
+                          {block.children?.map((child: any, j: number) => (
+                            <span key={j}>{child.text}</span>
+                          ))}
+                        </p>
+                      );
+                    })}
+                  </div>
 
 
                 </div>

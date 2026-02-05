@@ -1,16 +1,24 @@
-// app/api/posts/route.ts
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
+import { NextResponse } from 'next/server'
+ 
 export async function GET() {
   try {
-    const res = await fetch('https://adaptive-payload-cms.vercel.app/api/posts', {
-      next: { revalidate: 60 },
-      headers: { 'Content-Type': 'application/json' },
+    const payload = await getPayload({ config: configPromise })
+ 
+    const data = await payload.find({
+      collection: 'posts',
+      limit: 10,
+      depth: 2,
     })
-    
-    if (!res.ok) throw new Error('Failed to fetch')
-    
-    const data = await res.json()
-    return Response.json(data)
+ 
+    return NextResponse.json(data)
   } catch (error) {
-    return Response.json({ docs: [] , error }, { status: 500 })
+    console.error(error)
+    return NextResponse.json(
+      { message: 'Failed to fetch related posts' },
+      { status: 500 }
+    )
   }
 }
+ 
