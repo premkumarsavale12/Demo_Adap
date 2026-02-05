@@ -70,6 +70,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     webinars: Webinar;
+    promotion: Promotion;
     media: Media;
     categories: Category;
     users: User;
@@ -93,6 +94,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     webinars: WebinarsSelect<false> | WebinarsSelect<true>;
+    promotion: PromotionSelect<false> | PromotionSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -2611,6 +2613,95 @@ export interface ForwardTest {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotion".
+ */
+export interface Promotion {
+  id: string;
+  title: string;
+  toolsHeading: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  Image?: (string | null) | Media;
+  intelligenceHeading?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  Video?: (string | null) | Media;
+  ctaHeading?: string | null;
+  descrip: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  button?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
+  relatedPosts?: (string | Webinar)[] | null;
+  categories?: (string | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (string | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -2810,6 +2901,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'webinars';
         value: string | Webinar;
+      } | null)
+    | ({
+        relationTo: 'promotion';
+        value: string | Promotion;
       } | null)
     | ({
         relationTo: 'media';
@@ -3866,6 +3961,50 @@ export interface WebinarsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotion_select".
+ */
+export interface PromotionSelect<T extends boolean = true> {
+  title?: T;
+  toolsHeading?: T;
+  content?: T;
+  Image?: T;
+  intelligenceHeading?: T;
+  description?: T;
+  Video?: T;
+  ctaHeading?: T;
+  descrip?: T;
+  button?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        target?: T;
+      };
+  relatedPosts?: T;
+  categories?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+      };
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -4450,6 +4589,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'webinars';
           value: string | Webinar;
+        } | null)
+      | ({
+          relationTo: 'promotion';
+          value: string | Promotion;
         } | null);
     global?: string | null;
     user?: (string | null) | User;

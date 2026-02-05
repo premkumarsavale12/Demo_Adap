@@ -14,6 +14,7 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
  
 import { Webinars } from './collections/Webinars'
+import { Promotion } from './collections/Promotion'
 
 
 const filename = fileURLToPath(import.meta.url)
@@ -62,7 +63,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
-  collections: [Pages, Posts, Webinars,  Media, Categories, Users],
+  collections: [Pages, Posts, Webinars,Promotion,   Media, Categories, Users],
   cors: [
     'https://adaptive-payload-cms.vercel.app',
     'http://localhost:3000',

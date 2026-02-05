@@ -42,7 +42,7 @@ interface WhatIsMarketProps {
 
 export const What_is_market: React.FC<WhatIsMarketProps> = ({ title, description, protectionDetails, protectionDetailsArray, imageSrc, reverse = false }) => {
   // console.log(protectionDetails,  protectionDetailsArray,)
-  console.log("protectionDetails", protectionDetails);
+   // console.log("protectionDetails", protectionDetails);
   // console.log("protectionDetailsArray", protectionDetailsArray);
 
   const imageUrl =
