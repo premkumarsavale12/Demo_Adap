@@ -1,0 +1,64 @@
+import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
+import { Block } from "payload";
+
+
+
+export const What_is_market: Block = {
+    slug: 'what_is_market',
+    interfaceName: 'what_is_market',
+    labels: {
+        singular: 'what_is_market',
+        plural: 'what_is_markets'
+    },
+    fields: [
+
+        {
+            name: 'Heading',
+            type: 'text',
+            label: 'Heading',
+        },
+
+        {
+            name: 'Descritpion',
+            type: 'richText',
+            editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                    return [
+                        ...rootFeatures,
+                        HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                        FixedToolbarFeature(),
+                        InlineToolbarFeature(),
+                    ]
+                },
+            }),
+            label: "Add Descritpion",
+        },
+
+
+        {
+            name: 'richText',
+            type: 'richText',
+            editor: lexicalEditor({
+                features: ({ rootFeatures }) => {
+                    return [
+                        ...rootFeatures,
+                        HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+                        FixedToolbarFeature(),
+                        InlineToolbarFeature(),
+                    ]
+                },
+            }),
+            label: "Add Content",
+        },
+
+        {
+            name: 'image',
+            type: 'upload',
+            relationTo: 'media',
+            label: 'Upload Image'
+
+        }
+
+
+    ]
+}

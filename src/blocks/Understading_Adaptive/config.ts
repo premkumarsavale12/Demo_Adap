@@ -1,0 +1,70 @@
+import { Block } from "payload";
+
+
+export const UnderStanding_Adaptive: Block = {
+    slug: 'understanding_adaptive',
+    interfaceName: 'understanding_adaptive',
+    labels: {
+        singular: 'understanding_adaptive',
+        plural: 'understanding_adaptives'
+    },
+
+
+    fields: [
+        {
+            name: "title",
+            type: "richText",
+            required: true,
+        },
+
+        {
+            name: "factor_analysis_desc",
+            type: "richText",
+            required: true,
+        },
+
+        {
+            name: "factor_analysis_sub_desc",
+            type: "array",
+            label: "Factor Analysis Points",
+            admin: {
+                initCollapsed: false,
+            },
+            fields: [
+                {
+                    name: "title",
+                    type: "richText",
+                    required: true,
+                },
+            ],
+        },
+
+        {
+            name: "basket_title",
+            type: "richText",
+            required: true,
+        },
+
+        {
+            name: "basket",
+            type: "array",
+            label: "Basket Items",
+            admin: {
+                initCollapsed: false,
+            },
+            fields: [
+                {
+                    name: "title",
+                    type: "text",
+                    required: true,
+                },
+                {
+                    name: "desc",
+                    type: "richText",
+                    required: true,
+                },
+            ],
+        },
+    ],
+};
+
