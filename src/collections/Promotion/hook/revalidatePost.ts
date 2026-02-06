@@ -1,43 +1,41 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
-
 import { revalidatePath, revalidateTag } from 'next/cache'
+import type { Promotion } from '../../../payload-types'
 
-import type { Webinar } from '../../../payload-types'
-
-export const revalidatePost: CollectionAfterChangeHook<Webinar> = ({
+export const revalidatePost: CollectionAfterChangeHook<Promotion> = ({
   doc,
   previousDoc,
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/webinars/${doc.slug}`
+      const path = `/Promotion/${doc.slug}`
 
-      payload.logger.info(`Revalidating webinar at path: ${path}`)
+      payload.logger.info(`Revalidating promotion at path: ${path}`)
 
       revalidatePath(path)
-      revalidateTag('webinars-sitemap')
+      revalidateTag('promotion-sitemap')
     }
 
-    // If the webinar was previously published, we need to revalidate the old path
+    // If the promotion was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/webinars/${previousDoc.slug}`
+      const oldPath = `/Promotion/${previousDoc.slug}`
 
-      payload.logger.info(`Revalidating old webinar at path: ${oldPath}`)
+      payload.logger.info(`Revalidating old promotion at path: ${oldPath}`)
 
       revalidatePath(oldPath)
-      revalidateTag('webinars-sitemap')
+      revalidateTag('promotion-sitemap')
     }
   }
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Webinar> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<Promotion> = ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
-    const path = `/webinars/${doc?.slug}`
+    const path = `/Promotion/${doc?.slug}`
 
     revalidatePath(path)
-    revalidateTag('webinars-sitemap')
+    revalidateTag('promotion-sitemap')
   }
 
   return doc

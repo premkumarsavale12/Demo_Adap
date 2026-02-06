@@ -116,7 +116,7 @@ export default function WebinarArchiveClient({
   }, [initialWebinars, searchTerm, activeTab])
 
 
-    // ✅ Infinite scroll observer
+    // ✅ Infinite scroll observer 
   useEffect(() => {
     if (!loaderRef.current) return;
     const observer = new IntersectionObserver(

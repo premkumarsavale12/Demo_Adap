@@ -270,7 +270,7 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: ('posts' | 'webinars') | null;
+  relationTo?: ('posts' | 'webinars' | 'promotion') | null;
   categories?: (string | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
@@ -282,6 +282,10 @@ export interface ArchiveBlock {
         | {
             relationTo: 'webinars';
             value: string | Webinar;
+          }
+        | {
+            relationTo: 'promotion';
+            value: string | Promotion;
           }
       )[]
     | null;
@@ -567,6 +571,98 @@ export interface Webinar {
      */
     image?: (string | null) | Media;
     description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (string | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotion".
+ */
+export interface Promotion {
+  id: string;
+  title: string;
+  toolsSection: {
+    toolsHeading: string;
+    content: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    image?: (string | null) | Media;
+  };
+  intelligenceReport?: {
+    intelligences?:
+      | {
+          intelligenceHeading?: string | null;
+          description: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
+  mediaSection?: {
+    video?: (string | null) | Media;
+  };
+  ctaSection: {
+    ctaHeading?: string | null;
+    descrip: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    };
+    button?: {
+      label?: string | null;
+      url?: string | null;
+      target?: ('_self' | '_blank') | null;
+    };
   };
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
@@ -2613,95 +2709,6 @@ export interface ForwardTest {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "promotion".
- */
-export interface Promotion {
-  id: string;
-  title: string;
-  toolsHeading: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  Image?: (string | null) | Media;
-  intelligenceHeading?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  Video?: (string | null) | Media;
-  ctaHeading?: string | null;
-  descrip: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  button?: {
-    label?: string | null;
-    url?: string | null;
-    target?: ('_self' | '_blank') | null;
-  };
-  relatedPosts?: (string | Webinar)[] | null;
-  categories?: (string | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (string | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -3965,29 +3972,41 @@ export interface WebinarsSelect<T extends boolean = true> {
  */
 export interface PromotionSelect<T extends boolean = true> {
   title?: T;
-  toolsHeading?: T;
-  content?: T;
-  Image?: T;
-  intelligenceHeading?: T;
-  description?: T;
-  Video?: T;
-  ctaHeading?: T;
-  descrip?: T;
-  button?:
+  toolsSection?:
     | T
     | {
-        label?: T;
-        url?: T;
-        target?: T;
-      };
-  relatedPosts?: T;
-  categories?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
+        toolsHeading?: T;
+        content?: T;
         image?: T;
-        description?: T;
+      };
+  intelligenceReport?:
+    | T
+    | {
+        intelligences?:
+          | T
+          | {
+              intelligenceHeading?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  mediaSection?:
+    | T
+    | {
+        video?: T;
+      };
+  ctaSection?:
+    | T
+    | {
+        ctaHeading?: T;
+        descrip?: T;
+        button?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              target?: T;
+            };
       };
   publishedAt?: T;
   authors?: T;
