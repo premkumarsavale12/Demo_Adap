@@ -1866,33 +1866,111 @@ export interface MeasureRisk {
  * via the `definition` "personalize".
  */
 export interface Personalize {
-  Items?:
+  box1_title: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  box1_description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  box1_personalize_content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  box1_BTN: {
+    title: string;
+    url: string;
+  };
+  box2_title: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  box2_description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  box2_automate_list?:
     | {
-        Heading?: string | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        SubHeading?: string | null;
-        button?: {
-          label?: string | null;
-          url?: string | null;
-          target?: ('_self' | '_blank') | null;
-        };
+        condition_image: string | Media;
+        condition_items: string;
         id?: string | null;
       }[]
     | null;
+  automate_sub_title: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  box2_BTN: {
+    title: string;
+    url: string;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'personalize';
@@ -3532,20 +3610,30 @@ export interface MeasureRiskSelect<T extends boolean = true> {
  * via the `definition` "personalize_select".
  */
 export interface PersonalizeSelect<T extends boolean = true> {
-  Items?:
+  box1_title?: T;
+  box1_description?: T;
+  box1_personalize_content?: T;
+  box1_BTN?:
     | T
     | {
-        Heading?: T;
-        richText?: T;
-        SubHeading?: T;
-        button?:
-          | T
-          | {
-              label?: T;
-              url?: T;
-              target?: T;
-            };
+        title?: T;
+        url?: T;
+      };
+  box2_title?: T;
+  box2_description?: T;
+  box2_automate_list?:
+    | T
+    | {
+        condition_image?: T;
+        condition_items?: T;
         id?: T;
+      };
+  automate_sub_title?: T;
+  box2_BTN?:
+    | T
+    | {
+        title?: T;
+        url?: T;
       };
   id?: T;
   blockName?: T;

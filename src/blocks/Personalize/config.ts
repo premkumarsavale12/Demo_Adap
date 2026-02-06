@@ -1,84 +1,109 @@
-import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
-import { Block } from "payload";
-
-
+import type { Block } from 'payload'
 
 export const Personalize: Block = {
-    slug: 'personalize',
+  slug: 'personalize',
     interfaceName: 'personalize',
     labels: {
         singular: 'personalize',
         plural: 'personalize'
     },
-
-    fields: [
+  fields: [
+    {
+      name: 'box1_title',
+      label: 'Box 1 Title',
+      type: 'richText',
+      required: true,
+    },
+    {
+      name: 'box1_description',
+      label: 'Box 1 Description',
+      type: 'richText',
+      required: true,
+    },
+    {
+      name: 'box1_personalize_content',
+      label: 'Box 1 Bold Content',
+      type: 'richText',
+      required: true,
+    },
+    {
+      name: 'box1_BTN',
+      label: 'Box 1 Button',
+      type: 'group',
+      fields: [
         {
-            name: 'Items',
-            type: 'array',
-            label: 'Add Item',
-            fields: [
-                {
-                    name: 'Heading',
-                    type: 'text',
-                    label: 'Heading'
-                },
-
-                {
-                    name: 'richText',
-                    type: 'richText',
-                    editor: lexicalEditor({
-                        features: ({ rootFeatures }) => {
-                            return [
-                                ...rootFeatures,
-                                HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                                FixedToolbarFeature(),
-                                InlineToolbarFeature(),
-                            ]
-                        },
-                    }),
-                    label: false,
-                },
-
-                {
-                    name: 'SubHeading',
-                    type: 'text',
-                    label: 'SubHeading'
-                },
-
-                {
-                    name: 'button',
-                    type: 'group',
-                    label: 'Button link ',
-                    fields: [
-                        {
-                            name: 'label',
-                            type: 'text',
-                            label: 'button',
-                        },
-                        {
-                            name: 'url',
-                            type: 'text',
-                            label: 'Url',
-                        },
-                        {
-                            name: 'target',
-                            type: 'select',
-                            label: 'target',
-                            options: [
-                                { label: 'Same Tab', value: '_self' },
-                                { label: 'New Tab', value: '_blank' },
-                            ],
-                            defaultValue: '_self',
-                        },
-                    ],
-                },
-
-
-
-            ]
+          name: 'title',
+          label: 'Button Text',
+          type: 'text',
+          required: true,
         },
+        {
+          name: 'url',
+          label: 'Button URL',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
 
 
 
-    ]
+    {
+      name: 'box2_title',
+      label: 'Box 2 Title',
+      type: 'richText',
+      required: true,
+    },
+    {
+      name: 'box2_description',
+      label: 'Box 2 Description',
+      type: 'richText',
+      required: true,
+    },
+    {
+      name: 'box2_automate_list',
+      label: 'Automation List',
+      type: 'array',
+      fields: [
+        {
+          name: 'condition_image',
+          label: 'Icon Image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'condition_items',
+          label: 'List Text',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'automate_sub_title',
+      label: 'Automation Bold Subtitle',
+      type: 'richText',
+      required: true,
+    },
+    {
+      name: 'box2_BTN',
+      label: 'Box 2 Button',
+      type: 'group',
+      fields: [
+        {
+          name: 'title',
+          label: 'Button Text',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'url',
+          label: 'Button URL',
+          type: 'text',
+          required: true,
+        },
+      ],
+    },
+  ],
 }
