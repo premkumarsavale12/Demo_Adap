@@ -14,6 +14,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { For_Feature } from '../../blocks/For_Feature/config'
+import { HorizontalContent as AdvisorsWealthManagers } from '../../blocks/Advisors-Wealth-Managers/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 
 import { populateAuthors } from './hook/populateAuthors'
@@ -75,13 +77,13 @@ export const Promotion: CollectionConfig<'promotion'> = {
                             name: 'toolsHeading',
                             type: 'text',
                             label: 'Heading',
-                            required: true,
+
                         },
                         {
                             name: 'content',
                             type: 'richText',
                             label: 'Add Content',
-                            required: true,
+
                             editor: lexicalEditor({
                                 features: ({ rootFeatures }) => [
                                     ...rootFeatures,
@@ -119,7 +121,7 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                     name: 'description',
                                     type: 'richText',
                                     label: 'Add Description',
-                                    required: true,
+
                                     editor: lexicalEditor({
                                         features: ({ rootFeatures }) => [
                                             ...rootFeatures,
@@ -161,7 +163,7 @@ export const Promotion: CollectionConfig<'promotion'> = {
                         {
                             name: 'descrip',
                             type: 'richText',
-                            required: true,
+
                             editor: lexicalEditor({
                                 features: ({ rootFeatures }) => [
                                     ...rootFeatures,
@@ -203,6 +205,11 @@ export const Promotion: CollectionConfig<'promotion'> = {
                     ],
                 },
             ],
+        },
+        {
+            name: 'layout',
+            type: 'blocks',
+            blocks: [For_Feature, AdvisorsWealthManagers],
         },
 
         {
