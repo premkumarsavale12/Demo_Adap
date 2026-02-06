@@ -726,6 +726,11 @@ export interface ForFeature {
         id?: string | null;
       }[]
     | null;
+  button?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'for_feature';
@@ -3447,6 +3452,13 @@ export interface ForFeatureSelect<T extends boolean = true> {
         Heading?: T;
         richText?: T;
         id?: T;
+      };
+  button?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        target?: T;
       };
   id?: T;
   blockName?: T;

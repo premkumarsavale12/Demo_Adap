@@ -67,6 +67,34 @@ export const For_Feature: Block = {
                     label: false,
                 },
             ]
-        }
+        },
+
+        {
+            name: 'button',
+            type: 'group',
+            label: 'Button',
+            fields: [
+                {
+                    name: 'label',
+                    type: 'text',
+                    label: 'Button Name',
+                },
+                {
+                    name: 'url',
+                    type: 'text',
+                    label: 'Url',
+                },
+                {
+                    name: 'target',
+                    type: 'select',
+                    label: 'target',
+                    options: [
+                        { label: 'Same Tab', value: '_self' },
+                        { label: 'New Tab', value: '_blank' },
+                    ],
+                    defaultValue: '_self',
+                },
+            ],
+        },
     ]
 }

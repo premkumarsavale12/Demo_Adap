@@ -2,6 +2,8 @@ import RichText from "@/components/RichText";
 import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 
 
 
@@ -19,10 +21,15 @@ interface For_FeatureProps {
         richText: DefaultTypedEditorState,
 
     }[],
+    button: {
+        label?: string | null;
+        url?: string | null;
+        target?: ('_self' | '_blank') | null;
+    };
 
 }
 
-export const For_Feature: React.FC<For_FeatureProps> = ({ Heading, richText, Items }) => {
+export const For_Feature: React.FC<For_FeatureProps> = ({ Heading, richText, Items, button }) => {
 
     // console.log(Heading, richText, Items);
 
@@ -81,6 +88,20 @@ export const For_Feature: React.FC<For_FeatureProps> = ({ Heading, richText, Ite
                                 </div>
                             ))}
                         </div>
+
+                        {/* Buttons */}
+
+
+                        {button && (
+                            <div className="flex justify-center">
+                                <div className="btn-green *:text-4 text-center">
+                                    <Link href={button.url || '#'}>{button.label}</Link>
+                                </div>
+                            </div>
+                        )}
+
+
+
                     </div>
                 </div>
             </section>
