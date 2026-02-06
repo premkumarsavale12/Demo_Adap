@@ -54,7 +54,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
 
             <div className="inner-content flex flex-col space-y-8">
 
-              {/* HEADING */}
+
               <div className="heading">
                 <h2 className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] xsm:before:left-[-24px] before:left-[-12px] before:opacity-20 before:z-0 text-left">
                   {title}
@@ -74,6 +74,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                       />
                     )}
                   </div>
+                
 
                   {featured_image && (
                     <div className="w-full lg:w-[40%] flex justify-end">
@@ -98,7 +99,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                 <div className="flex flex-col gap-8">
                   {description && (
                     <RichText
-                      className="content font-inter flex flex-col gap-4 text-p text-black-300"
+                     className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
                       data={description}
                       enableGutter={false}
                     />
@@ -171,47 +172,47 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
               </div>
 
               {/* CTA SECTION + LAYOUT BLOCKS */}
-              <div className="flex flex-col lg:flex-row gap-12 items-start">
-                {show_cta_section && (
-                  <div className={`w-full ${layout ? 'lg:w-[45%]' : 'w-full'} sub-box py-8 space-y-8 flex flex-col justify-center ${layout ? 'items-start text-left' : 'items-center text-center'}`}>
-                    <h2 className="text-h2 font-ivy font-semibold relative">
-                      {cta_title}
-                    </h2>
 
-                    {cta_title_copy && (
-                      <RichText
-                        data={cta_title_copy}
-                        enableGutter={false}
-                      />
+              {show_cta_section && (
+                <div className="sub-box py-8 space-y-8 flex flex-col justify-center items-center">
+                  <h2  className="text-h2 font-ivy font-semibold relative text-center">
+                    {cta_title}
+                  </h2>
+
+                  {cta_title_copy && (
+                    <RichText
+                      data={cta_title_copy}
+                      enableGutter={false}
+                    />
+                  )}
+
+                  <div className="btn-green *:text-4">
+                    {cta_link?.url && (
+                      <Link
+                        href={cta_link.url}
+                        target={cta_link.target || '_self'}
+                        className="inline-block"
+                      >
+                        {cta_link.label || 'Learn More'}
+                      </Link>
                     )}
-
-                    <div className="btn-green *:text-4">
-                      {cta_link?.url && (
-                        <Link
-                          href={cta_link.url}
-                          target={cta_link.target || '_self'}
-                          className="inline-block"
-                        >
-                          {cta_link.label || 'Learn More'}
-                        </Link>
-                      )}
-                    </div>
                   </div>
-                )}
+                </div>
+              )}
 
-
-              </div>
 
             </div>
-          </div>
 
+          </div>
         </div>
+
+
         {layout && (
           <div className="w-full">
             <RenderBlocks blocks={layout} />
           </div>
         )}
-      </section>
+      </section >
     </>
   )
 }
