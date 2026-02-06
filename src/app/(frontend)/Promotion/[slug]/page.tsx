@@ -49,7 +49,7 @@ export default async function PromotionPage({ params: paramsPromise }: Args) {
     }
 
     return (
-        <article className="pt-16 pb-24">
+        <article className="pt-10 pb-24">
             {draft && <LivePreviewListener />}
             <PromotionArchiveClient data={promotion} />
         </article>

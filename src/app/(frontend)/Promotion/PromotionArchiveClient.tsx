@@ -45,13 +45,38 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
   const cta_link = ctaSection?.button
 
   const show_cta_section = !!cta_title
+  const descriptionHTML =
+    (description?.root?.children as any[])
+      ?.map((para: any) =>
+        `<h1>${(para.children as any[])
+          ?.map((node: any) => node.text)
+          .join('')}</h1>`
+      )
+      .join('')
+
+
+
+ // console.log("description", description);
 
   return (
     <>
       <section className="tools-section lg:py[150px] py-[80px] w-full bg-dots_bg bg-cover bg-center bg-no-repeat">
         <div className="container">
           <div className="md:space-y-8 space-y-4 max-w-[1024px] mx-auto">
-
+            <div className="top w-full flex justify-center items-center xmd:mb-16 mb-10">
+              <div className="logo">
+                <Link href="/" role="link">
+                  <Image
+                    src={"/media/Frame.webp"}
+                    width={310}
+                    height={85}
+                    alt="Adaptive logo"
+                    role="img"
+                    className="w-[150px] md:w-[200px] lg:w-[310px] h-auto"
+                  />
+                </Link>
+              </div>
+            </div>
             <div className="inner-content flex flex-col space-y-8">
 
 
@@ -66,15 +91,25 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                 /* ===== LAYOUT 1 (Checkbox OFF) ===== */
                 <div className="flex flex-col lg:flex-row gap-8 items-start">
                   <div className="w-full lg:w-[60%]">
-                    {description && (
+
+                    {/* {description && (
                       <RichText
                         className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
                         data={description}
                         enableGutter={false}
                       />
+                    )} */}
+                    {descriptionHTML && (
+                      <div
+                        className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300 [&_h1]:text-[20px]"
+                        dangerouslySetInnerHTML={{ __html: descriptionHTML }}
+                      />
                     )}
+
+
+
                   </div>
-                
+
 
                   {featured_image && (
                     <div className="w-full lg:w-[40%] flex justify-end">
@@ -99,7 +134,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                 <div className="flex flex-col gap-8">
                   {description && (
                     <RichText
-                     className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
+                      className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
                       data={description}
                       enableGutter={false}
                     />
@@ -124,17 +159,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
               )}
 
 
-              {/* VIDEO */}
-              {upload_video && typeof upload_video === 'object' && upload_video.url && (
-                <div className="w-full max-w-[1024px] mx-auto">
-                  <video
-                    src={upload_video.url}
-                    controls
-                    width="100%"
-                    className="w-full h-auto"
-                  />
-                </div>
-              )}
+
 
               {/* GRID SECTION */}
               <div className="right font-inter flex flex-col xmd:flex-row xmd:gap-8 gap-4">
@@ -171,11 +196,22 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                 </div>
               </div>
 
+              {/* VIDEO */}
+              {upload_video && typeof upload_video === 'object' && upload_video.url && (
+                <div className="w-full max-w-[1024px] mx-auto">
+                  <video
+                    src={upload_video.url}
+                    controls
+                    width="100%"
+                    className="w-full h-auto"
+                  />
+                </div>
+              )}
               {/* CTA SECTION + LAYOUT BLOCKS */}
 
               {show_cta_section && (
                 <div className="sub-box py-8 space-y-8 flex flex-col justify-center items-center">
-                  <h2  className="text-h2 font-ivy font-semibold relative text-center">
+                  <h2 className="text-h2 font-ivy font-semibold relative text-center">
                     {cta_title}
                   </h2>
 
