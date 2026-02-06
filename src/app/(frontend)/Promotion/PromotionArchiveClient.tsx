@@ -125,7 +125,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
 
 
               {/* VIDEO */}
-              {upload_video && typeof upload_video === 'object' && upload_video.url && (
+              {/* {upload_video && typeof upload_video === 'object' && upload_video.url && (
                 <div className="w-full max-w-[1024px] mx-auto">
                   <video
                     src={upload_video.url}
@@ -134,7 +134,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                     className="w-full h-auto"
                   />
                 </div>
-              )}
+              )} */}
 
               {/* GRID SECTION */}
               <div className="right font-inter flex flex-col xmd:flex-row xmd:gap-8 gap-4">
@@ -171,6 +171,17 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                 </div>
               </div>
 
+  {/* VIDEO */}
+              {upload_video && typeof upload_video === 'object' && upload_video.url && (
+                <div className="w-full max-w-[1024px] mx-auto">
+                  <video
+                    src={upload_video.url}
+                    controls
+                    width="100%"
+                    className="w-full h-auto"
+                  />
+                </div>
+              )}
               {/* CTA SECTION + LAYOUT BLOCKS */}
 
               {show_cta_section && (
