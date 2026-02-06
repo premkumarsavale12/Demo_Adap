@@ -596,9 +596,9 @@ export interface Webinar {
 export interface Promotion {
   id: string;
   title: string;
-  toolsSection: {
-    toolsHeading: string;
-    content: {
+  toolsSection?: {
+    toolsHeading?: string | null;
+    content?: {
       root: {
         type: string;
         children: {
@@ -612,14 +612,14 @@ export interface Promotion {
         version: number;
       };
       [k: string]: unknown;
-    };
+    } | null;
     image?: (string | null) | Media;
   };
   intelligenceReport?: {
     intelligences?:
       | {
           intelligenceHeading?: string | null;
-          description: {
+          description?: {
             root: {
               type: string;
               children: {
@@ -633,7 +633,7 @@ export interface Promotion {
               version: number;
             };
             [k: string]: unknown;
-          };
+          } | null;
           id?: string | null;
         }[]
       | null;
@@ -641,9 +641,9 @@ export interface Promotion {
   mediaSection?: {
     video?: (string | null) | Media;
   };
-  ctaSection: {
+  ctaSection?: {
     ctaHeading?: string | null;
-    descrip: {
+    descrip?: {
       root: {
         type: string;
         children: {
@@ -657,13 +657,14 @@ export interface Promotion {
         version: number;
       };
       [k: string]: unknown;
-    };
+    } | null;
     button?: {
       label?: string | null;
       url?: string | null;
       target?: ('_self' | '_blank') | null;
     };
   };
+  layout?: (ForFeature | HorizontalContent)[] | null;
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
   populatedAuthors?:
@@ -680,6 +681,85 @@ export interface Promotion {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "for_feature".
+ */
+export interface ForFeature {
+  Heading?: string | null;
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  Items?:
+    | {
+        Image?: (string | null) | Media;
+        Heading?: string | null;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'for_feature';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "horizontalContent".
+ */
+export interface HorizontalContent {
+  items: {
+    title?: string | null;
+    subtitle?: string | null;
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    buttonText?: string | null;
+    buttonUrl?: string | null;
+    image?: (string | null) | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'horizontalContent';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1024,38 +1104,6 @@ export interface HeroImage {
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero_image';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "horizontalContent".
- */
-export interface HorizontalContent {
-  items: {
-    title: string;
-    subtitle?: string | null;
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    buttonText?: string | null;
-    buttonUrl?: string | null;
-    image: string | Media;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'horizontalContent';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1656,53 +1704,6 @@ export interface EnterpriseSoluctuon {
   id?: string | null;
   blockName?: string | null;
   blockType: 'enterprise_soluction';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "for_feature".
- */
-export interface ForFeature {
-  Heading?: string | null;
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  Items?:
-    | {
-        Image?: (string | null) | Media;
-        Heading?: string | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'for_feature';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4007,6 +4008,12 @@ export interface PromotionSelect<T extends boolean = true> {
               url?: T;
               target?: T;
             };
+      };
+  layout?:
+    | T
+    | {
+        for_feature?: T | ForFeatureSelect<T>;
+        horizontalContent?: T | HorizontalContentSelect<T>;
       };
   publishedAt?: T;
   authors?: T;

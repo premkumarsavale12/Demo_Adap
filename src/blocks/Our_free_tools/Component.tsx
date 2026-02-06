@@ -199,7 +199,8 @@ export const ToolSection: React.FC<ToolSectionBlock> = ({
                           width={1456}
                           height={421}
                           alt={tool.image.alt || 'Tool Image'}
-                          layout="responsive"
+                          style={{ width: '100%', height: 'auto' }}
+                          sizes="100vw"
                         />
                       )}
                     </div>
