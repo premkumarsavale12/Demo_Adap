@@ -16,8 +16,8 @@ import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 
-import { populateAuthors } from '../Webinars/hook/populateAuthors'
-import { revalidatePost, revalidateDelete } from '../Webinars/hook/revalidatePost'
+import { populateAuthors } from './hook/populateAuthors'
+import { revalidatePost, revalidateDelete } from './hook/revalidatePost'
 
 import {
     MetaDescriptionField,
@@ -39,11 +39,6 @@ export const Promotion: CollectionConfig<'promotion'> = {
     defaultPopulate: {
         title: true,
         slug: true,
-        categories: true,
-        meta: {
-            image: true,
-            description: true,
-        },
     },
     admin: {
         defaultColumns: ['title', 'slug', 'updatedAt'],
@@ -73,18 +68,20 @@ export const Promotion: CollectionConfig<'promotion'> = {
             type: 'tabs',
             tabs: [
                 {
+                    name: 'toolsSection',
+                    label: 'Tools Section',
                     fields: [
-
                         {
                             name: 'toolsHeading',
                             type: 'text',
                             label: 'Heading',
                             required: true,
                         },
-
                         {
                             name: 'content',
                             type: 'richText',
+                            label: 'Add Content',
+                            required: true,
                             editor: lexicalEditor({
                                 features: ({ rootFeatures }) => [
                                     ...rootFeatures,
@@ -95,27 +92,22 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                     HorizontalRuleFeature(),
                                 ],
                             }),
-                            label: ' Add Content',
-                            required: true,
                         },
-
                         {
-                            name: 'Image',
+                            name: 'image',
                             type: 'upload',
                             relationTo: 'media',
-                            label: 'Upload Image'
-
+                            label: 'Upload Image',
                         },
                     ],
-                    label: 'Tools Section ',
                 },
 
                 {
-                    label: ' intelligence Report ',
+                    name: 'intelligenceReport',
+                    label: 'Intelligence Report',
                     fields: [
-
                         {
-                            name: 'Intelligences',
+                            name: 'intelligences',
                             type: 'array',
                             fields: [
                                 {
@@ -126,6 +118,8 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                 {
                                     name: 'description',
                                     type: 'richText',
+                                    label: 'Add Description',
+                                    required: true,
                                     editor: lexicalEditor({
                                         features: ({ rootFeatures }) => [
                                             ...rootFeatures,
@@ -136,40 +130,38 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                             HorizontalRuleFeature(),
                                         ],
                                     }),
-
-                                    label: 'Add Description',
-                                    required: true,
                                 },
-                            ]
+                            ],
                         },
-
-                    ]
+                    ],
                 },
 
                 {
-                    label: "Video & Image",
+                    name: 'mediaSection',
+                    label: 'Video & Image',
                     fields: [
                         {
-                            name: 'Video',
+                            name: 'video',
                             type: 'upload',
                             relationTo: 'media',
-                            label: "Upload Video"
-                        }
-                    ]
+                            label: 'Upload Video',
+                        },
+                    ],
                 },
 
                 {
+                    name: 'ctaSection',
                     label: 'Promotion CTA',
                     fields: [
                         {
                             name: 'ctaHeading',
                             type: 'text',
-                            label: 'Heading'
+                            label: 'Heading',
                         },
-
                         {
                             name: 'descrip',
                             type: 'richText',
+                            required: true,
                             editor: lexicalEditor({
                                 features: ({ rootFeatures }) => [
                                     ...rootFeatures,
@@ -180,11 +172,7 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                     HorizontalRuleFeature(),
                                 ],
                             }),
-
-                            required: true,
                         },
-
-
                         {
                             name: 'button',
                             type: 'group',
@@ -203,7 +191,7 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                 {
                                     name: 'target',
                                     type: 'select',
-                                    label: 'target',
+                                    label: 'Target',
                                     options: [
                                         { label: 'Same Tab', value: '_self' },
                                         { label: 'New Tab', value: '_blank' },
@@ -212,53 +200,11 @@ export const Promotion: CollectionConfig<'promotion'> = {
                                 },
                             ],
                         },
-                    ]
-                },
-
-                {
-                    fields: [
-                        {
-                            name: 'relatedPosts',
-                            type: 'relationship',
-                            admin: { position: 'sidebar' },
-                            filterOptions: ({ id }) => ({ id: { not_in: [id] } }),
-                            hasMany: true,
-                            relationTo: 'webinars',
-                        },
-                        {
-                            name: 'categories',
-                            type: 'relationship',
-                            admin: { position: 'sidebar' },
-                            hasMany: true,
-                            relationTo: 'categories',
-                        },
-                    ],
-                    label: 'Meta',
-                },
-
-                {
-                    name: 'meta',
-                    label: 'SEO',
-                    fields: [
-                        OverviewField({
-                            titlePath: 'meta.title',
-                            descriptionPath: 'meta.description',
-                            imagePath: 'meta.image',
-                        }),
-                        MetaTitleField({ hasGenerateFn: true }),
-                        MetaImageField({ relationTo: 'media' }),
-                        MetaDescriptionField({}),
-                        PreviewField({
-                            hasGenerateFn: true,
-                            titlePath: 'meta.title',
-                            descriptionPath: 'meta.description',
-                        }),
                     ],
                 },
-
-
             ],
         },
+
         {
             name: 'publishedAt',
             type: 'date',

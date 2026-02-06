@@ -1,4 +1,4 @@
-import type { Post, Webinar, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { Post, Webinar, Promotion, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -16,7 +16,7 @@ export const ArchiveBlock: React.FC<
 
   const limit = limitFromProps || 3
 
-  let posts: (Post | Webinar)[] = []
+  let posts: (Post | Webinar | Promotion)[] = []
 
   const payload = await getPayload({ config: configPromise })
 
@@ -42,7 +42,7 @@ export const ArchiveBlock: React.FC<
         : {}),
     })
 
-    posts = fetchedPosts.docs as (Post | Webinar)[]
+    posts = fetchedPosts.docs as (Post | Webinar | Promotion)[]
   } else {
     if (selectedDocs?.length) {
       const filteredSelectedPosts = await Promise.all(
@@ -57,7 +57,7 @@ export const ArchiveBlock: React.FC<
 
           return fetchedDoc
         })
-      ) as (Post | Webinar)[]
+      ) as (Post | Webinar | Promotion)[]
 
       posts = filteredSelectedPosts
     }
@@ -70,7 +70,7 @@ export const ArchiveBlock: React.FC<
           <RichText className="ms-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
-      <CollectionArchive posts={posts} relationTo={relationTo || 'posts'} />
+      <CollectionArchive posts={posts as any} relationTo={relationTo as any || 'posts'} />
     </div>
   )
 }
