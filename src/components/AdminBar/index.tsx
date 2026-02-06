@@ -29,7 +29,7 @@ const collectionLabels = {
   },
 }
 
-const Title: React.FC = () => <span>Dashboard</span>
+// const Title: React.FC = () => <span>Dashboard</span>
 
 export const AdminBar: React.FC<{
   adminBarProps?: PayloadAdminBarProps
@@ -68,14 +68,14 @@ export const AdminBar: React.FC<{
             plural: collectionLabels[collection]?.plural || 'Pages',
             singular: collectionLabels[collection]?.singular || 'Page',
           }}
-          logo={<Title />}
-          onAuthChange={onAuthChange}
-          onPreviewExit={() => {
-            fetch('/next/exit-preview').then(() => {
-              router.push('/')
-              router.refresh()
-            })
-          }}
+          // logo={<Title />}
+          // onAuthChange={onAuthChange}
+          // onPreviewExit={() => {
+          //   fetch('/next/exit-preview').then(() => {
+          //     router.push('/')
+          //     router.refresh()
+          //   })
+          // }}
           style={{
             backgroundColor: 'transparent',
             padding: 0,

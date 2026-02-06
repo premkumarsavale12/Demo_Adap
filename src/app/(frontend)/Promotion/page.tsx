@@ -18,7 +18,7 @@ export default async function Page() {
     })
 
     return (
-        <div className="pt-[140px] pb-24 bg-white-100">
+        <div className="pt-10 pb-24 bg-white-100">
             <PromotionArchiveClient data={promotions.docs} />
         </div>
     )
