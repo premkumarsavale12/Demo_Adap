@@ -598,6 +598,7 @@ export interface Promotion {
   title: string;
   toolsSection?: {
     toolsHeading?: string | null;
+    useAlternateLayout?: boolean | null;
     content?: {
       root: {
         type: string;
@@ -3977,6 +3978,7 @@ export interface PromotionSelect<T extends boolean = true> {
     | T
     | {
         toolsHeading?: T;
+        useAlternateLayout?: T;
         content?: T;
         image?: T;
       };

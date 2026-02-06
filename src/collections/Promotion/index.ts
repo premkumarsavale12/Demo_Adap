@@ -77,13 +77,17 @@ export const Promotion: CollectionConfig<'promotion'> = {
                             name: 'toolsHeading',
                             type: 'text',
                             label: 'Heading',
-
+                        },
+                        {
+                            name: 'useAlternateLayout',
+                            type: 'checkbox',
+                            label: 'Show Alternate Layout',
+                            defaultValue: false,
                         },
                         {
                             name: 'content',
                             type: 'richText',
                             label: 'Add Content',
-
                             editor: lexicalEditor({
                                 features: ({ rootFeatures }) => [
                                     ...rootFeatures,
@@ -103,6 +107,7 @@ export const Promotion: CollectionConfig<'promotion'> = {
                         },
                     ],
                 },
+
 
                 {
                     name: 'intelligenceReport',
