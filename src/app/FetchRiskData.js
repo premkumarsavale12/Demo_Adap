@@ -15,7 +15,6 @@ export async function FetchRiskData() {
         if (data["result"] !== "") {
             return data["result"];
         } else {
-            //  console.log(data["error"]);
             return false;
         }
     } catch (error) {

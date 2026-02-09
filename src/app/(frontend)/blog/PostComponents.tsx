@@ -169,24 +169,24 @@ export const BlogTab = ({
     const [visibleCount, setVisibleCount] = useState(100)
     const [loadingMore, setLoadingMore] = useState(false)
 
-    // 🔹 Use Categories for tabs
+    // 🔹 Use Tags for tabs
     const displayTags = useMemo(() => {
-        return allCategories.map(cat => ({
-            id: cat.id,
-            title: cat.title
+        const uniqueTags = new Set<string>()
+        allPosts.forEach((post) => {
+            if (post.tag) uniqueTags.add(post.tag)
+        })
+        return Array.from(uniqueTags).map((tag) => ({
+            id: tag,
+            title: tag,
         }))
-    }, [allCategories])
+    }, [allPosts])
 
     // 🔹 Filter by TAG + Search
     const searchedBlogs = useMemo(() => {
         let posts = allPosts
 
         if (activeTab !== 'All') {
-            posts = posts.filter((blog) =>
-                blog.categories?.some(cat =>
-                    (typeof cat === 'object' ? cat.title : cat) === activeTab
-                )
-            )
+            posts = posts.filter((blog) => blog.tag === activeTab)
         }
 
         if (searchTerm) {

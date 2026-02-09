@@ -26,7 +26,7 @@ export async function FetchMarketShield(raw){
             return data["result"];
             // return false;
         } else {
-          //  console.log(data["error"]);
+
             return false;
         }
     } catch (error) {

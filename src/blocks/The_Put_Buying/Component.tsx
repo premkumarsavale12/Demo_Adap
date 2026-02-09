@@ -18,9 +18,6 @@ interface The_Put_BuyingProps {
 
 export const The_Put_Buying: React.FC<The_Put_BuyingProps> = ({ Heading, Items, richText }) => {
 
-    // console.log(Heading, Items, richText);
-
-
     return (
 
         <>

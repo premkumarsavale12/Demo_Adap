@@ -11,7 +11,6 @@ import type {
 
 
 export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[] }) => {
-  //  console.log("data", data);
 
   if (!data) {
     return null

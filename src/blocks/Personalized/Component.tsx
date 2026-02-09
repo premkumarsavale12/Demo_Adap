@@ -17,8 +17,6 @@ interface PersonalizedProps {
 }
 
 export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
-  // console.log(Items);
-
   return (
     <section className="tools-section">
       {Items.map((item, i) => (
@@ -31,7 +29,7 @@ export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
           <div className="container">
             <div className="inner-content flex flex-col lg:space-y-16 md:space-y-10 space-y-6">
               <div
-                className={`inner flex items-start gap-8 flex-col ${i % 2 !== 0 ? "xmd:flex-row-reverse" : "xmd:flex-row"
+                className={`inner flex justify-start items-start lg:gap-16 gap-8 flex-col ${i % 2 !== 0 ? "xmd:flex-row-reverse" : "xmd:flex-row"
                   }`}
               >
                 {/* LEFT */}

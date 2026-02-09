@@ -17,8 +17,6 @@ interface How_to_manageProps {
 
 export const How_to_manage: React.FC<How_to_manageProps> = ({ Heading, first_Description, Second_Description, image }) => {
 
-    //     console.log( Heading, first_Description, Second_Description, image )
-
     return (
 
         <>

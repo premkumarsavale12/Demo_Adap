@@ -33,10 +33,10 @@ export async function UpdateLeads(
   } else {
     const message = await response.json();
     if (message["result"] !== "") {
-    //   console.log(message["result"]);
+ 
       return message["result"];
     } else {
-      //  console.log(message["error"]);
+    
       alert("Could not add these details");
       return "";
     }

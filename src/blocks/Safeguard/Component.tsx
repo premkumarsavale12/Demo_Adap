@@ -27,8 +27,6 @@ interface SafeguardProps {
 
 export const Safeguard: React.FC<SafeguardProps> = ({ Heading, richText, Items, button }) => {
 
-    // console.log(Heading, richText, Items, button);
-
     return (
 
         <>

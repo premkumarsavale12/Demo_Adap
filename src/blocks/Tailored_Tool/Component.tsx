@@ -90,7 +90,7 @@ export const Tailored_Tool: React.FC<Tailored_ToolsProps> = ({ Heading, image, i
             <div className="right font-inter">
               <div className="right-block space-y-8">
                 {item?.map((item, i) => {
-                  // console.log('item', item)
+      
                   return (
                     <div
                       key={i}

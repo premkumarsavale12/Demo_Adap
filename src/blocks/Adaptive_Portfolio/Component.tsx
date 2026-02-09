@@ -20,8 +20,6 @@ interface Adaptive_PortfolioProps {
 
 export const Adaptive_Portfolio: React.FC<Adaptive_PortfolioProps> = ({ title, description, ProtectionLevels, conclusion }) => {
 
-    // console.log(Heading, richText, protectionLevels, conclusion);
-
     return (
 
         <>

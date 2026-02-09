@@ -33,7 +33,7 @@ function RiskContributionGraph({ data, maxNormalizedRisk, totals, hostname }) {
     const fillColor = hostname === "halo" ? "#081A66" : "#60034c";
      const fillSecondaryColor =    hostname === "halo" ? "#FFA654" : "#E58B76";
     let graph_length = Math.ceil((maxNormalizedRisk - 0) / 5)
-    //  console.log("graph chan", graph_length)
+    
     return (
         <div style={{ width: "100%", height: "450px" }}>
             <ResponsiveContainer width='100%' height={420}>

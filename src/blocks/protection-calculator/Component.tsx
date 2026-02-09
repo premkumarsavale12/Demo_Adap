@@ -50,7 +50,6 @@ const convertNDXSecDescToXND = (indexOptions: AnyRecord) => {
             modifiedOptions.LastBidPrice = modifiedOptions.LastBidPrice.map((price: number) => price / 100);
         }
 
-      //   console.log("Converted indexOptions:", modifiedOptions);
         return modifiedOptions;
     }
     return indexOptions;
@@ -252,7 +251,7 @@ export const Protection_Calculator: React.FC<Protection_CalculatorProps> = ({
                     FetchRiskData(),
                     FetchMarketShield(raw)
                 ]);
-                 // console.log("MarketShieldData", MarketShieldData);
+          
                 if (MarketShieldData?.ProtPort) {
                     const updatedPortfolioRows = MarketShieldData.ProtPort.map((asset: AnyRecord) => [
                         asset.Ticker || "N/A",
@@ -361,7 +360,7 @@ export const Protection_Calculator: React.FC<Protection_CalculatorProps> = ({
         sessionStorage.setItem('existingOptionHoldings', JSON.stringify(existingHoldings));
     }, []);
 
-    //  console.log("shield", selectedIndexOptions);
+
     const setShieldState = React.useCallback((data: AnyRecord) => {
         setShield({
             protectionPeriod: shield.protectionPeriod,
@@ -408,7 +407,6 @@ export const Protection_Calculator: React.FC<Protection_CalculatorProps> = ({
             return <tr><td colSpan={6}>No Data Available</td></tr>;
         }
 
-      //   console.log("selectedIndexOptions", selectedIndexOptions);
 
         const { SecDesc, Strike, ConQty, ExpirationDate, LastAskPrice, LastBidPrice } = selectedIndexOptions;
 
@@ -484,7 +482,6 @@ export const Protection_Calculator: React.FC<Protection_CalculatorProps> = ({
             .map(level => parseFloat(level))
             .filter(level => level >= sliderMin / 100 && level <= sliderMax / 100);
 
-      //   console.log("protec", protectionLevels);
 
         return protectionLevels.map(level => {
             const stdDeviation = findNearestStdDeviation(level);
@@ -518,7 +515,6 @@ export const Protection_Calculator: React.FC<Protection_CalculatorProps> = ({
         const protectionLevelMap = mapProtectionLevelsToValues();
         if (protectionLevelMap.length > 0) {
             const nearestMatch = findNearestProtectionLevel(protectionLevelMap, value);
-      //       console.log("nearestMatch", nearestMatch);
 
             if (nearestMatch) {
                 updateTooltip(nearestMatch);
@@ -672,14 +668,13 @@ export const Protection_Calculator: React.FC<Protection_CalculatorProps> = ({
         const protectionLevelMap = mapProtectionLevelsToValues();
         const targetLevel = 0.95;
         const nearestLevel = findNearestProtectionLevel(protectionLevelMap, targetLevel);
-      //   console.log(" nearest level", nearestLevel);
 
         if (nearestLevel) {
             if (nearestLevel.price !== '-') {
                 setPrice(nearestLevel.price);
             }
             const modifiedOptions = convertNDXSecDescToXND(nearestLevel.IndexOptions);
-        //     console.log("modifi", modifiedOptions);
+
             const extractedTicker = modifiedOptions?.SecDesc?.[0]?.match(/^[A-Z]+/)?.[0] || '';
             if (extractedTicker && extractedTicker !== outputIndexTicker) {
                 setOutputIndexTicker(extractedTicker);

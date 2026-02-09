@@ -24,7 +24,6 @@ export async function FetchRiskContribution(portfolio_name, portfolio_value) {
         if (data["result"] !== "") {
             return data;
         } else {
-          //    console.log(data["error"]);
             return false;
         }
     } catch (error) {
