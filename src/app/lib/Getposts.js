@@ -4,7 +4,7 @@ export async function fetchPosts() {
     const res = await fetch('/api/posts?limit=1000')  // ← Changed to proxy and added limit
     if (!res.ok) throw new Error('Failed to fetch')
     const data = await res.json()
-    //  console.log('✅ Proxy API response:', data)
+ 
     return data.docs || []
   } catch (error) {
     console.error('❌ fetchPosts error:', error)

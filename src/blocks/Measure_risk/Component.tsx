@@ -26,8 +26,6 @@ interface Measure_riskProps {
 
 export const Measure_risk: React.FC<Measure_riskProps> = ({ Heading, richText, Items }) => {
 
-    // console.log(Heading, richText, Items);
-
 
     return (
 

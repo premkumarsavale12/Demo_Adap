@@ -19,7 +19,7 @@ import { Promotion } from './collections/Promotion'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
- // console.log('database', process.env.DATABASE_URL)
+
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || (process.env.NODE_ENV === 'production' ? 'https://adaptive-payload-cms.vercel.app' : 'http://localhost:3000'),
   admin: {

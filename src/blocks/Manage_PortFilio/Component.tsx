@@ -12,7 +12,6 @@ interface Manage_PortfilioProps {
 
 export const Measure_Portfilio: React.FC<Manage_PortfilioProps> = ({ }) => {
 
-    // console.log(Heading, richText);
 
     return (
 

@@ -31,8 +31,6 @@ interface For_FeatureProps {
 
 export const For_Feature: React.FC<For_FeatureProps> = ({ Heading, richText, Items, button }) => {
 
-    // console.log(Heading, richText, Items);
-
     return (
         <>
 

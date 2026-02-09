@@ -15,9 +15,7 @@ interface Hero_Section_2Props {
 }
 
 export const Hero_Section_2: React.FC<Hero_Section_2Props> = ({ Heading, richText, button1, Url1, target1, button2, Url2, target2 }) => {
-
-    // console.log(Heading , richText , button1, Url1,target1, button2,Url2,  target2 );
-
+    
     return (
 
         <>

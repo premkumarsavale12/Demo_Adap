@@ -46,7 +46,6 @@ interface WhatIsProjectRiskProps {
 }
 
 export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({ Heading, descritpion, Items, Category, descrip }) => {
-  // console.log( descritpion);
 
   return (
     <section className="t-section riskvalue-section bg-white-100 lg:py-[150px] md:py-[80px] sm:py-[50px] py-6 w-full border-b border-b-black-200">

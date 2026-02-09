@@ -12,7 +12,7 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
   const { slug } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
   const relatedPost = await RelatedPosts();
-  //console.log('relatedPost', relatedPost)
+
   const result = await payload.find({
     collection: 'posts',
     limit: 1,

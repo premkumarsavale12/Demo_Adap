@@ -23,8 +23,6 @@ interface CoveredProps {
 export const Covered: React.FC<CoveredProps> = ({ Heading, richText, SubHeading, Items, Image: coverImage }) => {
 
 
-    //   console.log(Heading, richText, SubHeading, Items, Image);
-
     return (
 
         <>

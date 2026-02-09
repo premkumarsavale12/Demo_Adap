@@ -21,15 +21,9 @@ interface CboeProps {
 
 export const Cboe: React.FC<CboeProps> = ({ Image, Heading, richText, SubHeading, SImage }) => {
 
-
-    // console.log(Image, Heading, richText, SubHeading, SImage);
-
-
-
     return (
 
         <>
-
             <section className="tools-section lg:py[150px] md:py-[80px] sm:py-[50px] py-6 h-full bg-white-100">
                 <div className="container">
                     <div className="inner font-inter space-y-8">
@@ -48,6 +42,7 @@ export const Cboe: React.FC<CboeProps> = ({ Image, Heading, richText, SubHeading
                                     className="text-h5 font-bold *:text-green"
 
                                 >  {Heading} </h2>
+
                                 <div>   {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}</div>
                             </div>
                         </div>

@@ -17,8 +17,6 @@ interface Adaptive_FactorProps {
 
 export const Adaptive_Factor: React.FC<Adaptive_FactorProps> = ({ Heading, richText, SubHeading, Items }) => {
 
-  // console.log(Heading, richText, SubHeading, Items);
-
 
   return (
 
