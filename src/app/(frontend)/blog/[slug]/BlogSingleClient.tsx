@@ -256,8 +256,10 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
           <div className="main-text space-y-6">
             <h1 className="text-h2 font-semibold w-[90%] font-ivy">{post.Heading}</h1>
             <div className="con flex gap-3 justify-start items-center">
-              <span className="bg-pink-50 block text-sm pl-[6px] pr-[6px] w-fit rounded-[4px]">
-                {post.tag}
+              <span className="bg-[#EEA7DF33] text-[#A10078] block text-[12px] font-medium px-2 py-1 w-fit rounded-[4px]">
+                {post.categories && post.categories.length > 0 && typeof post.categories[0] === 'object'
+                  ? post.categories[0].title
+                  : post.tag}
               </span>
               <span className="text-sm font-semibold">
                 {new Date(post.date).toLocaleDateString('en-GB', {
@@ -409,8 +411,10 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                   >
                     <div className="head space-y-5">
                       <div className="con flex gap-3 justify-start items-center">
-                        <span className="bg-pink-50 block text-[11px] pl-[6px] pr-[6px] w-fit rounded-[4px]">
-                          {item.tag}
+                        <span className="bg-[#EEA7DF33] text-[#A10078] block text-[11px] font-medium px-2 py-1 w-fit rounded-[4px]">
+                          {item.categories && item.categories.length > 0 && typeof item.categories[0] === 'object'
+                            ? item.categories[0].title
+                            : item.tag}
                         </span>
                         <span className="text-[12px] font-semibold">
                           {new Date(item.date).toLocaleDateString('en-GB', {

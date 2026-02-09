@@ -50,8 +50,7 @@ export const Card: React.FC<CardBlockProps> = ({ heading, richText }) => {
   const nextSlide = () => swiperInstance?.slideNext()
   const prevSlide = () => swiperInstance?.slidePrev()
 
-  const duplicatedSlides = posts.concat(posts)
-  const blogPosts = duplicatedSlides.filter((card) => card.tag !== 'Uncategorized')
+  const blogPosts = posts;
 
   const renderRichText = (state?: DefaultTypedEditorState) => {
     if (!state) return null
