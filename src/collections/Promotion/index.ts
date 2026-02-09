@@ -21,13 +21,7 @@ import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hook/populateAuthors'
 import { revalidatePost, revalidateDelete } from './hook/revalidatePost'
 
-import {
-    MetaDescriptionField,
-    MetaImageField,
-    MetaTitleField,
-    OverviewField,
-    PreviewField,
-} from '@payloadcms/plugin-seo/fields'
+
 import { slugField } from 'payload'
 
 export const Promotion: CollectionConfig<'promotion'> = {

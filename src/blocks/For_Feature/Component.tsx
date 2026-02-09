@@ -91,14 +91,16 @@ export const For_Feature: React.FC<For_FeatureProps> = ({ Heading, richText, Ite
 
                         {/* Buttons */}
 
-
-                        {button && (
+                        {button?.label && (
                             <div className="flex justify-center">
-                                <div className="btn-green *:text-4 text-center">
-                                    <Link href={button.url || '#'}>{button.label}</Link>
+                                <div className="btn-green text-center text-4">
+                                    <Link href={button.url || "#"}>
+                                        {button.label}
+                                    </Link>
                                 </div>
                             </div>
                         )}
+
 
 
 

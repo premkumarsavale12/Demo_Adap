@@ -55,9 +55,16 @@ export const The_Put_Buying: React.FC<The_Put_BuyingProps> = ({ Heading, Items, 
                                 </div>
                             </div>
 
-                            <div className="font-bold font-inter">
-                                {richText && <RichText className="mb-0" data={richText} enableGutter={false} />} 
+                            <div className="font-inter text-black font-bold [&_*]:text-black [&_strong]:font-extrabold [&_p]:font-bold">
+                                {richText && (
+                                    <RichText
+                                        className="mb-0"
+                                        data={richText}
+                                        enableGutter={false}
+                                    />
+                                )}
                             </div>
+
                         </div>
                     </div>
                 </div>
