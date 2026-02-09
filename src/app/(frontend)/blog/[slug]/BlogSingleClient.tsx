@@ -79,7 +79,7 @@ const parseContentAndHeaders = (htmlString: string) => {
     headers: structuredHeaders,
   }
 }
-const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: any[] }) => {
+const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: any[] }) => { 
   const [tocItems, setTocItems] = useState<TOCHeader[]>([])
   const [contentHTML, setContentHTML] = useState('')
   const [activeHeaderId, setActiveHeaderId] = useState('')
