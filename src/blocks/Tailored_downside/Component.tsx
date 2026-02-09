@@ -19,7 +19,7 @@ export const Tailored_downside: React.FC<Tailored_downsideProps> = ({ Items }) =
 
           {Items.map((item, i) => (
             <div className="top text-black text-left space-y-6" key={i}>
-              
+
               {item.Heading && (
                 <div className="title flex justify-start items-start">
                   <h2 className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] before:left-[-16px] before:opacity-20 before:z-0">
@@ -29,7 +29,7 @@ export const Tailored_downside: React.FC<Tailored_downsideProps> = ({ Items }) =
               )}
 
               <div className="text text-body font-inter font-normal text-black-100">
-                <RichText data={item.richText} />
+                {item.richText && <RichText data={item.richText} />}
               </div>
 
             </div>

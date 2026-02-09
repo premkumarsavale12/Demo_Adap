@@ -14,6 +14,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
 import { fetchPosts } from '@/app/lib/Getposts'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
+import type { Post } from '@/payload-types'
 
 
 interface CardBlockProps {
@@ -30,7 +31,7 @@ type SerializedNode = {
 
 export const Card: React.FC<CardBlockProps> = ({ heading, richText }) => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null)
-  const [posts, setPosts] = useState<any[]>([])
+  const [posts, setPosts] = useState<Post[]>([])
   // Load posts
   useEffect(() => {
     async function loadPosts() {
@@ -130,7 +131,7 @@ export const Card: React.FC<CardBlockProps> = ({ heading, richText }) => {
             {blogPosts?.map((card, index) => (
               <SwiperSlide className="item card-item" key={index}>
                 <div className="bg-white px-4 flex flex-col h-full flex-1">
-                  {card.heroImage?.url && (
+                  {card.heroImage && typeof card.heroImage === 'object' && card.heroImage.url && (
                     <Image
                       src={card.heroImage.url}
                       alt={card.heroImage.alt ?? 'Card Image'}

@@ -98,7 +98,7 @@ export const MarketShieldBlock: React.FC<MarketShieldProps> = ({
 
     return children.map((child, index) => {
       if (child.type === 'text') {
-        return renderTextNode(child, index)
+        return renderTextNode(child as SerializedTextNode, index)
       }
       return null
     })
@@ -115,18 +115,18 @@ export const MarketShieldBlock: React.FC<MarketShieldProps> = ({
             className="para text-dark text-h4 leading-snug pl-24 [&_li]:list-disc space-y-24"
           >
             {node.children?.map((child, idx) => (
-              <li key={idx}>{'children' in child ? renderChildren(child.children) : null}</li>
+              <li key={idx}>{'children' in child ? renderChildren(child.children as SerializedLexicalNode[]) : null}</li>
             ))}
           </ul>
         )
       }
 
       if (node.type === 'paragraph') {
-        return <p key={i}>{renderChildren(node.children)}</p>
+        return <p key={i}>{renderChildren(node.children as SerializedLexicalNode[])}</p>
       }
 
       if (node.type === 'heading') {
-        return <h3 key={i}>{renderChildren(node.children)}</h3>
+        return <h3 key={i}>{renderChildren(node.children as SerializedLexicalNode[])}</h3>
       }
 
       return null

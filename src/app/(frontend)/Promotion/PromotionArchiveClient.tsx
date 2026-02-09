@@ -4,6 +4,11 @@ import Link from 'next/link'
 import RichText from '@/components/RichText'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { Promotion } from '@/payload-types'
+import type {
+  SerializedLexicalNode,
+  SerializedTextNode,
+} from 'lexical'
+
 
 export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[] }) => {
   //  console.log("data", data);
@@ -29,6 +34,30 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
     layout,
   } = data
 
+  const extractHeadingHTML = (
+    nodes?: SerializedLexicalNode[]
+  ): string => {
+    if (!Array.isArray(nodes)) return ''
+
+    return nodes
+      .map((node) => {
+        if (!('children' in node) || !Array.isArray(node.children)) {
+          return ''
+        }
+
+        const text = node.children
+          .map((child) =>
+            child.type === 'text'
+              ? (child as SerializedTextNode).text
+              : ''
+          )
+          .join('')
+
+        return text ? `<h1>${text}</h1>` : ''
+      })
+      .join('')
+  }
+
   const useAlternateLayout = toolsSection?.useAlternateLayout
 
 
@@ -45,18 +74,13 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
   const cta_link = ctaSection?.button
 
   const show_cta_section = !!cta_title
-  const descriptionHTML =
-    (description?.root?.children as any[])
-      ?.map((para: any) =>
-        `<h1>${(para.children as any[])
-          ?.map((node: any) => node.text)
-          .join('')}</h1>`
-      )
-      .join('')
+
+  const descriptionHTML = extractHeadingHTML(
+    description?.root?.children as SerializedLexicalNode[] | undefined
+  )
 
 
 
- // console.log("description", description);
 
   return (
     <>
@@ -166,7 +190,7 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                 <div className="left-block grid grid-cols-1 sm:grid-cols-2 md:gap-8 gap-4 w-full">
 
                   {promotion_detail_description &&
-                    promotion_detail_description.map((item: any, index: number) => (
+                    promotion_detail_description.map((item: Exclude<Exclude<Promotion['intelligenceReport'], null | undefined>['intelligences'], null | undefined>[number], index: number) => (
                       <div
                         key={index}
                         className="flex justify-start items-start bg-white border border-solid border-black-200 md:p-6 p-4 gap-3"
@@ -186,10 +210,12 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
                             {item.intelligenceHeading}
                           </h3>
 
-                          <RichText
-                            data={item.description}
-                            enableGutter={false}
-                          />
+                          {item.description && (
+                            <RichText
+                              data={item.description}
+                              enableGutter={false}
+                            />
+                          )}
                         </div>
                       </div>
                     ))}

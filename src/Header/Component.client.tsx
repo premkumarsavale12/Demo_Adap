@@ -1,19 +1,19 @@
 'use client'
- 
+
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Header } from '@/payload-types'
- 
+
 interface HeaderClientProps {
   data: Header
 }
- 
+
 type DropdownRef = {
   button: HTMLElement | null
   menu: HTMLElement | null
 }
- 
+
 type HeaderMenuItem = {
   link?: {
     label?: string | null
@@ -26,21 +26,21 @@ type HeaderMenuItem = {
   megaWidth?: 'sm' | 'md' | 'lg' | null
 
   submenus?:
+  | {
+    links?:
     | {
-        links?:
-          | {
-              link?: {
-                label?: string | null
-                url?: string | null
-                target?: '_self' | '_blank' | null
-              }
-            }[]
-          | null
-      }[]
+      link?: {
+        label?: string | null
+        url?: string | null
+        target?: '_self' | '_blank' | null
+      }
+    }[]
     | null
+  }[]
+  | null
 }
 
-const getMegaWidthClass = ( width?: 'sm' | 'md' | 'lg' | null) => {
+const getMegaWidthClass = (width?: 'sm' | 'md' | 'lg' | null) => {
   switch (width) {
     case 'sm':
       return 'lg:w-[400px]'
@@ -51,65 +51,69 @@ const getMegaWidthClass = ( width?: 'sm' | 'md' | 'lg' | null) => {
       return 'lg:w-[520px]'
   }
 }
- 
+
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
- 
+
   const dropdownRefs = useRef<DropdownRef[]>([])
   const dropdownMenus = useRef<(HTMLElement | null)[]>([])
- 
+
   const toggleSidebar = () => setIsSidebarOpen((p) => !p)
- 
+
   const setDropdownRef = (index: number, button: HTMLElement | null, menu: HTMLElement | null) => {
     dropdownRefs.current[index] = { button, menu }
   }
- 
+
   const isMobile = useCallback(() => typeof window !== 'undefined' && window.innerWidth <= 1024, [])
- 
+
   const openMenu = useCallback((menu: HTMLElement | null) => {
     if (!menu) return
     menu.style.maxHeight = `${menu.scrollHeight}px`
     menu.classList.remove('opacity-0', 'invisible')
     menu.classList.add('opacity-100', 'visible')
   }, [])
- 
+
   const closeMenu = useCallback((menu: HTMLElement | null) => {
     if (!menu) return
     menu.style.maxHeight = '0px'
     menu.classList.remove('opacity-100', 'visible')
     menu.classList.add('opacity-0', 'invisible')
   }, [])
- 
+
   useEffect(() => {
     dropdownRefs.current.forEach(({ button, menu }) => {
       if (!button || !menu) return
- 
+
       let timer: ReturnType<typeof setTimeout>
- 
+
       const enter = () => {
         if (isMobile()) return
         clearTimeout(timer)
         openMenu(menu)
       }
- 
+
       const leave = () => {
         if (isMobile()) return
         timer = setTimeout(() => closeMenu(menu), 200)
       }
- 
+
       const click = (e: MouseEvent) => {
         if (!isMobile()) return
         e.preventDefault()
         const isOpen = menu.style.maxHeight !== '0px' && menu.style.maxHeight !== ''
-        isOpen ? closeMenu(menu) : openMenu(menu)
+        if (isOpen) {
+          closeMenu(menu)
+        } else {
+          openMenu(menu)
+        }
       }
- 
+
       button.addEventListener('mouseenter', enter)
       button.addEventListener('mouseleave', leave)
       menu.addEventListener('mouseenter', enter)
       menu.addEventListener('mouseleave', leave)
       button.addEventListener('click', click)
- 
+
       return () => {
         button.removeEventListener('mouseenter', enter)
         button.removeEventListener('mouseleave', leave)
@@ -120,14 +124,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       }
     })
   }, [openMenu, closeMenu, isMobile])
- 
+
   const hasSubmenu = (menu: HeaderMenuItem) =>
     Array.isArray(menu.submenus) && menu.submenus.length > 0
- 
- 
+
+
   const headerLogo =
     data.Header_Logo && typeof data.Header_Logo === 'object' ? data.Header_Logo : null
- 
+
   return (
     <header className="header fixed lg:py-0 py-[34px] border-b-black-200 border-b-solid border-b-[1px] w-full left-0 top-0 z-[99] bg-white">
       <div className="container">
@@ -136,13 +140,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           <Link href="/" className="max-w-[170px]">
             <Image src={headerLogo?.url || ''} alt="logo" width={159} height={44} priority />
           </Link>
- 
+
           {/* Navigation */}
           <nav
             className={`
-              fixed left-0 transform lg:translate-x-0 transition-transform duration-500 lg:left-0 top-0 lg:relative w-[300px] lg:w-auto h-full lg:h-auto px-6 py-12 lg:p-0 bg-blue lg:bg-transparent flex lg:justify-center justify-start lg:items-center items-start gap-[48px] flex-col lg:flex-row overflow-y-auto lg:overflow-visible z-[9999] no-scrollbar ${
-              isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}  
+              fixed left-0 transform lg:translate-x-0 transition-transform duration-500 lg:left-0 top-0 lg:relative w-[300px] lg:w-auto h-full lg:h-auto px-6 py-12 lg:p-0 bg-blue lg:bg-transparent flex lg:justify-center justify-start lg:items-center items-start gap-[48px] flex-col lg:flex-row overflow-y-auto lg:overflow-visible z-[9999] no-scrollbar ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+              }`}
           >
             {/* Sidebar toggle button */}
             <button
@@ -165,7 +168,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 const layout = menu.menuType ?? 'single'
                 const columns = menu.megaColumns ?? 2
                 const widthClass = getMegaWidthClass(menu.megaWidth)
- 
+
                 return (
                   <li key={index} className="relative w-full lg:w-auto">
                     <Link
@@ -195,7 +198,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                         </span>
                       )}
                     </Link>
- 
+
                     {hasDropdown && (
                       <div
                         className={`
@@ -238,7 +241,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                             )}
                           </ul>
                         )}
- 
+
                         {/* ===== MEGA MENU ===== */}
                         {layout === 'mega' && (
                           <div
@@ -268,21 +271,21 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                 )
               })}
             </ul>
- 
+
             <div className="button-area flex items-center">
-                <div className="btn-link *:text-4 border-green hover:border-black cursor-pointer">
-                  <Link href="#" role="link">
-                    Sign In
-                  </Link>
-                </div>
-                <div className="btn-green *:text-4">
-                  <Link href="#" role="link">
-                    Sign Up
-                  </Link>
-                </div>
+              <div className="btn-link *:text-4 border-green hover:border-black cursor-pointer">
+                <Link href="#" role="link">
+                  Sign In
+                </Link>
               </div>
+              <div className="btn-green *:text-4">
+                <Link href="#" role="link">
+                  Sign Up
+                </Link>
+              </div>
+            </div>
           </nav>
- 
+
           {/* Mobile Toggle */}
           <div
             className="menu w-10 h-10 p-1 flex flex-col justify-center items-center gap-1 border-blue border-[1px] border-solid cursor-pointer lg:hidden"

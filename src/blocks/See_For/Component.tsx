@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import RichText from "@/components/RichText";
 import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import type {
   SerializedLexicalNode,
@@ -17,64 +16,7 @@ interface See_ForProps {
   };
   dots_bg?: boolean;
 }
-const renderTextNode = (node: SerializedTextNode, key: number) => {
-  let element: React.ReactNode = node.text
 
-  if (node.format & 1) {
-    element = <strong key={`b-${key}`}>{element}</strong>
-  }
-  if (node.format & 2) {
-    element = <em key={`i-${key}`}>{element}</em>
-  }
-  if (node.format & 4) {
-    element = <u key={`u-${key}`}>{element}</u>
-  }
-  if (node.format & 8) {
-    element = <s key={`s-${key}`}>{element}</s>
-  }
-
-  return <React.Fragment key={key}>{element}</React.Fragment>
-}
-
-const renderChildren = (children?: SerializedLexicalNode[]) => {
-  if (!children) return null
-
-  return children.map((child, index) => {
-    if (child.type === 'text') {
-      return renderTextNode(child, index)
-    }
-    return null
-  })
-}
-
-const renderRichText = (state?: DefaultTypedEditorState) => {
-  if (!state) return null
-
-  return state.root.children.map((node, i) => {
-    if (node.type === 'list') {
-      return (
-        <ul
-          key={i}
-          className="para text-dark text-h4 leading-snug pl-24 [&_li]:list-disc space-y-24"
-        >
-          {node.children?.map((child, idx) => (
-            <li key={idx}>{'children' in child ? renderChildren(child.children) : null}</li>
-          ))}
-        </ul>
-      )
-    }
-
-    if (node.type === 'paragraph') {
-      return <p key={i}>{renderChildren(node.children)}</p>
-    }
-
-    if (node.type === 'heading') {
-      return <h3 key={i}>{renderChildren(node.children)}</h3>
-    }
-
-    return null
-  })
-}
 
 export const See_For: React.FC<See_ForProps> = ({ Heading, richText, button }) => {
 
@@ -102,7 +44,7 @@ export const See_For: React.FC<See_ForProps> = ({ Heading, richText, button }) =
 
     return children.map((child, index) => {
       if (child.type === 'text') {
-        return renderTextNode(child, index)
+        return renderTextNode(child as SerializedTextNode, index)
       }
       return null
     })
@@ -119,18 +61,18 @@ export const See_For: React.FC<See_ForProps> = ({ Heading, richText, button }) =
             className="para text-dark text-h4 leading-snug pl-24 [&_li]:list-disc space-y-24"
           >
             {node.children?.map((child, idx) => (
-              <li key={idx}>{'children' in child ? renderChildren(child.children) : null}</li>
+              <li key={idx}>{'children' in child ? renderChildren(child.children as SerializedLexicalNode[]) : null}</li>
             ))}
           </ul>
         )
       }
 
       if (node.type === 'paragraph') {
-        return <p key={i}>{renderChildren(node.children)}</p>
+        return <p key={i}>{renderChildren(node.children as SerializedLexicalNode[])}</p>
       }
 
       if (node.type === 'heading') {
-        return <h3 key={i}>{renderChildren(node.children)}</h3>
+        return <h3 key={i}>{renderChildren(node.children as SerializedLexicalNode[])}</h3>
       }
 
       return null
@@ -162,7 +104,7 @@ export const See_For: React.FC<See_ForProps> = ({ Heading, richText, button }) =
             )} */}
 
 
-            <div  className="text-center text-body font-inter font-normal text-black-300 space-y-4">
+            <div className="text-center text-body font-inter font-normal text-black-300 space-y-4">
               {renderRichText(richText)}
             </div>
             {/* Button */}

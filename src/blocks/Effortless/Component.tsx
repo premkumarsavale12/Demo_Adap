@@ -15,11 +15,11 @@ interface EffortlessProps {
 }
 
 export const Effortless: React.FC<EffortlessProps> = ({
-   Heading,
-   richText,
-   SubHeading,
-   Items,
-   SubrichText,
+  Heading,
+  richText,
+  SubHeading,
+  Items,
+  SubrichText,
 }) => {
   return (
     <section className="t-section work-section lg:py[150px] md:py-[80px] py-[50px] w-full border-b-[1px] border-b-black-200 border-b-solid">
@@ -83,10 +83,12 @@ export const Effortless: React.FC<EffortlessProps> = ({
                       </h3>
                     )}
 
-                    <RichText
-                      data={item.richText}
-                      enableGutter={false}
-                    />
+                    {item.richText && (
+                      <RichText
+                        data={item.richText}
+                        enableGutter={false}
+                      />
+                    )}
                   </div>
                 </div>
               ))}

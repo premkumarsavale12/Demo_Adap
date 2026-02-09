@@ -15,6 +15,16 @@ interface TOCHeader {
   subHeaders: TOCSubHeader[]
 }
 
+interface LexicalNode {
+  type: string
+  text?: string
+  children?: LexicalNode[]
+  [key: string]: unknown
+}
+interface BlogSingleClientProps {
+  post: Post
+  RelatedPoste: Post[]
+}
 const parseContentAndHeaders = (htmlString: string) => {
   if (typeof window === 'undefined') return { html: '', headers: [] as TOCHeader[] }
 
@@ -79,7 +89,7 @@ const parseContentAndHeaders = (htmlString: string) => {
     headers: structuredHeaders,
   }
 }
-const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: any[] }) => { 
+const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
   const [tocItems, setTocItems] = useState<TOCHeader[]>([])
   const [contentHTML, setContentHTML] = useState('')
   const [activeHeaderId, setActiveHeaderId] = useState('')
@@ -87,13 +97,16 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
     typeof window !== 'undefined' ? window.innerWidth : 0,
   )
   const [isClickScrolling, setIsClickScrolling] = useState(false)
-  const tocCollapseRef = useRef<HTMLDivElement>(null)
-  const previousScrollRef = useRef(0)
-  const progressRef = useRef<HTMLDivElement>(null) // ref for progress line
+  const tocCollapseRef = useRef<HTMLDivElement | null>(null)
+  const progressRef = useRef<HTMLDivElement | null>(null)
 
-  const relatedByTag = RelatedPoste?.filter((item) => {
+  const previousScrollRef = useRef(0)
+
+
+  const relatedByTag = RelatedPoste.filter((item: Post) => {
     return item?.tag === post?.tag && item?.slug !== post?.slug
   })
+
 
   // Parse content and headers
   useEffect(() => {
@@ -118,7 +131,10 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
     const handleScroll = () => {
       if (isClickScrolling) return
 
-      const allHeaders = [...document.querySelectorAll('h2[id], h3[id]')]
+      const allHeaders = Array.from(
+        document.querySelectorAll<HTMLElement>('h2[id], h3[id]')
+      )
+
       const offset = 70
       let minDistance = Infinity
       let currentId = ''
@@ -135,7 +151,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
 
       // Update progress line
       if (progressRef.current) {
-        const container = progressRef.current.parentElement as HTMLElement | null // parent of progress line
+        const container = progressRef.current.parentElement
         const totalHeight = container?.scrollHeight || 150 // fallback
         const sections = allHeaders
         const currentIndex = sections.findIndex((h) => h.id === currentId)
@@ -283,9 +299,8 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
                             <div key={h2Item.id}>
                               <button
                                 aria-label="list item"
-                                className={`block mb-2 text-h5 font-medium leading-6 px-2 relative transition-colors duration-200 text-left ${
-                                  activeHeaderId === h2Item.id ? 'text-purple' : 'text-black'
-                                }`}
+                                className={`block mb-2 text-h5 font-medium leading-6 px-2 relative transition-colors duration-200 text-left ${activeHeaderId === h2Item.id ? 'text-purple' : 'text-black'
+                                  }`}
                                 onClick={() => handleTOCClick(h2Item.id)}
                               >
                                 {h2Item.text}
@@ -296,9 +311,8 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
                                     <button
                                       aria-label="list item"
                                       key={sub.id}
-                                      className={`block mb-2 text-h5 font-medium leading-6 px-2 relative transition-colors duration-200 ${
-                                        activeHeaderId === sub.id ? 'text-purple' : 'text-black'
-                                      }`}
+                                      className={`block mb-2 text-h5 font-medium leading-6 px-2 relative transition-colors duration-200 ${activeHeaderId === sub.id ? 'text-purple' : 'text-black'
+                                        }`}
                                       onClick={() => handleTOCClick(sub.id)}
                                     >
                                       {sub.text}
@@ -413,15 +427,15 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
                         ></h3>
                         <div className="para line-clamp-4">
                           {item.content &&
-                            item.content.root.children.map((block: any, index: number) => {
+                            (item.content as Post['content']).root.children.map((block: LexicalNode, index: number) => {
                               if (block.type === 'list') {
                                 return (
                                   <ul
                                     key={index}
                                     className="para text-dark text-h4 leading-snug pl-24 [&_li]:list-disc space-y-24"
                                   >
-                                    {block.children.map((item: any, i: number) => (
-                                      <li key={i}>{item.children[0].text}</li>
+                                    {block.children?.map((item: LexicalNode, i: number) => (
+                                      <li key={i}>{item.children?.[0]?.text}</li>
                                     ))}
                                   </ul>
                                 )
@@ -429,7 +443,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
                                 return (
                                   <div key={index} className="space-y-24 text-dark">
                                     <p>
-                                      {block.children.map((child: any) => child.text).join(' ')}
+                                      {block.children?.map((child: LexicalNode) => child.text).join(' ')}
                                     </p>
                                   </div>
                                 )
@@ -440,8 +454,8 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
                                     className="text-h3 font-medium text-center px-16"
                                     dangerouslySetInnerHTML={{
                                       __html: block.children
-                                        .map((child: any) => child.text)
-                                        .join(' '),
+                                        ?.map((child: LexicalNode) => child.text)
+                                        .join(' ') || '',
                                     }}
                                   ></h3>
                                 )
@@ -455,7 +469,9 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
 
                     <div className="view w-full flex justify-between items-center sm:flex-nowrap flex-wrap gap-3">
                       <div className="left flex gap-3 justify-start items-center text-body">
-                        {item?.author_avatar?.url ? (
+                        {item?.author_avatar &&
+                          typeof item.author_avatar !== 'string' &&
+                          item.author_avatar.url ? (
                           <Image
                             src={item.author_avatar.url}
                             alt={item.author_name ? `${item.author_name} avatar` : 'Author avatar'}
@@ -485,7 +501,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: { post: Post; RelatedPoste: an
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

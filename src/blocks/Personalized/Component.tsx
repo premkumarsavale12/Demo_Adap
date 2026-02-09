@@ -45,12 +45,13 @@ export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
 
 
                   <div className="space-y-4">
-                    {item.richText?.root?.children?.map((block: any, i: number) => {
-                      if (block.type !== "paragraph") return null;
+                    {item.richText?.root?.children?.map((block, i: number) => {
+                      const b = block as { type: string; children?: { text?: string }[] };
+                      if (b.type !== "paragraph") return null;
 
                       return (
                         <p key={i}>
-                          {block.children?.map((child: any, j: number) => (
+                          {b.children?.map((child, j) => (
                             <span key={j}>{child.text}</span>
                           ))}
                         </p>
