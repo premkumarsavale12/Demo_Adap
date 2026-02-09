@@ -161,7 +161,7 @@ export const BlogTab = ({
 }) => {
     const [activeTab, setActiveTab] = useState('All')
     const [searchTerm, setSearchTerm] = useState('')
-    const [visibleCount, setVisibleCount] = useState(6)
+    const [visibleCount, setVisibleCount] = useState(100)
     const [loadingMore, setLoadingMore] = useState(false)
 
     // 🔹 Extract unique TAGS
@@ -216,7 +216,7 @@ export const BlogTab = ({
                                         }`}
                                     onClick={() => {
                                         setActiveTab('All')
-                                        setVisibleCount(6)
+                                        setVisibleCount(100)
                                     }}
                                 >
                                     All
@@ -230,7 +230,7 @@ export const BlogTab = ({
                                             }`}
                                         onClick={() => {
                                             setActiveTab(tag)
-                                            setVisibleCount(6)
+                                            setVisibleCount(100)
                                         }}
                                     >
                                         {tag}

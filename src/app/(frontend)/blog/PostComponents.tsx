@@ -65,7 +65,7 @@ const BlogCard = ({ blog }: { blog: Post }) => {
                     <iframe
                         src={embedUrl}
                         title="YouTube video"
-                       frameBorder="0"
+                        frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         className="w-full aspect-video"
                         allowFullScreen
@@ -80,12 +80,14 @@ const BlogCard = ({ blog }: { blog: Post }) => {
                     />
                 ) : null}
 
-                     <div className="content space-y-[20px] my-6 flex-1 flex flex-col">
+                <div className="content space-y-[20px] my-6 flex-1 flex flex-col">
                     <span className="flex justify-between items-center">
-                        <span className="text-[12px] font-medium font-inter uppercase bg-[#EEA7DF33] p-[6px] rounded-[4px]">
-                            {blog.tag}
+                        <span className="text-[12px] font-medium font-inter bg-[#EEA7DF33] text-[#A10078] px-2 py-1 rounded-[4px]">
+                            {blog.categories && blog.categories.length > 0 && typeof blog.categories[0] === 'object'
+                                ? blog.categories[0].title
+                                : blog.tag}
                         </span>
-                    <span className="text-[12px] font-medium font-inter text-black-100">
+                        <span className="text-[12px] font-medium font-inter text-black-100">
                             {new Date(blog.date || blog.createdAt).toLocaleDateString('en-GB')}
                         </span>
                     </span>
@@ -136,7 +138,7 @@ const BlogSection = ({
     }, [loadMore, hasMore, loading])
 
     return (
-       <div className="btm-content py-8 border-t border-black-200 xmd:px-0 px-4">
+        <div className="btm-content py-8 border-t border-black-200 xmd:px-0 px-4">
             {title && (
                 <div className="heading mx-8 mb-8 relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] before:left-[-24px] before:opacity-20 before:z-0">
                     <h2 className="text-h2 font-ivy font-semibold">{title}</h2>
@@ -149,7 +151,7 @@ const BlogSection = ({
                 ))}
             </div>
 
-            {hasMore && <div ref={observerRef}  className="w-full h-8 flex justify-center items-center" />}
+            {hasMore && <div ref={observerRef} className="w-full h-8 flex justify-center items-center" />}
         </div>
     )
 }
@@ -157,29 +159,34 @@ const BlogSection = ({
 // --- Main BlogTab Component ---
 export const BlogTab = ({
     allPosts,
+    allCategories,
 }: {
     allPosts: Post[]
     allCategories: Category[]
 }) => {
     const [activeTab, setActiveTab] = useState('All')
     const [searchTerm, setSearchTerm] = useState('')
-    const [visibleCount, setVisibleCount] = useState(6)
+    const [visibleCount, setVisibleCount] = useState(100)
     const [loadingMore, setLoadingMore] = useState(false)
 
-    // 🔹 Extract unique TAGS
+    // 🔹 Use Categories for tabs
     const displayTags = useMemo(() => {
-        const tags = allPosts
-            .map((post) => post.tag)
-            .filter((tag): tag is string => Boolean(tag))
-        return Array.from(new Set(tags))
-    }, [allPosts])
+        return allCategories.map(cat => ({
+            id: cat.id,
+            title: cat.title
+        }))
+    }, [allCategories])
 
     // 🔹 Filter by TAG + Search
     const searchedBlogs = useMemo(() => {
         let posts = allPosts
 
         if (activeTab !== 'All') {
-            posts = posts.filter((blog) => blog.tag === activeTab)
+            posts = posts.filter((blog) =>
+                blog.categories?.some(cat =>
+                    (typeof cat === 'object' ? cat.title : cat) === activeTab
+                )
+            )
         }
 
         if (searchTerm) {
@@ -218,7 +225,7 @@ export const BlogTab = ({
                                         }`}
                                     onClick={() => {
                                         setActiveTab('All')
-                                        setVisibleCount(6)
+                                        setVisibleCount(100)
                                     }}
                                 >
                                     All
@@ -227,15 +234,15 @@ export const BlogTab = ({
                                 {displayTags.map((tag) => (
                                     <button
                                         aria-label="tab list button"
-                                        key={tag}
-                                        className={` menut-btn p-2  w-full xmd:text-left text-center  ${activeTab === tag && 'bg-pink-80 font-semibold'
+                                        key={tag.id}
+                                        className={` menut-btn p-2  w-full xmd:text-left text-center  ${activeTab === tag.title && 'bg-pink-80 font-semibold'
                                             }`}
                                         onClick={() => {
-                                            setActiveTab(tag)
-                                            setVisibleCount(6)
+                                            setActiveTab(tag.title)
+                                            setVisibleCount(100)
                                         }}
                                     >
-                                        {tag}
+                                        {tag.title}
                                     </button>
                                 ))}
                             </div>
@@ -244,7 +251,7 @@ export const BlogTab = ({
                 </div>
 
                 {/* BLOG CONTENT */}
- <div className="inner xmd:px-10 xmd:py-10 py-2 xl:w-[80%] xmd:w-[70%] px-0 w-full">
+                <div className="inner xmd:px-10 xmd:py-10 py-2 xl:w-[80%] xmd:w-[70%] px-0 w-full">
                     <SearchInput
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}

@@ -15,7 +15,7 @@ export const ArchiveBlock: React.FC<
 > = async (props) => {
   const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs, relationTo } = props
 
-  const limit = limitFromProps || 3
+  const limit = limitFromProps || 1000
 
   let posts: (Post | Webinar | Promotion)[] = []
 
