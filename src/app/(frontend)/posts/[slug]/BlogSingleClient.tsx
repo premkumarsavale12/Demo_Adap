@@ -3,10 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Post } from "@/payload-types";
 
-/* =======================
-   TYPES
-======================= */
-
 type TOCSubHeader = {
   id: string;
   text: string;
@@ -18,9 +14,7 @@ type TOCHeader = {
   subHeaders: TOCSubHeader[];
 };
 
-/* =======================
-   PARSER
-======================= */
+
 
 const parseContentAndHeaders = (
   htmlString: string
@@ -82,9 +76,7 @@ const parseContentAndHeaders = (
   };
 };
 
-/* =======================
-   COMPONENT
-======================= */
+
 
 const BlogSingleClient = ({ post }: { post: Post }) => {
   const [tocItems, setTocItems] = useState<TOCHeader[]>([]);
@@ -93,16 +85,14 @@ const BlogSingleClient = ({ post }: { post: Post }) => {
   const [_windowWidth, setWindowWidth] = useState<number>(
     typeof window !== "undefined" ? window.innerWidth : 0
   );
-  const [isClickScrolling, setIsClickScrolling] =
+  const [isClickScrolling, _setIsClickScrolling] =
     useState<boolean>(false);
 
   const tocCollapseRef = useRef<HTMLDivElement | null>(null);
   const previousScrollRef = useRef<number>(0);
   const progressRef = useRef<HTMLDivElement | null>(null);
 
-  /* =======================
-     PARSE CONTENT
-  ======================= */
+
 
   useEffect(() => {
     if (post?.pagecontent?.Gutenberg_html) {
@@ -114,10 +104,6 @@ const BlogSingleClient = ({ post }: { post: Post }) => {
     }
   }, [post]);
 
-  /* =======================
-     RESIZE
-  ======================= */
-
   useEffect(() => {
     const handleResize = () =>
       setWindowWidth(window.innerWidth);
@@ -127,9 +113,7 @@ const BlogSingleClient = ({ post }: { post: Post }) => {
       window.removeEventListener("resize", handleResize);
   }, []);
 
-  /* =======================
-     SCROLL + PROGRESS
-  ======================= */
+
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -191,9 +175,7 @@ const BlogSingleClient = ({ post }: { post: Post }) => {
       window.removeEventListener("scroll", handleScroll);
   }, [isClickScrolling, tocItems]);
 
-  /* =======================
-     TOC TOGGLE
-  ======================= */
+
 
   useEffect(() => {
     const tocCollapse = tocCollapseRef.current;

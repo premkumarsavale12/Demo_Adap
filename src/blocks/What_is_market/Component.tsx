@@ -85,7 +85,7 @@ export const What_is_market: React.FC<WhatIsMarketProps> = ({ title, description
               <ul className="[&_li]:pl-8 [&_li]:relative [&_li]:before:content-[''] [&_li]:before:w-[10px] [&_li]:before:h-[10px] [&_li]:before:bg-black-200 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-[6px] [&_li]:before:rounded-full space-y-2">
                 {protectionDetailsArray.map((item, i) => (
                   <li key={i}>
-                    {item.content?.root?.children?.[0]?.children?.[0]?.text}
+                    {extractTextFromLexical(item.content?.root?.children)}
                   </li>
                 ))}
               </ul>

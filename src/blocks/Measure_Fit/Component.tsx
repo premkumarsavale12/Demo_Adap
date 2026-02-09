@@ -58,21 +58,21 @@ export const Measure_Fit: React.FC<MeasureFitProps> = ({
                     )}
 
                     <div className="text-body font-inter text-black-300">
-                      <RichText data={item.richText} />
+                      {item.richText && <RichText data={item.richText} />}
                     </div>
                   </div>
                 ))}
-                  {button?.label && button?.url && (
-              <Link
-                href={button.url}
-                target={button.target || "_self"}
-                className="inline-block"
-              >
-                <span className="btn-pink bg-green font-overpass font-medium text-black text-body px-6 py-3 border-solid border-[1.5px] border-transparent hover:bg-transparent hover:border-green transition-all duration-300 ease-in-out cursor-pointer">
-                  {button.label}
-                </span>
-              </Link>
-            )}
+                {button?.label && button?.url && (
+                  <Link
+                    href={button.url}
+                    target={button.target || "_self"}
+                    className="inline-block"
+                  >
+                    <span className="btn-pink bg-green font-overpass font-medium text-black text-body px-6 py-3 border-solid border-[1.5px] border-transparent hover:bg-transparent hover:border-green transition-all duration-300 ease-in-out cursor-pointer">
+                      {button.label}
+                    </span>
+                  </Link>
+                )}
               </div>
             </div>
 
