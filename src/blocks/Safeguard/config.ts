@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Safeguard: Block = {
     slug: 'safeguard',
+  imageURL: '/block-previews/safeguard.png',
+  imageAltText: 'safeguard preview',
     interfaceName: 'safeguard',
     labels: {
         singular: 'safeguard',

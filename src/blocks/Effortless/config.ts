@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Effortless: Block = {
     slug: 'effortless',
+  imageURL: '/block-previews/effortless.png',
+  imageAltText: 'effortless preview',
     interfaceName: 'effortless',
     labels: {
         singular: 'effortless',

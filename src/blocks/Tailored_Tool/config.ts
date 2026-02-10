@@ -8,6 +8,8 @@ import { Block } from 'payload'
 
 export const Tailored_Tool: Block = {
   slug: 'tailored_tool',
+  imageURL: '/block-previews/tailored_tools.png',
+  imageAltText: 'tailored_tool preview',
   interfaceName: 'tailored_tool',
   labels: {
     singular: 'tailored_tool',

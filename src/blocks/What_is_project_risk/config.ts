@@ -6,6 +6,8 @@ import { Block } from "payload";
 
 export const What_is_project_risk: Block = {
     slug: 'what_is_project_risk',
+  imageURL: '/block-previews/what_is_project_risk.png',
+  imageAltText: 'what_is_project_risk preview',
     interfaceName: 'what_is_project_risk',
     labels:
     {

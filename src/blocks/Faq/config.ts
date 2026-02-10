@@ -8,6 +8,8 @@ import { Block } from "payload";
 
 export const Faq: Block = {
   slug: "faq",
+  imageURL: '/block-previews/faq.png',
+  imageAltText: 'faq preview',
   interfaceName: "FaqBlock",
   labels: {
     singular: "FAQ Section",

@@ -8,6 +8,8 @@ import { Block } from 'payload'
 
 export const LeaderShip: Block = {
   slug: 'leaderShip',
+  imageURL: '/block-previews/leadership.png',
+  imageAltText: 'leaderShip preview',
   interfaceName: 'leaderShip',
   labels: {
     singular: 'leaderShip',

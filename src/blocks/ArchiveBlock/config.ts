@@ -9,6 +9,8 @@ import {
 
 export const Archive: Block = {
   slug: 'archive',
+  imageURL: '/block-previews/archive.jpg',
+  imageAltText: 'archive preview',
   interfaceName: 'ArchiveBlock',
   fields: [
     {

@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Adaptive_Portfolio: Block = {
     slug: 'adaptive_portfolio',
+  imageURL: '/block-previews/adaptive_portfolio.png',
+  imageAltText: 'adaptive_portfolio preview',
     interfaceName: 'adaptive_portfolio',
     labels: {
         singular: 'adaptive_portfolio',

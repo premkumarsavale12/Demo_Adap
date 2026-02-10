@@ -9,6 +9,8 @@ import {
 
 export const Hero_Section_2: Block = {
   slug: 'hero_section_2',
+  imageURL: '/block-previews/hero_section_2.png',
+  imageAltText: 'hero_section_2 preview',
   interfaceName: 'hero_section_2',
   labels: {
     singular: 'hero_section_2',

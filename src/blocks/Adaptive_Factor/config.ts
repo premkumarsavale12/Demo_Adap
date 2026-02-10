@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Adaptive_Factor: Block = {
     slug: 'adaptive_factor',
+  imageURL: '/block-previews/adaptive_factor.png',
+  imageAltText: 'adaptive_factor preview',
     interfaceName: 'adaptive_factor',
     labels: {
         singular: 'adaptive_factor',

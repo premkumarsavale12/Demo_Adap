@@ -8,6 +8,8 @@ import { Block } from 'payload'
 
 export const MarketShield: Block = {
   slug: 'marketShield',
+  imageURL: '/block-previews/market_shield.png',
+  imageAltText: 'marketShield preview',
   interfaceName: 'marketShield',
   labels: {
     singular: 'MarketShieldSection',

@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Down_Protection: Block = {
     slug: 'down_protection',
+  imageURL: '/block-previews/downside_protection.png',
+  imageAltText: 'down_protection preview',
     interfaceName: 'down_protection',
     labels: {
         singular: 'down_protection',

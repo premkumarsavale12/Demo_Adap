@@ -3,6 +3,8 @@ import { Block } from "payload";
 
 export const Understanding_Risk: Block = {
     slug: 'understanding_risk',
+  imageURL: '/block-previews/understanding_risk.png',
+  imageAltText: 'understanding_risk preview',
     interfaceName: 'understanding_risk',
     labels: {
         singular: 'understanding_risk',

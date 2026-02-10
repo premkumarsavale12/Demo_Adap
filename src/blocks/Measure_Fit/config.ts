@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Measure_Fit: Block = {
     slug: 'measure_fit',
+  imageURL: '/block-previews/measure_of_fit_to_portfolio.png',
+  imageAltText: 'measure_fit preview',
     interfaceName: 'measure_fit',
     labels: {
         singular: 'measure_fit',

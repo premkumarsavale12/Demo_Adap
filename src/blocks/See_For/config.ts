@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const See_For: Block = {
     slug: 'see_for',
+  imageURL: '/block-previews/sea_for.png',
+  imageAltText: 'see_for preview',
     interfaceName: 'sea_for',
     labels: {
         singular: 'sea_for',

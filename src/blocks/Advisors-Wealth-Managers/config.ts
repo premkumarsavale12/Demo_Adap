@@ -4,6 +4,8 @@ import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEdito
 
 export const HorizontalContent: Block = {
     slug: 'horizontalContent',
+  imageURL: '/block-previews/advisor&wealth.png',
+  imageAltText: 'horizontalContent preview',
     interfaceName: 'horizontalContent',
 
     labels: {

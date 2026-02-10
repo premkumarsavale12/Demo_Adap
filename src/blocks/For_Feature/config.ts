@@ -3,6 +3,8 @@ import { Block } from "payload";
 
 export const For_Feature: Block = {
     slug: 'for_feature',
+  imageURL: '/block-previews/for_feature.png',
+  imageAltText: 'for_feature preview',
     interfaceName: 'for_feature',
     labels: {
         singular: 'for_feature',
