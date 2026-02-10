@@ -2,6 +2,8 @@ import { Block } from "payload";
 
 export const The_call_Writing: Block = {
   slug: "the_call_writing",
+  imageURL: '/block-previews/the_call_writing_tool.png',
+  imageAltText: 'the_call_writing preview',
   interfaceName: 'the_call_writing',
   labels: {
     singular: "the_call_writing",

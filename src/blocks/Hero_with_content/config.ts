@@ -9,6 +9,8 @@ import {
 
 export const Hero_with_content: Block = {
   slug: 'hero_with_content',
+  imageURL: '/block-previews/hero_with_content.png',
+  imageAltText: 'hero_with_content preview',
   interfaceName: 'hero_with_content',
   labels: {
     singular: 'hero_with_content',

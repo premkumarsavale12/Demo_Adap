@@ -8,6 +8,8 @@ import { Block } from 'payload'
  
 export const Card: Block = {
   slug: 'card',
+  imageURL: '/block-previews/card.png',
+  imageAltText: 'card preview',
   labels: {
     singular: 'Card Section',
     plural: 'Card Sections',

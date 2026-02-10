@@ -8,6 +8,8 @@ import { Block } from 'payload'
 
 export const ToolSection: Block = {
   slug: 'Our_free_tools',
+  imageURL: '/block-previews/our_free_tools.png',
+  imageAltText: 'Our_free_tools preview',
   interfaceName: 'Our_free_tools',
   labels: {
     singular: 'Our free tools',

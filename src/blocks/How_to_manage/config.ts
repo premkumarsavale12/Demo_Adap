@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const How_to_manage: Block = {
     slug: 'how_to_manage',
+  imageURL: '/block-previews/how_to_manage_to_cost.png',
+  imageAltText: 'how_to_manage preview',
     interfaceName: 'how_to_manage',
     labels: {
         singular: 'how_to_manage',

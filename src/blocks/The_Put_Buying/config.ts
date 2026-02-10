@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const The_Put_Buying: Block = {
     slug: 'the_put_buying',
+  imageURL: '/block-previews/the_put_buying_tool.png',
+  imageAltText: 'the_put_buying preview',
     interfaceName: 'the_put_buying',
     labels: {
         singular: 'the_put_buying',

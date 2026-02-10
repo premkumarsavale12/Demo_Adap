@@ -117,11 +117,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                Archive,
-                CallToAction,
-                Content,
-                FormBlock,
-                MediaBlock,
+             
                 Hero_Image,
                 HorizontalContent,
                 MarketShield,

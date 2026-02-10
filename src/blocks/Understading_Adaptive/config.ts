@@ -3,6 +3,8 @@ import { Block } from "payload";
 
 export const UnderStanding_Adaptive: Block = {
     slug: 'understanding_adaptive',
+  imageURL: '/block-previews/understanding_adaptive.png',
+  imageAltText: 'understanding_adaptive preview',
     interfaceName: 'understanding_adaptive',
     labels: {
         singular: 'understanding_adaptive',

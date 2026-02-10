@@ -3,6 +3,8 @@ import { Block } from "payload";
 
 export const Pricing: Block = {
     slug: 'pricing',
+  imageURL: '/block-previews/pricing.png',
+  imageAltText: 'pricing preview',
     interfaceName: 'pricing',
     labels: {
         singular: 'pricing',

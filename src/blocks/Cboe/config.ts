@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Cboe: Block = {
     slug: 'cboe',
+  imageURL: '/block-previews/cboe.png',
+  imageAltText: 'cboe preview',
     interfaceName: 'cboe',
     labels: {
         singular: 'cboe',

@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Measure_risk: Block = {
     slug: 'measure_risk',
+  imageURL: '/block-previews/measures_of_risk.png',
+  imageAltText: 'measure_risk preview',
     interfaceName: 'measure_risk',
     fields: [
         {

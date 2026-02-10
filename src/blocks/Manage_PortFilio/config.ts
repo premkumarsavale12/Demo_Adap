@@ -6,6 +6,8 @@ import { Block } from "payload";
 export const Manage_PortFilio: Block = {
 
     slug: 'manage_portfilio',
+  imageURL: '/block-previews/manage.png',
+  imageAltText: 'manage_portfilio preview',
     interfaceName: 'manage_portfilio',
     labels: {
         singular: 'manage_portfilio',

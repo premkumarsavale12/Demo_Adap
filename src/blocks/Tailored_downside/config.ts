@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Tailored_downside: Block = {
     slug: "tailored_downside",
+  imageURL: '/block-previews/tailored_downside.png',
+  imageAltText: 'tailored_downside preview',
     interfaceName: 'tailored_downside',
     labels: {
         singular: 'tailwored_downside',

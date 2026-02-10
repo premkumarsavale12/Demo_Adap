@@ -3,6 +3,8 @@ import { Block } from "payload";
 
 export const What_is_market: Block = {
     slug: 'what_is_market',
+  imageURL: '/block-previews/what_is_the_market.png',
+  imageAltText: 'what_is_market preview',
     interfaceName: 'what_is_market',
     labels: {
         singular: 'what_is_market',

@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Advisors_Choose_Adaptive: Block = {
     slug: 'advisors_choose_adaptive',
+  imageURL: '/block-previews/why_advisors_choose_adaptive.png',
+  imageAltText: 'advisors_choose_adaptive preview',
     interfaceName: 'advisors_choose_adaptive',
     labels: {
         singular: 'advisors_choose_adaptive',

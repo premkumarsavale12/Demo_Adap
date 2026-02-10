@@ -11,6 +11,8 @@ import { linkGroup } from '../../fields/linkGroup'
 
 export const CallToAction: Block = {
   slug: 'cta',
+  imageURL: '/block-previews/cta.jpg',
+  imageAltText: 'cta preview',
   interfaceName: 'CallToActionBlock',
   fields: [
     {

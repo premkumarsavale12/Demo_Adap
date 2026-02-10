@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Enterprise_Soluction: Block = {
     slug: 'enterprise_soluction',
+  imageURL: '/block-previews/enterprise_solcutions.png',
+  imageAltText: 'enterprise_soluction preview',
     interfaceName: 'enterprise_soluctuon',
     labels: {
         singular: 'enterprise_solucton',

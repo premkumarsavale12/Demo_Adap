@@ -8,6 +8,8 @@ import { Block } from 'payload'
 
 export const Hero_Image: Block = {
   slug: 'hero_image',
+  imageURL: '/block-previews/hero_image.png',
+  imageAltText: 'hero_image preview',
   interfaceName: 'hero_image',
   labels: {
     singular: 'hero_image',

@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Covered: Block = {
     slug: 'covered',
+  imageURL: '/block-previews/covered.png',
+  imageAltText: 'covered preview',
     interfaceName: 'covered',
     labels: {
         singular: 'covered',

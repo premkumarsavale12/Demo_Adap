@@ -5,6 +5,8 @@ import { Block } from "payload";
 
 export const Personalized: Block = {
     slug: 'personalized',
+  imageURL: '/block-previews/personalized_risk.png',
+  imageAltText: 'personalized preview',
     interfaceName: 'personalized',
     labels: {
         singular: 'personalized',
