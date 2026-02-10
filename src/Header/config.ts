@@ -13,7 +13,7 @@ export const Header: GlobalConfig = {
       name: 'title',
       type: 'text',
       required: false,
-      label: 'title'
+      label: 'title',
     },
     {
       name: 'slug',
@@ -23,7 +23,7 @@ export const Header: GlobalConfig = {
       admin: {
         readOnly: true,
       },
-      label:'slug',
+      label: 'slug',
       hooks: {
         beforeValidate: [
           ({ siblingData, value }) => {
@@ -34,6 +34,45 @@ export const Header: GlobalConfig = {
           },
         ],
       },
+    },
+    {
+      name: 'Announcement_Enable',
+      type: 'checkbox',
+      defaultValue: true,
+      label: { en: 'Enable Announcement Bar', de: 'Ankündigungsleiste aktivieren' },
+    },
+    {
+      name: 'Announcement_Heading',
+      type: 'text',
+      required: true,
+      label: { en: 'Announcement Heading', de: 'Ankündigung Überschrift' },
+    },
+    {
+      name: 'Announcement_Button_text',
+      type: 'group',
+      label: 'Announcement Button',
+      fields: [
+        {
+          name: 'label',
+          type: 'text',
+          label: 'link label',
+        },
+        {
+          name: 'url',
+          type: 'text',
+          label: 'Url',
+        },
+        {
+          name: 'target',
+          type: 'select',
+          label: 'target',
+          options: [
+            { label: 'Same Tab', value: '_self' },
+            { label: 'New Tab', value: '_blank' },
+          ],
+          defaultValue: '_self',
+        },
+      ],
     },
     {
       name: 'Header_Logo',
@@ -128,7 +167,7 @@ export const Header: GlobalConfig = {
             condition: (_, siblingData) => siblingData?.menuType === 'mega',
           },
         },
- 
+
         {
           name: 'submenus',
           label: { en: 'Submenus', de: 'Untermenu' },
@@ -178,7 +217,7 @@ export const Header: GlobalConfig = {
             },
           ],
         },
-      ],
+      ],  
     },
     {
       name: 'link',
@@ -241,7 +280,7 @@ export const Header: GlobalConfig = {
     {
       name: 'media',
       type: 'upload',
-      label:'Media',
+      label: 'Media',
       admin: {
         condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
       },
