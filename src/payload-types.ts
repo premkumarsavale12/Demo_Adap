@@ -4279,6 +4279,13 @@ export interface Header {
   id: string;
   title?: string | null;
   slug: string;
+  Announcement_Enable?: boolean | null;
+  Announcement_Heading: string;
+  Announcement_Button_text?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
   Header_Logo?: (string | null) | Media;
   Mobile_Header_Logo?: (string | null) | Media;
   menus?:
@@ -4352,6 +4359,15 @@ export interface Footer {
 export interface HeaderSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  Announcement_Enable?: T;
+  Announcement_Heading?: T;
+  Announcement_Button_text?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        target?: T;
+      };
   Header_Logo?: T;
   Mobile_Header_Logo?: T;
   menus?:
