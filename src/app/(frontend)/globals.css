@@ -360,7 +360,10 @@
 .tools-section img.alignright {
   margin-left: auto;
 }
-
+.header.is-sticky .haeder-btm {
+    position: fixed;
+    top: 0;
+}
 .tools-section .content a {
   color: #7D1E69;
   text-decoration: underline;
