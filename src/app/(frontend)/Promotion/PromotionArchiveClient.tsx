@@ -1,28 +1,17 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import RichText from '@/components/RichText'
+import type { Promotion, Media } from '@/payload-types'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { Promotion } from '@/payload-types'
 import type {
   SerializedLexicalNode,
   SerializedTextNode,
 } from 'lexical'
-
+import RichText from '@/components/RichText'
 
 export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[] }) => {
-
-  if (!data) {
-    return null
-  }
-
-  // If data is an array, render the archive list view
-  if (Array.isArray(data)) {
-    return (
-      <>
-      </>
-    )
-  }
+  if (!data) return null
+  if (Array.isArray(data)) return <></>
 
   const {
     title: topLevelTitle,
@@ -33,119 +22,98 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
     layout,
   } = data
 
-  const extractHeadingHTML = (
+  /* ---------------- Lexical → HTML ---------------- */
+  const extractHTML = (
     nodes?: SerializedLexicalNode[]
   ): string => {
     if (!Array.isArray(nodes)) return ''
 
     return nodes
       .map((node) => {
-        if (!('children' in node) || !Array.isArray(node.children)) {
-          return ''
-        }
+        if (!('children' in node)) return ''
 
-        const text = node.children
-          .map((child) =>
-            child.type === 'text'
-              ? (child as SerializedTextNode).text
-              : ''
-          )
-          .join('')
+        const text =
+          node.children
+            ?.map((child) =>
+              child.type === 'text'
+                ? (child as SerializedTextNode).text
+                : ''
+            )
+            .join('') || ''
 
-        return text ? `<h1>${text}</h1>` : ''
+        return text ? `<p>${text}</p>` : ''
       })
       .join('')
   }
 
-  const useAlternateLayout = toolsSection?.useAlternateLayout
-
-
+  /* ---------------- Fields ---------------- */
   const title = toolsSection?.toolsHeading || topLevelTitle
-  const description = toolsSection?.content
-  const featured_image = toolsSection?.image
-
-  const promotion_detail_description = intelligenceReport?.intelligences
-
-  const upload_video = mediaSection?.video
-
-  const cta_title = ctaSection?.ctaHeading
-  const cta_title_copy = ctaSection?.descrip
-  const cta_link = ctaSection?.button
-
-  const show_cta_section = !!cta_title
-
-  const descriptionHTML = extractHeadingHTML(
-    description?.root?.children as SerializedLexicalNode[] | undefined
+  const descriptionHTML = extractHTML(
+    toolsSection?.content?.root?.children as SerializedLexicalNode[] | undefined
   )
 
+  const featuredImage = toolsSection?.image as Media | null
+  const promotionDetails = intelligenceReport?.intelligences
+  const video = mediaSection?.video as Media | null
 
+  const ctaTitle = ctaSection?.ctaHeading
+  const cta_title_copy = ctaSection?.descrip
+  const ctaLink = ctaSection?.button
 
+  const showCTA = Boolean(ctaTitle)
+
+  /* ✅ ONLY NEW LINE (checkbox value) */
+  const useAlternateLayout = toolsSection?.useAlternateLayout
 
   return (
     <>
       <section className="tools-section lg:py[150px] py-[80px] w-full bg-dots_bg bg-cover bg-center bg-no-repeat">
         <div className="container">
           <div className="md:space-y-8 space-y-4 max-w-[1024px] mx-auto">
+
+            {/* Logo */}
             <div className="top w-full flex justify-center items-center xmd:mb-16 mb-10">
               <div className="logo">
                 <Link href="/" role="link">
                   <Image
-                    src={"/media/Frame.webp"}
+                    src="/media/Frame.webp"
                     width={310}
                     height={85}
                     alt="Adaptive logo"
-                    role="img"
                     className="w-[150px] md:w-[200px] lg:w-[310px] h-auto"
                   />
                 </Link>
               </div>
             </div>
+
+            {/* Heading */}
             <div className="inner-content flex flex-col space-y-8">
-
-
               <div className="heading">
-                <h2 className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] xsm:before:left-[-24px] before:left-[-12px] before:opacity-20 before:z-0 text-left">
-                  {title}
-                </h2>
+                <h2
+                  className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] xsm:before:left-[-24px] before:left-[-12px] before:opacity-20 before:z-0 text-left"
+                  dangerouslySetInnerHTML={{ __html: title ?? '' }}
+                />
               </div>
 
-              {/* DESCRIPTION + IMAGE */}
+              {/* ================= DESCRIPTION + IMAGE ================= */}
               {!useAlternateLayout && (
-                /* ===== LAYOUT 1 (Checkbox OFF) ===== */
-                <div className="flex flex-col lg:flex-row gap-8 items-start">
-                  <div className="w-full lg:w-[60%]">
+                /* ===== Checkbox OFF (existing layout) ===== */
+                <div className="inner flex lg:gap-16 gap-8 flex-col">
+                  {descriptionHTML && (
+                    <div
+                      className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
+                      dangerouslySetInnerHTML={{ __html: descriptionHTML }}
+                    />
+                  )}
 
-                    {/* {description && (
-                      <RichText
-                        className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
-                        data={description}
-                        enableGutter={false}
-                      />
-                    )} */}
-                    {descriptionHTML && (
-                      <div
-                        className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300 [&_h1]:text-[20px]"
-                        dangerouslySetInnerHTML={{ __html: descriptionHTML }}
-                      />
-                    )}
-
-
-
-                  </div>
-
-
-                  {featured_image && (
-                    <div className="w-full lg:w-[40%] flex justify-end">
+                  {featuredImage?.url && (
+                    <div className="left w-full flex-shrink-0">
                       <Image
-                        src={
-                          typeof featured_image === 'object' && featured_image?.url
-                            ? featured_image.url
-                            : ''
-                        }
-                        width={420}
-                        height={300}
-                        alt="Sample report"
-                        className="w-full max-w-[420px] h-auto object-contain"
+                        src={featuredImage.url}
+                        width={1488}
+                        height={489}
+                        alt={featuredImage.alt || 'promotion image'}
+                        className="w-full h-auto object-cover"
                       />
                     </div>
                   )}
@@ -153,131 +121,104 @@ export const PromotionArchiveClient = ({ data }: { data: Promotion | Promotion[]
               )}
 
               {useAlternateLayout && (
-                /* ===== LAYOUT 2 (Checkbox ON) ===== */
+                /* ===== Checkbox ON (alternate layout) ===== */
                 <div className="flex flex-col gap-8">
-                  {description && (
-                    <RichText
+                  {descriptionHTML && (
+                    <div
                       className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
-                      data={description}
-                      enableGutter={false}
+                      dangerouslySetInnerHTML={{ __html: descriptionHTML }}
                     />
                   )}
 
-                  {featured_image && (
+                  {featuredImage?.url && (
                     <div className="w-full">
                       <Image
-                        src={
-                          typeof featured_image === 'object' && featured_image?.url
-                            ? featured_image.url
-                            : ''
-                        }
-                        width={1024}
-                        height={600}
-                        alt="Promotion Image"
-                        className="w-full h-auto object-cover rounded-lg"
+                        src={featuredImage.url}
+                        width={1488}
+                        height={489}
+                        alt={featuredImage.alt || 'promotion image'}
+                        className="w-full h-auto object-cover"
                       />
                     </div>
                   )}
                 </div>
               )}
 
+              {/* Video */}
+              {video?.url && (
+                <div className="left w-full max-w-[1024px] mx-auto">
+                  <video src={video.url} controls width="100%" />
+                </div>
+              )}
 
-
-
-              {/* GRID SECTION */}
+              {/* Intelligence Cards */}
               <div className="right font-inter flex flex-col xmd:flex-row xmd:gap-8 gap-4">
                 <div className="left-block grid grid-cols-1 sm:grid-cols-2 md:gap-8 gap-4 w-full">
-
-                  {promotion_detail_description &&
-                    promotion_detail_description.map((item: Exclude<Exclude<Promotion['intelligenceReport'], null | undefined>['intelligences'], null | undefined>[number], index: number) => (
-                      <div
-                        key={index}
-                        className="flex justify-start items-start bg-white border border-solid border-black-200 md:p-6 p-4 gap-3"
-                      >
-                        <div className="icon w-[18px] h-[28px] flex-shrink-0">
-                          <Image
-                            src="/media/tick-svggreen.svg"
-                            width={18}
-                            height={28}
-                            alt="tick icon"
-                            className="w-[18px] h-[28px] flex-shrink-0"
-                          />
-                        </div>
-
-                        <div className="content space-y-2">
-                          <h3 className="text-body font-bold font-inter heading flex-1">
-                            {item.intelligenceHeading}
-                          </h3>
-
-                          {item.description && (
-                            <RichText
-                              data={item.description}
-                              enableGutter={false}
-                            />
-                          )}
-                        </div>
+                  {promotionDetails?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-start items-start bg-white border border-solid border-black-200 md:p-6 p-4 gap-3"
+                    >
+                      <div className="icon w-[18px] h-[28px] flex-shrink-0">
+                        <Image
+                          src="/media/tick-svggreen.svg"
+                          width={18}
+                          height={28}
+                          alt="tick"
+                        />
                       </div>
-                    ))}
+
+                      <div className="content space-y-2">
+                        <h3 className="text-body font-bold font-inter heading flex-1">
+                          {item.intelligenceHeading}
+                        </h3>
+
+                        {item.description && (
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: extractHTML(
+                                item.description.root?.children as SerializedLexicalNode[]
+                              ),
+                            }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              {/* VIDEO */}
-              {upload_video && typeof upload_video === 'object' && upload_video.url && (
-                <div className="w-full max-w-[1024px] mx-auto">
-                  <video
-                    src={upload_video.url}
-                    controls
-                    width="100%"
-                    className="w-full h-auto"
-                  />
-                </div>
-              )}
-              {/* CTA SECTION + LAYOUT BLOCKS */}
-
-              {show_cta_section && (
-                <div className="sub-box py-8 space-y-8 flex flex-col justify-center items-center">
-                  <h2 className="text-h2 font-ivy font-semibold relative text-center">
-                    {cta_title}
-                  </h2>
-
-                  {cta_title_copy && (
-                    <RichText
-                      data={cta_title_copy}
-                      enableGutter={false}
-                    />
-                  )}
-
-                  <div className="btn-green *:text-4">
-                    {cta_link?.url && (
-                      <Link
-                        href={cta_link.url}
-                        target={cta_link.target || '_self'}
-                        className="inline-block"
-                      >
-                        {cta_link.label || 'Learn More'}
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              )}
-
-
             </div>
 
+            {/* CTA */}
+            {showCTA && (
+              <div className="sub-box py-8 space-y-8 flex flex-col justify-center items-center">
+                <h2
+                  className="text-h2 font-ivy font-semibold relative text-center"
+                  dangerouslySetInnerHTML={{ __html: ctaTitle ?? '' }}
+                />
+
+                {cta_title_copy && (
+                  <RichText data={cta_title_copy} enableGutter={false} />
+                )}
+
+                {ctaLink?.url && (
+                  <div className="btn-green *:text-4">
+                    <Link href={ctaLink.url} target={ctaLink.target ?? '_self'}>
+                      {ctaLink.label}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
-
 
         {layout && (
           <div className="w-full">
             <RenderBlocks blocks={layout} />
           </div>
         )}
-      </section >
+      </section>
     </>
   )
 }
-
-
-
-
