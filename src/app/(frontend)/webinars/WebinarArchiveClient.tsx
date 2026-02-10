@@ -116,7 +116,10 @@ export default function WebinarArchiveClient({
   }, [initialWebinars, searchTerm, activeTab])
 
 
-    // ✅ Infinite scroll observer 
+
+
+
+  // ✅ Infinite scroll observer
   useEffect(() => {
     if (!loaderRef.current) return;
     const observer = new IntersectionObserver(
@@ -183,10 +186,10 @@ export default function WebinarArchiveClient({
     setIsOpen(false)
   }
   return (
-    <section className="hero-section pt-[100px] border-b border-black-200 bg-white-100">
+    <section className="hero-section pt-[160px] border-b border-black-200 bg-white-100">
       <div className="flex justify-start items-start relative xmd:flex-row flex-col">
         {/* Sidebar Categories */}
-        <div className="flex items-center justify-center px-2 py-6 xl:w-[20%] xmd:w-[30%] w-full sticky xmd:top-[120px] top-[112px] shadow-lg xmd:shadow-none xmd:bg-transparent bg-white-100 ">
+        <div className="flex items-center justify-center px-2 pb-6 pt-8 xl:w-[20%] xmd:w-[30%] w-full sticky xmd:top-[120px] top-[112px] shadow-lg xmd:shadow-none xmd:bg-transparent bg-white-100 ">
           <div className="container">
             <div className="main-btns flex xmd:flex-col flex-row sm:gap-2 gap-6 overflow-x-auto no-scrollbar">
               {["All", "On Demand", ...categories.map((cat) => cat.title)].map((cat) => (
@@ -207,7 +210,7 @@ export default function WebinarArchiveClient({
         {/* Content */}
         <div className="inner xmd:px-10 xmd:py-10 py-2 xl:w-[80%] xmd:w-[70%] w-full">
           <div
-            className={`sticky xmd:top-[90px] top-[200px] xmd:px-0 px-2 z-50 py-4  border-t-[1px] border-t-solid xmd:border-t-transparent border-t-black-200 flex justify-between items-center gap-0 xsm:gap-8 xsm:flex-row flex-col   ${isScrolled
+            className={`sticky  xmd:top-[90px] top-[200px] xmd:px-0 px-2 z-50 py-4  border-t-[1px] border-t-solid xmd:border-t-transparent border-t-black-200 flex justify-between items-center gap-0 xsm:gap-8 xsm:flex-row flex-col   ${isScrolled
               ? "bg-white-100  border-b-[1px] border-b-solid border-b-black-200"
               : "bg-transparent"
               }`}

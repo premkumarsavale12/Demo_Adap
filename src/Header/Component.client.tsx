@@ -149,7 +149,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     <>
       <header
         ref={headerRef}
-        className={`header w-full transition-all duration-300 ${isSticky ? 'is-sticky' : ''}`}
+        className={`header fixed w-full z-[99] transition-all duration-300 ${isSticky ? 'is-sticky' : ''}`}
       >
         {/* {data.Announcement_Enable ? ( */}
         <div className="header-top text-base leading-relaxed bg-blue px-4 py-3 text-center text-white flex justify-center items-center">
