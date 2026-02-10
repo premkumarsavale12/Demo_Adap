@@ -3,10 +3,6 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
 
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -46,9 +42,14 @@ import { Hero_Section_2 } from '@/blocks/Hero_Section_2/config'
 import { Faq } from '@/blocks/Faq/config'
 import { Pricing } from '@/blocks/Pricing/config'
 import { risk_weather } from '@/blocks/risk_weather/config'
-import {  risk_contribution } from '@/blocks/risk_contribution/config'
-import  { Protection_Calculator } from '@/blocks/protection-calculator/config'
+import { risk_contribution } from '@/blocks/risk_contribution/config'
+import { Protection_Calculator } from '@/blocks/protection-calculator/config'
 import { Forward_Test } from '@/blocks/Forward_Test/config'
+import { CallToAction } from '@/blocks/CallToAction/config'
+import { Content } from '@/blocks/Content/config'
+import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { FormBlock } from '@/blocks/Form/config'
+import { Code } from '@/blocks/Code/config'
 
 import { ToolsTab } from '@/blocks/ToolsTab/config'
 
@@ -117,7 +118,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-             
+                Archive,
                 Hero_Image,
                 HorizontalContent,
                 MarketShield,
@@ -157,8 +158,13 @@ export const Pages: CollectionConfig<'pages'> = {
                 risk_weather,
                 risk_contribution,
                 ToolsTab,
-                 Protection_Calculator,
-                  Forward_Test
+                Protection_Calculator,
+                Forward_Test,
+                CallToAction,
+                Content,
+                MediaBlock,
+                FormBlock,
+                Code,
 
               ],
               required: false,

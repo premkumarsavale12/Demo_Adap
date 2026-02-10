@@ -26,18 +26,18 @@ type HeaderMenuItem = {
   megaWidth?: 'sm' | 'md' | 'lg' | null
 
   submenus?:
+  | {
+    links?:
     | {
-        links?:
-          | {
-              link?: {
-                label?: string | null
-                url?: string | null
-                target?: '_self' | '_blank' | null
-              }
-            }[]
-          | null
-      }[]
+      link?: {
+        label?: string | null
+        url?: string | null
+        target?: '_self' | '_blank' | null
+      }
+    }[]
     | null
+  }[]
+  | null
 }
 
 const getMegaWidthClass = (width?: 'sm' | 'md' | 'lg' | null) => {
@@ -101,7 +101,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         if (!isMobile()) return
         e.preventDefault()
         const isOpen = menu.style.maxHeight !== '0px' && menu.style.maxHeight !== ''
-        isOpen ? closeMenu(menu) : openMenu(menu)
+        if (isOpen) {
+          closeMenu(menu)
+        } else {
+          openMenu(menu)
+        }
       }
 
       button.addEventListener('mouseenter', enter)
@@ -148,23 +152,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         className={`header w-full transition-all duration-300 ${isSticky ? 'is-sticky' : ''}`}
       >
         {/* {data.Announcement_Enable ? ( */}
-          <div className="header-top text-base leading-relaxed bg-blue px-4 py-3 text-center text-white flex justify-center items-center">
-            <p className="flex  justify-center text-center flex-wrap items-center gap-1">
-              <span className="font-normal text-white">
-                {data.Announcement_Heading ||
-                  'Are Your Portfolios Hedgeable with Tax-Smart Index Options?'}
-              </span>
+        <div className="header-top text-base leading-relaxed bg-blue px-4 py-3 text-center text-white flex justify-center items-center">
+          <p className="flex  justify-center text-center flex-wrap items-center gap-1">
+            <span className="font-normal text-white">
+              {data.Announcement_Heading ||
+                'Are Your Portfolios Hedgeable with Tax-Smart Index Options?'}
+            </span>
 
-              {data.Announcement_Button_text?.url ? (
-                <Link
-                  href={data.Announcement_Button_text.url}
-                  className="font-normal text-[#e58b76] hover:text-[#fff] underline transition-colors"
-                >
-                  {data.Announcement_Button_text?.label || ' Free On-Demand Webinars.'}
-                </Link>
-              ) : null}
-            </p>
-          </div>
+            {data.Announcement_Button_text?.url ? (
+              <Link
+                href={data.Announcement_Button_text.url}
+                className="font-normal text-[#e58b76] hover:text-[#fff] underline transition-colors"
+              >
+                {data.Announcement_Button_text?.label || ' Free On-Demand Webinars.'}
+              </Link>
+            ) : null}
+          </p>
+        </div>
         {/* ) : (
           <></>
         )} */}
@@ -179,9 +183,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               {/* Navigation */}
               <nav
                 className={`
-              fixed left-0 transform lg:translate-x-0 transition-transform duration-500 lg:left-0 top-0 lg:relative w-[300px] lg:w-auto h-full lg:h-auto px-6 py-12 lg:p-0 bg-blue lg:bg-transparent flex lg:justify-center justify-start lg:items-center items-start gap-[48px] flex-col lg:flex-row overflow-y-auto lg:overflow-visible z-[9999] no-scrollbar ${
-                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-              }`}
+              fixed left-0 transform lg:translate-x-0 transition-transform duration-500 lg:left-0 top-0 lg:relative w-[300px] lg:w-auto h-full lg:h-auto px-6 py-12 lg:p-0 bg-blue lg:bg-transparent flex lg:justify-center justify-start lg:items-center items-start gap-[48px] flex-col lg:flex-row overflow-y-auto lg:overflow-visible z-[9999] no-scrollbar ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                  }`}
               >
                 {/* Sidebar toggle button */}
                 <button
