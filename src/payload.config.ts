@@ -12,7 +12,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
- 
+
 import { Webinars } from './collections/Webinars'
 import { Promotion } from './collections/Promotion'
 
@@ -23,6 +23,16 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || (process.env.NODE_ENV === 'production' ? 'https://adaptive-payload-cms.vercel.app' : 'http://localhost:3000'),
   admin: {
+    meta: {
+      titleSuffix: '- Adaptive',
+      icons: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          url: '/media/favicon.ico',
+        },
+      ],
+    },
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
@@ -63,7 +73,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
-  collections: [Pages, Posts, Webinars,Promotion,   Media, Categories, Users],
+  collections: [Pages, Posts, Webinars, Promotion, Media, Categories, Users],
   cors: [
     'https://adaptive-payload-cms.vercel.app',
     'http://localhost:3000',
