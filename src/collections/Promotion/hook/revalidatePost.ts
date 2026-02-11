@@ -1,13 +1,14 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
-import { revalidatePath, revalidateTag } from 'next/cache'
 import type { Promotion } from '../../../payload-types'
 
-export const revalidatePost: CollectionAfterChangeHook<Promotion> = ({
+export const revalidatePost: CollectionAfterChangeHook<Promotion> = async ({
   doc,
   previousDoc,
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
+    const { revalidatePath, revalidateTag } = await import('next/cache')
+
     if (doc._status === 'published') {
       const path = `/Promotion/${doc.slug}`
 
@@ -30,8 +31,9 @@ export const revalidatePost: CollectionAfterChangeHook<Promotion> = ({
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Promotion> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<Promotion> = async ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
+    const { revalidatePath, revalidateTag } = await import('next/cache')
     const path = `/Promotion/${doc?.slug}`
 
     revalidatePath(path)
