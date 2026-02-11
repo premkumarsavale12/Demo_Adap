@@ -7,6 +7,7 @@ import React, { cache } from 'react'
 // import PromotionArchiveClient from '../PromotionArchiveClient'
 import { PromotionArchiveClient } from '../PromotionArchiveClient'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 
 export async function generateStaticParams() {
     const payload = await getPayload({ config: configPromise })
@@ -51,7 +52,10 @@ export default async function PromotionPage({ params: paramsPromise }: Args) {
     return (
         <article className="pt-10 pb-24">
             {draft && <LivePreviewListener />}
-            <PromotionArchiveClient data={promotion} />
+            <PromotionArchiveClient
+                data={promotion}
+                renderBlocks={<RenderBlocks blocks={promotion.layout} />}
+            />
         </article>
     )
 }

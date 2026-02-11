@@ -1,8 +1,11 @@
+"use client"
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Promotion, Media } from '@/payload-types'
-import { RenderBlocks } from '@/blocks/RenderBlocks'
+
 import type {
   SerializedLexicalNode,
   SerializedTextNode,
@@ -11,9 +14,12 @@ import RichText from '@/components/RichText'
 
 export const PromotionArchiveClient = ({
   data,
+  renderBlocks,
 }: {
   data: Promotion | Promotion[]
+  renderBlocks?: React.ReactNode
 }) => {
+  const isChecked = data && !Array.isArray(data) ? data.toolsSection?.useAlternateLayout : false
   if (!data) return null
 
   if (Array.isArray(data)) {
@@ -29,7 +35,7 @@ export const PromotionArchiveClient = ({
     layout,
   } = data
 
-  /* ---------------- Lexical → HTML ---------------- */
+  /* ------ Lexical → HTML ------- */
   const extractHTML = (
     nodes?: SerializedLexicalNode[]
   ): string => {
@@ -53,7 +59,7 @@ export const PromotionArchiveClient = ({
       .join('')
   }
 
-  /* ---------------- Fields ---------------- */
+  /* --------- Fields -------- */
   const title = toolsSection?.toolsHeading || topLevelTitle
 
   const descriptionHTML = extractHTML(
@@ -93,81 +99,115 @@ export const PromotionArchiveClient = ({
             </div>
 
             {/* Heading */}
-            <div className="inner-content flex flex-col space-y-8">
-              <div className="heading">
-                <h2
-                  className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] xsm:before:left-[-24px] before:left-[-12px] before:opacity-20 before:z-0 text-left"
-                  dangerouslySetInnerHTML={{ __html: title ?? '' }}
-                />
-
-                {descriptionHTML && (
-                  <div
-                    className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
-                    dangerouslySetInnerHTML={{ __html: descriptionHTML }}
+            {isChecked ? (
+              <div className="inner-content flex flex-col space-y-8">
+                <div className="heading">
+                  <h2
+                    className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] xsm:before:left-[-24px] before:left-[-12px] before:opacity-20 before:z-0 text-left"
+                    dangerouslySetInnerHTML={{ __html: title ?? '' }}
                   />
-                )}
-              </div>
-
-              {/* Image */}
-              <div className="inner flex lg:gap-16 gap-8 flex-col">
-                {featuredImage?.url && (
-                  <div className="left w-full  flex-shrink-0">
-                    <Image
-                      src={featuredImage.url}
-                      width={1488}
-                      height={489}
-                      alt={featuredImage.alt || 'promotion image'}
-                      className="w-full h-auto object-cover"
+                </div>
+                <div className="flex flex-col md:flex-row gap-8 items-start">
+                  {descriptionHTML && (
+                    <div
+                      className="content font-inter flex flex-col gap-4 text-p text-black-300 w-full md:w-1/2"
+                      dangerouslySetInnerHTML={{ __html: descriptionHTML }}
                     />
-                  </div>
-                )}
-
-                {/* Video */}
-                {video?.url && (
-                  <div className="left w-full max-w-[1024px] mx-auto">
-                    <video src={video.url} controls width="100%" />
-                  </div>
-                )}
-
-                {/* Intelligence Cards */}
-                <div className="right font-inter flex flex-col xmd:flex-row xmd:gap-8 gap-4">
-                  <div className="left-block grid grid-cols-1 sm:grid-cols-2 md:gap-8 gap-4 w-full">
-                    {promotionDetails?.map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-start items-start bg-white border border-solid border-black-200 md:p-6 p-4 gap-3"
-                      >
-                        <div className="icon w-[18px] h-[28px] flex-shrink-0">
-
-                          <Image
-                            src="/media/tick-svggreen.svg"
-                            width={18}
-                            height={28}
-                            alt="tick"
-                          />
-                        </div>
-                        <div className="content space-y-2">
-                          <h3 className="text-body font-bold font-inter heading flex-1">
-                            {item.intelligenceHeading}
-                          </h3>
-
-                          {item.description && (
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: extractHTML(
-                                  item.description.root
-                                    ?.children as SerializedLexicalNode[]
-                                ),
-                              }}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                  )}
+                  <div className="w-full md:w-1/2 flex flex-col items-center">
+                    {featuredImage?.url && (
+                      <Image
+                        src={featuredImage.url}
+                        width={1488}
+                        height={489}
+                        alt={featuredImage.alt || 'promotion image'}
+                        className="w-full h-auto object-cover"
+                      />
+                    )}
+                    <Link href={ctaLink?.url || '#'} className="text-blue-600 mt-2 block font-medium" >
+                      View sample report.
+                    </Link>
                   </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="inner-content flex flex-col space-y-8">
+                <div className="heading">
+                  <h2
+                    className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] xsm:before:left-[-24px] before:left-[-12px] before:opacity-20 before:z-0 text-left"
+                    dangerouslySetInnerHTML={{ __html: title ?? '' }}
+                  />
+
+                  {descriptionHTML && (
+                    <div
+                      className="content font-inter flex flex-col gap-4 xmd:pt-8 pt-4 text-p text-black-300"
+                      dangerouslySetInnerHTML={{ __html: descriptionHTML }}
+                    />
+                  )}
+                </div>
+
+                {/* Image */}
+                <div className="inner flex lg:gap-16 gap-8 flex-col">
+                  {featuredImage?.url && (
+                    <div className="left w-full  flex-shrink-0">
+                      <Image
+                        src={featuredImage.url}
+                        width={1488}
+                        height={489}
+                        alt={featuredImage.alt || 'promotion image'}
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
+                  )}
+
+                  {/* Video */}
+                  {video?.url && (
+                    <div className="left w-full max-w-[1024px] mx-auto">
+                      <video src={video.url} controls width="100%" />
+                    </div>
+                  )}
+
+
+                  {/* Intelligence Cards */}
+                  <div className="right font-inter flex flex-col xmd:flex-row xmd:gap-8 gap-4">
+                    <div className="left-block grid grid-cols-1 sm:grid-cols-2 md:gap-8 gap-4 w-full">
+                      {promotionDetails?.map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex justify-start items-start bg-white border border-solid border-black-200 md:p-6 p-4 gap-3"
+                        >
+                          <div className="icon w-[18px] h-[28px] flex-shrink-0">
+
+                            <Image
+                              src="/media/tick-svggreen.svg"
+                              width={18}
+                              height={28}
+                              alt="tick"
+                            />
+                          </div>
+                          <div className="content space-y-2">
+                            <h3 className="text-body font-bold font-inter heading flex-1">
+                              {item.intelligenceHeading}
+                            </h3>
+
+                            {item.description && (
+                              <div
+                                dangerouslySetInnerHTML={{
+                                  __html: extractHTML(
+                                    item.description.root
+                                      ?.children as SerializedLexicalNode[]
+                                  ),
+                                }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* CTA */}
             {showCTA && (
@@ -196,9 +236,9 @@ export const PromotionArchiveClient = ({
             )}
           </div>
         </div>
-        {layout && (
+        {renderBlocks && (
           <div className="w-full">
-            <RenderBlocks blocks={layout} />
+            {renderBlocks}
           </div>
         )}
       </section>

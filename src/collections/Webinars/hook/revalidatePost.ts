@@ -1,15 +1,14 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
-
-import { revalidatePath, revalidateTag } from 'next/cache'
-
 import type { Webinar } from '../../../payload-types'
 
-export const revalidatePost: CollectionAfterChangeHook<Webinar> = ({
+export const revalidatePost: CollectionAfterChangeHook<Webinar> = async ({
   doc,
   previousDoc,
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
+    const { revalidatePath, revalidateTag } = await import('next/cache')
+
     if (doc._status === 'published') {
       const path = `/webinars/${doc.slug}`
 
@@ -32,8 +31,9 @@ export const revalidatePost: CollectionAfterChangeHook<Webinar> = ({
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Webinar> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<Webinar> = async ({ doc, req: { context } }) => {
   if (!context.disableRevalidate) {
+    const { revalidatePath, revalidateTag } = await import('next/cache')
     const path = `/webinars/${doc?.slug}`
 
     revalidatePath(path)

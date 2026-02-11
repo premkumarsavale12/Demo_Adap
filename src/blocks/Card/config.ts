@@ -5,7 +5,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { Block } from 'payload'
- 
+
 export const Card: Block = {
   slug: 'card',
   imageURL: '/block-previews/card.png',
@@ -35,4 +35,3 @@ export const Card: Block = {
     },
   ],
 }
- 
