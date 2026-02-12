@@ -6,12 +6,14 @@ import type {
     SerializedLexicalNode,
     SerializedTextNode,
 } from "lexical";
+import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 
 interface Intelligence_reportProps {
     intelligences: {
         intelligenceHeading?: string;
-        description?: any;
+        description?: DefaultTypedEditorState;
     }[];
+
 }
 
 export const Intelligences_report: React.FC<Intelligence_reportProps> = ({
@@ -24,21 +26,27 @@ export const Intelligences_report: React.FC<Intelligence_reportProps> = ({
 
         return nodes
             .map((node) => {
-                if (!("children" in node)) return "";
+                // Proper type narrowing
+                if (
+                    !("children" in node) ||
+                    !Array.isArray(node.children)
+                ) {
+                    return "";
+                }
 
-                const text =
-                    node.children
-                        ?.map((child) =>
+                const text = node.children
+                    .filter(
+                        (child): child is SerializedTextNode =>
                             child.type === "text"
-                                ? (child as SerializedTextNode).text
-                                : ""
-                        )
-                        .join("") || "";
+                    )
+                    .map((child) => child.text)
+                    .join("");
 
                 return text ? `<p>${text}</p>` : "";
             })
             .join("");
     };
+
 
     return (
         <>

@@ -8,11 +8,12 @@ import type {
   SerializedLexicalNode,
   SerializedTextNode,
 } from "lexical";
+import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 
 interface Tools_SectionsProps {
   toolsHeading?: string;
   useAlternateLayout?: boolean;
-  content: any;
+  content: DefaultTypedEditorState;
   image?: Media;
 }
 
@@ -30,21 +31,28 @@ export const Tools_Sections: React.FC<Tools_SectionsProps> = ({
 
     return nodes
       .map((node) => {
-        if (!("children" in node)) return "";
+        // ✅ MUST check both property and array type
+        if (
+          !("children" in node) ||
+          !Array.isArray(node.children)
+        ) {
+          return "";
+        }
 
-        const text =
-          node.children
-            ?.map((child) =>
-              child.type === "text"
-                ? (child as SerializedTextNode).text
-                : ""
-            )
-            .join("") || "";
+        const text = node.children
+          .map((child) => {
+            if (child.type === "text") {
+              return (child as SerializedTextNode).text;
+            }
+            return "";
+          })
+          .join("");
 
         return text ? `<p>${text}</p>` : "";
       })
       .join("");
   };
+
 
   const descriptionHTML = extractHTML(
     content?.root?.children as SerializedLexicalNode[]

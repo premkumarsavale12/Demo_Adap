@@ -1,11 +1,14 @@
 import React from 'react'
+import Image from 'next/image'
 
 const Icon: React.FC = () => {
     return (
-        <img
+        <Image
             src="/media/adaptive-Logo.svg"
             alt="Adaptive Icon"
-            style={{ width: '50px' }}
+            height={50}
+            width={50}
+        // style={{ width: '50px' }}
         />
     )
 }
