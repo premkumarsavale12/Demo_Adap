@@ -50,6 +50,10 @@ import { Content } from '@/blocks/Content/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { FormBlock } from '@/blocks/Form/config'
 import { Code } from '@/blocks/Code/config'
+import { Tools_Section } from '@/blocks/Tools_Section/config'
+import { Intelligence_report } from '@/blocks/Intelligence_report/config'
+import { Cta_Section } from '@/blocks/Cta_Section/config'
+import { Media_Section } from "@/blocks/Media_Section/config"
 
 import { ToolsTab } from '@/blocks/ToolsTab/config'
 
@@ -165,6 +169,11 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBlock,
                 FormBlock,
                 Code,
+                Tools_Section,
+                Intelligence_report,
+                Cta_Section,
+                Media_Section
+
 
               ],
               required: false,
