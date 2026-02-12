@@ -49,6 +49,10 @@ import ToolTab from '@/blocks/ToolsTab/Component'
 import { Protection_Calculator } from '@/blocks/protection-calculator/Component'
 import { Forward_Test } from '@/blocks/Forward_Test/Component'
 import Faq from '@/blocks/Faq/Component'
+import { Tools_Sections } from '@/blocks/Tools_Section/Component'
+import { Intelligences_report } from '@/blocks/Intelligence_report/Component'
+import { Cta_Section } from '@/blocks/Cta_Section/Component'
+import { Media_Section } from '@/blocks/Media_Section/Component'
 
 
 
@@ -100,7 +104,12 @@ const blockComponents = {
   risk_contribution: RiskContribution,
   toolstab: ToolTab,
   protection_calculator: Protection_Calculator,
-  forward_test: Forward_Test
+  forward_test: Forward_Test,
+  tools_section: Tools_Sections,
+  intelligences_report: Intelligences_report,
+  cta_section: Cta_Section,
+  media_section: Media_Section
+
 
 }
 

@@ -230,6 +230,10 @@ export interface Page {
         | MediaBlock
         | FormBlock
         | CodeBlock
+        | ToolsSection
+        | IntelligencesReport
+        | CtaSection
+        | MediaSection
       )[]
     | null;
   meta?: {
@@ -597,76 +601,8 @@ export interface Webinar {
 export interface Promotion {
   id: string;
   title: string;
-  toolsSection?: {
-    toolsHeading?: string | null;
-    useAlternateLayout?: boolean | null;
-    content?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    image?: (string | null) | Media;
-  };
-  intelligenceReport?: {
-    intelligences?:
-      | {
-          intelligenceHeading?: string | null;
-          description?: {
-            root: {
-              type: string;
-              children: {
-                type: any;
-                version: number;
-                [k: string]: unknown;
-              }[];
-              direction: ('ltr' | 'rtl') | null;
-              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-              indent: number;
-              version: number;
-            };
-            [k: string]: unknown;
-          } | null;
-          id?: string | null;
-        }[]
-      | null;
-  };
-  mediaSection?: {
-    video?: (string | null) | Media;
-  };
-  ctaSection?: {
-    ctaHeading?: string | null;
-    descrip?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    button?: {
-      label?: string | null;
-      url?: string | null;
-      target?: ('_self' | '_blank') | null;
-    };
-  };
-  layout?: (ForFeature | HorizontalContent)[] | null;
+  Component?: {};
+  layout?: (ForFeature | HorizontalContent | ToolsSection | IntelligencesReport | CtaSection | MediaSection)[] | null;
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
   populatedAuthors?:
@@ -767,6 +703,103 @@ export interface HorizontalContent {
   id?: string | null;
   blockName?: string | null;
   blockType: 'horizontalContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tools_section".
+ */
+export interface ToolsSection {
+  toolsHeading?: string | null;
+  useAlternateLayout?: boolean | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tools_section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intelligences_report".
+ */
+export interface IntelligencesReport {
+  intelligences?:
+    | {
+        intelligenceHeading?: string | null;
+        description?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'intelligences_report';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cta_section".
+ */
+export interface CtaSection {
+  ctaHeading?: string | null;
+  descrip?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  button?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'cta_section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_section".
+ */
+export interface MediaSection {
+  video?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media_section';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3147,6 +3180,10 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         code?: T | CodeBlockSelect<T>;
+        tools_section?: T | ToolsSectionSelect<T>;
+        intelligences_report?: T | IntelligencesReportSelect<T>;
+        cta_section?: T | CtaSectionSelect<T>;
+        media_section?: T | MediaSectionSelect<T>;
       };
   meta?:
     | T
@@ -4015,6 +4052,59 @@ export interface CodeBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tools_section_select".
+ */
+export interface ToolsSectionSelect<T extends boolean = true> {
+  toolsHeading?: T;
+  useAlternateLayout?: T;
+  content?: T;
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "intelligences_report_select".
+ */
+export interface IntelligencesReportSelect<T extends boolean = true> {
+  intelligences?:
+    | T
+    | {
+        intelligenceHeading?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cta_section_select".
+ */
+export interface CtaSectionSelect<T extends boolean = true> {
+  ctaHeading?: T;
+  descrip?: T;
+  button?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        target?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_section_select".
+ */
+export interface MediaSectionSelect<T extends boolean = true> {
+  video?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -4097,48 +4187,16 @@ export interface WebinarsSelect<T extends boolean = true> {
  */
 export interface PromotionSelect<T extends boolean = true> {
   title?: T;
-  toolsSection?:
-    | T
-    | {
-        toolsHeading?: T;
-        useAlternateLayout?: T;
-        content?: T;
-        image?: T;
-      };
-  intelligenceReport?:
-    | T
-    | {
-        intelligences?:
-          | T
-          | {
-              intelligenceHeading?: T;
-              description?: T;
-              id?: T;
-            };
-      };
-  mediaSection?:
-    | T
-    | {
-        video?: T;
-      };
-  ctaSection?:
-    | T
-    | {
-        ctaHeading?: T;
-        descrip?: T;
-        button?:
-          | T
-          | {
-              label?: T;
-              url?: T;
-              target?: T;
-            };
-      };
+  Component?: T | {};
   layout?:
     | T
     | {
         for_feature?: T | ForFeatureSelect<T>;
         horizontalContent?: T | HorizontalContentSelect<T>;
+        tools_section?: T | ToolsSectionSelect<T>;
+        intelligences_report?: T | IntelligencesReportSelect<T>;
+        cta_section?: T | CtaSectionSelect<T>;
+        media_section?: T | MediaSectionSelect<T>;
       };
   publishedAt?: T;
   authors?: T;

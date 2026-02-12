@@ -11,11 +11,13 @@ import {
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Banner } from '../../blocks/Banner/config'
-import { Code } from '../../blocks/Code/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
+
 import { For_Feature } from '../../blocks/For_Feature/config'
 import { HorizontalContent as AdvisorsWealthManagers } from '../../blocks/Advisors-Wealth-Managers/config'
+import { Tools_Section } from '@/blocks/Tools_Section/config'
+import { Intelligence_report } from '@/blocks/Intelligence_report/config'
+import { Cta_Section } from '@/blocks/Cta_Section/config'
+import { Media_Section } from '@/blocks/Media_Section/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 
 import { populateAuthors } from './hook/populateAuthors'
@@ -63,152 +65,22 @@ export const Promotion: CollectionConfig<'promotion'> = {
         {
             type: 'tabs',
             tabs: [
-                {
-                    name: 'toolsSection',
-                    label: 'Tools Section',
-                    fields: [
-                        {
-                            name: 'toolsHeading',
-                            type: 'text',
-                            label: 'Heading',
-                        },
-                        {
-                            name: 'useAlternateLayout',
-                            type: 'checkbox',
-                            label: 'Show Alternate Layout',
-                            defaultValue: false,
-                        },
-                        {
-                            name: 'content',
-                            type: 'richText',
-                            label: 'Add Content',
-                            editor: lexicalEditor({
-                                features: ({ rootFeatures }) => [
-                                    ...rootFeatures,
-                                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                                    FixedToolbarFeature(),
-                                    InlineToolbarFeature(),
-                                    HorizontalRuleFeature(),
-                                ],
-                            }),
-                        },
-                        {
-                            name: 'image',
-                            type: 'upload',
-                            relationTo: 'media',
-                            label: 'Upload Image',
-                        },
-                    ],
-                },
 
 
                 {
-                    name: 'intelligenceReport',
-                    label: 'Intelligence Report',
+                    name: 'Component',
+                    label: 'Component',
                     fields: [
-                        {
-                            name: 'intelligences',
-                            type: 'array',
-                            fields: [
-                                {
-                                    name: 'intelligenceHeading',
-                                    type: 'text',
-                                    label: 'Heading',
-                                },
-                                {
-                                    name: 'description',
-                                    type: 'richText',
-                                    label: 'Add Description',
 
-                                    editor: lexicalEditor({
-                                        features: ({ rootFeatures }) => [
-                                            ...rootFeatures,
-                                            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                                            BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                                            FixedToolbarFeature(),
-                                            InlineToolbarFeature(),
-                                            HorizontalRuleFeature(),
-                                        ],
-                                    }),
-                                },
-                            ],
-                        },
-                    ],
+                    ]
                 },
 
-                {
-                    name: 'mediaSection',
-                    label: 'Video & Image',
-                    fields: [
-                        {
-                            name: 'video',
-                            type: 'upload',
-                            relationTo: 'media',
-                            label: 'Upload Video',
-                        },
-                    ],
-                },
-
-                {
-                    name: 'ctaSection',
-                    label: 'Promotion CTA',
-                    fields: [
-                        {
-                            name: 'ctaHeading',
-                            type: 'text',
-                            label: 'Heading',
-                        },
-                        {
-                            name: 'descrip',
-                            type: 'richText',
-
-                            editor: lexicalEditor({
-                                features: ({ rootFeatures }) => [
-                                    ...rootFeatures,
-                                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-                                    FixedToolbarFeature(),
-                                    InlineToolbarFeature(),
-                                    HorizontalRuleFeature(),
-                                ],
-                            }),
-                        },
-                        {
-                            name: 'button',
-                            type: 'group',
-                            label: 'Button',
-                            fields: [
-                                {
-                                    name: 'label',
-                                    type: 'text',
-                                    label: 'Button Name',
-                                },
-                                {
-                                    name: 'url',
-                                    type: 'text',
-                                    label: 'Url',
-                                },
-                                {
-                                    name: 'target',
-                                    type: 'select',
-                                    label: 'Target',
-                                    options: [
-                                        { label: 'Same Tab', value: '_self' },
-                                        { label: 'New Tab', value: '_blank' },
-                                    ],
-                                    defaultValue: '_self',
-                                },
-                            ],
-                        },
-                    ],
-                },
             ],
         },
         {
             name: 'layout',
             type: 'blocks',
-            blocks: [For_Feature, AdvisorsWealthManagers],
+            blocks: [For_Feature, AdvisorsWealthManagers, Tools_Section, Intelligence_report, Cta_Section, Media_Section]
         },
 
         {
