@@ -110,7 +110,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
@@ -122,9 +122,7 @@ export interface Config {
     footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user: User;
   jobs: {
     tasks: {
       schedulePublish: TaskSchedulePublish;
@@ -159,7 +157,7 @@ export interface UserAuthOperations {
  * via the `definition` "pages".
  */
 export interface Page {
-  id: string;
+  id: number;
   title: string;
   layout?:
     | (
@@ -241,7 +239,7 @@ export interface Page {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
@@ -276,21 +274,21 @@ export interface ArchiveBlock {
   } | null;
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: ('posts' | 'webinars' | 'promotion') | null;
-  categories?: (string | Category)[] | null;
+  categories?: (number | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
     | (
         | {
             relationTo: 'posts';
-            value: string | Post;
+            value: number | Post;
           }
         | {
             relationTo: 'webinars';
-            value: string | Webinar;
+            value: number | Webinar;
           }
         | {
             relationTo: 'promotion';
-            value: string | Promotion;
+            value: number | Promotion;
           }
       )[]
     | null;
@@ -303,17 +301,17 @@ export interface ArchiveBlock {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: string;
+  id: number;
   title: string;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
-  parent?: (string | null) | Category;
+  parent?: (number | null) | Category;
   breadcrumbs?:
     | {
-        doc?: (string | null) | Category;
+        doc?: (number | null) | Category;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -327,9 +325,9 @@ export interface Category {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: string;
+  id: number;
   title: string;
-  heroImage?: (string | null) | Media;
+  heroImage?: (number | null) | Media;
   tag: string;
   date: string;
   Heading: string;
@@ -348,17 +346,17 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  author_avatar?: (string | null) | Media;
+  author_avatar?: (number | null) | Media;
   author_name?: string | null;
   link: string;
-  relatedPosts?: (string | Post)[] | null;
-  categories?: (string | Category)[] | null;
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
   meta?: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     description?: string | null;
   };
   pagecontent?: {
@@ -380,7 +378,7 @@ export interface Post {
     Gutenberg_html?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (string | User)[] | null;
+  authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -401,7 +399,7 @@ export interface Post {
  * via the `definition` "media".
  */
 export interface Media {
-  id: string;
+  id: number;
   alt?: string | null;
   caption?: {
     root: {
@@ -418,7 +416,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
-  folder?: (string | null) | FolderInterface;
+  folder?: (number | null) | FolderInterface;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -494,18 +492,18 @@ export interface Media {
  * via the `definition` "payload-folders".
  */
 export interface FolderInterface {
-  id: string;
+  id: number;
   name: string;
-  folder?: (string | null) | FolderInterface;
+  folder?: (number | null) | FolderInterface;
   documentsAndFolders?: {
     docs?: (
       | {
           relationTo?: 'payload-folders';
-          value: string | FolderInterface;
+          value: number | FolderInterface;
         }
       | {
           relationTo?: 'media';
-          value: string | Media;
+          value: number | Media;
         }
     )[];
     hasNextPage?: boolean;
@@ -520,7 +518,7 @@ export interface FolderInterface {
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   name?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -539,15 +537,16 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "webinars".
  */
 export interface Webinar {
-  id: string;
+  id: number;
   title: string;
-  heroImage?: (string | null) | Media;
+  heroImage?: (number | null) | Media;
   tag: string;
   date: string;
   Heading: string;
@@ -567,18 +566,18 @@ export interface Webinar {
     [k: string]: unknown;
   };
   link: string;
-  relatedPosts?: (string | Webinar)[] | null;
-  categories?: (string | Category)[] | null;
+  relatedPosts?: (number | Webinar)[] | null;
+  categories?: (number | Category)[] | null;
   meta?: {
     title?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     description?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (string | User)[] | null;
+  authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -599,12 +598,12 @@ export interface Webinar {
  * via the `definition` "promotion".
  */
 export interface Promotion {
-  id: string;
+  id: number;
   title: string;
   Component?: {};
   layout?: (ForFeature | HorizontalContent | ToolsSection | IntelligencesReport | CtaSection | MediaSection)[] | null;
   publishedAt?: string | null;
-  authors?: (string | User)[] | null;
+  authors?: (number | User)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -643,7 +642,7 @@ export interface ForFeature {
   } | null;
   Items?:
     | {
-        Image?: (string | null) | Media;
+        Image?: (number | null) | Media;
         Heading?: string | null;
         richText?: {
           root: {
@@ -697,7 +696,7 @@ export interface HorizontalContent {
     } | null;
     buttonText?: string | null;
     buttonUrl?: string | null;
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
     id?: string | null;
   }[];
   id?: string | null;
@@ -726,7 +725,7 @@ export interface ToolsSection {
     };
     [k: string]: unknown;
   } | null;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'tools_section';
@@ -796,7 +795,7 @@ export interface CtaSection {
  * via the `definition` "media_section".
  */
 export interface MediaSection {
-  video?: (string | null) | Media;
+  video?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'media_section';
@@ -832,7 +831,7 @@ export interface HeroImage {
     url?: string | null;
     target?: ('_self' | '_blank') | null;
   };
-  heroImage?: (string | null) | Media;
+  heroImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'hero_image';
@@ -879,7 +878,7 @@ export interface MarketShield {
           };
           [k: string]: unknown;
         } | null;
-        image: string | Media;
+        image: number | Media;
         id?: string | null;
       }[]
     | null;
@@ -927,7 +926,7 @@ export interface OurFreeTools {
   tools?:
     | {
         label?: string | null;
-        image: string | Media;
+        image: number | Media;
         ButtonText?: {
           label?: string | null;
           url?: string | null;
@@ -995,7 +994,7 @@ export interface LeaderShip {
   } | null;
   Items?:
     | {
-        Image?: (string | null) | Media;
+        Image?: (number | null) | Media;
         richText?: {
           root: {
             type: string;
@@ -1057,10 +1056,10 @@ export interface HeroWithContent {
  */
 export interface TailoredTool {
   Heading?: string | null;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   item?:
     | {
-        Check_Image?: (string | null) | Media;
+        Check_Image?: (number | null) | Media;
         heading?: string | null;
         richText?: {
           root: {
@@ -1108,7 +1107,7 @@ export interface AdvisorsChooseAdaptive {
           };
           [k: string]: unknown;
         } | null;
-        Image?: (string | null) | Media;
+        Image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1230,7 +1229,7 @@ export interface AdaptivePortfolio {
  * via the `definition` "cboe".
  */
 export interface Cboe {
-  Image?: (string | null) | Media;
+  Image?: (number | null) | Media;
   Heading?: string | null;
   richText?: {
     root: {
@@ -1248,7 +1247,7 @@ export interface Cboe {
     [k: string]: unknown;
   } | null;
   SubHeading?: string | null;
-  SImage?: (string | null) | Media;
+  SImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'cboe';
@@ -1281,7 +1280,7 @@ export interface Covered {
         id?: string | null;
       }[]
     | null;
-  Image?: (string | null) | Media;
+  Image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'covered';
@@ -1307,7 +1306,7 @@ export interface DownProtection {
     };
     [k: string]: unknown;
   } | null;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   richText?: {
     root: {
       type: string;
@@ -1429,7 +1428,7 @@ export interface EnterpriseSoluctuon {
           };
           [k: string]: unknown;
         } | null;
-        image?: (string | null) | Media;
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1473,7 +1472,7 @@ export interface HowToManage {
     };
     [k: string]: unknown;
   } | null;
-  image: string | Media;
+  image: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'how_to_manage';
@@ -1530,7 +1529,7 @@ export interface MeasureFit {
         id?: string | null;
       }[]
     | null;
-  Image?: (string | null) | Media;
+  Image?: (number | null) | Media;
   button?: {
     label?: string | null;
     url?: string | null;
@@ -1563,7 +1562,7 @@ export interface MeasureRisk {
   } | null;
   Items?:
     | {
-        Image?: (string | null) | Media;
+        Image?: (number | null) | Media;
         Heading?: string | null;
         richText?: {
           root: {
@@ -1673,7 +1672,7 @@ export interface Personalize {
   };
   box2_automate_list?:
     | {
-        condition_image: string | Media;
+        condition_image: number | Media;
         condition_items: string;
         id?: string | null;
       }[]
@@ -1724,7 +1723,7 @@ export interface Personalized {
           };
           [k: string]: unknown;
         } | null;
-        image: string | Media;
+        image: number | Media;
         id?: string | null;
       }[]
     | null;
@@ -1755,7 +1754,7 @@ export interface Safeguard {
   } | null;
   Items?:
     | {
-        Image?: (string | null) | Media;
+        Image?: (number | null) | Media;
         Heading?: string | null;
         richText?: {
           root: {
@@ -1901,7 +1900,7 @@ export interface TheCallWriting {
         id?: string | null;
       }[]
     | null;
-  imageSrc?: (string | null) | Media;
+  imageSrc?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'the_call_writing';
@@ -1987,7 +1986,7 @@ export interface UnderstandingAdaptive {
     };
     [k: string]: unknown;
   };
-  factor_analysis_sub_desc?:
+  factor_analysis_sub?:
     | {
         title: {
           root: {
@@ -2088,7 +2087,7 @@ export interface UnderstandingRisk {
     };
     [k: string]: unknown;
   } | null;
-  image?: (string | null) | Media;
+  image?: (number | null) | Media;
   SubHeading?: string | null;
   richText?: {
     root: {
@@ -2195,7 +2194,7 @@ export interface WhatIsMarket {
         id?: string | null;
       }[]
     | null;
-  imageSrc: string | Media;
+  imageSrc: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'what_is_market';
@@ -2290,7 +2289,7 @@ export interface MarketShieldForIndividual {
     };
     [k: string]: unknown;
   } | null;
-  image: string | Media;
+  image: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'market_shield_for_individual';
@@ -2546,11 +2545,11 @@ export interface CallToActionBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -2596,11 +2595,11 @@ export interface ContentBlock {
           reference?:
             | ({
                 relationTo: 'pages';
-                value: string | Page;
+                value: number | Page;
               } | null)
             | ({
                 relationTo: 'posts';
-                value: string | Post;
+                value: number | Post;
               } | null);
           url?: string | null;
           label: string;
@@ -2621,7 +2620,7 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
-  media: string | Media;
+  media: number | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -2631,7 +2630,7 @@ export interface MediaBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
-  form: string | Form;
+  form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
     root: {
@@ -2657,7 +2656,7 @@ export interface FormBlock {
  * via the `definition` "forms".
  */
 export interface Form {
-  id: string;
+  id: number;
   title: string;
   fields?:
     | (
@@ -2842,7 +2841,7 @@ export interface CodeBlock {
  * via the `definition` "redirects".
  */
 export interface Redirect {
-  id: string;
+  id: number;
   /**
    * You will need to rebuild the website when changing this field.
    */
@@ -2852,11 +2851,11 @@ export interface Redirect {
     reference?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null);
     url?: string | null;
   };
@@ -2868,8 +2867,8 @@ export interface Redirect {
  * via the `definition` "form-submissions".
  */
 export interface FormSubmission {
-  id: string;
-  form: string | Form;
+  id: number;
+  form: number | Form;
   submissionData?:
     | {
         field: string;
@@ -2887,18 +2886,18 @@ export interface FormSubmission {
  * via the `definition` "search".
  */
 export interface Search {
-  id: string;
+  id: number;
   title?: string | null;
   priority?: number | null;
   doc: {
     relationTo: 'posts';
-    value: string | Post;
+    value: number | Post;
   };
   slug?: string | null;
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: (string | null) | Media;
+    image?: (number | null) | Media;
   };
   categories?:
     | {
@@ -2916,7 +2915,7 @@ export interface Search {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: string;
+  id: number;
   key: string;
   data:
     | {
@@ -2933,7 +2932,7 @@ export interface PayloadKv {
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: string;
+  id: number;
   /**
    * Input data provided to the job
    */
@@ -3025,60 +3024,60 @@ export interface PayloadJob {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
         relationTo: 'pages';
-        value: string | Page;
+        value: number | Page;
       } | null)
     | ({
         relationTo: 'posts';
-        value: string | Post;
+        value: number | Post;
       } | null)
     | ({
         relationTo: 'webinars';
-        value: string | Webinar;
+        value: number | Webinar;
       } | null)
     | ({
         relationTo: 'promotion';
-        value: string | Promotion;
+        value: number | Promotion;
       } | null)
     | ({
         relationTo: 'media';
-        value: string | Media;
+        value: number | Media;
       } | null)
     | ({
         relationTo: 'categories';
-        value: string | Category;
+        value: number | Category;
       } | null)
     | ({
         relationTo: 'users';
-        value: string | User;
+        value: number | User;
       } | null)
     | ({
         relationTo: 'redirects';
-        value: string | Redirect;
+        value: number | Redirect;
       } | null)
     | ({
         relationTo: 'forms';
-        value: string | Form;
+        value: number | Form;
       } | null)
     | ({
         relationTo: 'form-submissions';
-        value: string | FormSubmission;
+        value: number | FormSubmission;
       } | null)
     | ({
         relationTo: 'search';
-        value: string | Search;
+        value: number | Search;
       } | null)
     | ({
         relationTo: 'payload-folders';
-        value: string | FolderInterface;
+        value: number | FolderInterface;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -3088,10 +3087,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
+  id: number;
   user: {
     relationTo: 'users';
-    value: string | User;
+    value: number | User;
   };
   key?: string | null;
   value?:
@@ -3111,7 +3110,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -3734,7 +3733,7 @@ export interface ThePutBuyingSelect<T extends boolean = true> {
 export interface UnderstandingAdaptiveSelect<T extends boolean = true> {
   title?: T;
   factor_analysis_desc?: T;
-  factor_analysis_sub_desc?:
+  factor_analysis_sub?:
     | T
     | {
         title?: T;
@@ -4629,7 +4628,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "header".
  */
 export interface Header {
-  id: string;
+  id: number;
   title?: string | null;
   slug: string;
   Announcement_Enable?: boolean | null;
@@ -4639,8 +4638,8 @@ export interface Header {
     url?: string | null;
     target?: ('_self' | '_blank') | null;
   };
-  Header_Logo?: (string | null) | Media;
-  Mobile_Header_Logo?: (string | null) | Media;
+  Header_Logo?: (number | null) | Media;
+  Mobile_Header_Logo?: (number | null) | Media;
   menus?:
     | {
         link?: {
@@ -4675,7 +4674,7 @@ export interface Header {
     target?: ('_self' | '_blank') | null;
   };
   type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact') | null;
-  media?: (string | null) | Media;
+  media?: (number | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -4684,10 +4683,10 @@ export interface Header {
  * via the `definition` "footer".
  */
 export interface Footer {
-  id: string;
+  id: number;
   title?: string | null;
   slug?: string | null;
-  footerlogo?: (string | null) | Media;
+  footerlogo?: (number | null) | Media;
   navigation?:
     | {
         heading: string;
@@ -4805,22 +4804,22 @@ export interface TaskSchedulePublish {
     doc?:
       | ({
           relationTo: 'pages';
-          value: string | Page;
+          value: number | Page;
         } | null)
       | ({
           relationTo: 'posts';
-          value: string | Post;
+          value: number | Post;
         } | null)
       | ({
           relationTo: 'webinars';
-          value: string | Webinar;
+          value: number | Webinar;
         } | null)
       | ({
           relationTo: 'promotion';
-          value: string | Promotion;
+          value: number | Promotion;
         } | null);
     global?: string | null;
-    user?: (string | null) | User;
+    user?: (number | null) | User;
   };
   output?: unknown;
 }

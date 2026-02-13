@@ -91,10 +91,10 @@ export const plugins: Plugin[] = [
     },
   }),
   vercelBlobStorage({
-      enabled: true,
-      collections: {
-        media: true, // Media collection uploads go to Vercel Blob
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN || "vercel_blob_rw_0jT2yZlOsQlgkg6b_pAbqIqAMa1n7meqwpiJxAoXQjb8E39", // Set in Vercel env
-    }),
+    enabled: !!process.env.BLOB_READ_WRITE_TOKEN && process.env.NODE_ENV === 'production',
+    collections: {
+      media: true,
+    },
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+  }),
 ]
