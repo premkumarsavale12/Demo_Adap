@@ -4630,9 +4630,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Header {
   id: number;
   title?: string | null;
-  slug: string;
+  slug?: string | null;
   Announcement_Enable?: boolean | null;
-  Announcement_Heading: string;
+  Announcement_Heading?: string | null;
   Announcement_Button_text?: {
     label?: string | null;
     url?: string | null;
