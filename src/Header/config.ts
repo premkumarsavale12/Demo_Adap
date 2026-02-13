@@ -18,11 +18,9 @@ export const Header: GlobalConfig = {
     {
       name: 'slug',
       type: 'text',
-      required: true,
+
       unique: true,
-      admin: {
-        readOnly: true,
-      },
+ 
       label: 'slug',
       hooks: {
         beforeValidate: [
@@ -44,7 +42,7 @@ export const Header: GlobalConfig = {
     {
       name: 'Announcement_Heading',
       type: 'text',
-      required: true,
+      
       label: { en: 'Announcement Heading', de: 'Ankündigung Überschrift' },
     },
     {
