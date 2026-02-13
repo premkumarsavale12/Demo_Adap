@@ -3,10 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import RichText from "@/components/RichText";
+import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 
 interface Cta_SectionProps {
     ctaHeading?: string;
-    descrip?: any;
+    descrip?: DefaultTypedEditorState;
     button?: {
         label?: string;
         url?: string;

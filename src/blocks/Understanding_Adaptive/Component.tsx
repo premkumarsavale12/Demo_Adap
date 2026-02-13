@@ -3,7 +3,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 type PayloadRichText = DefaultTypedEditorState | null
 
-interface FactorAnalysisSubDesc {
+interface FactorAnalysisSub {
     title?: PayloadRichText
 }
 
@@ -15,12 +15,12 @@ interface BasketItem {
 interface UnderStandingAdaptiveProps {
     title?: PayloadRichText
     factor_analysis_desc?: PayloadRichText
-    factor_analysis_sub_desc?: FactorAnalysisSubDesc[]
+    factor_analysis_sub?: FactorAnalysisSub[]
     basket_title?: PayloadRichText
     basket?: BasketItem[]
 }
 
-export const UnderStandingAdaptive: React.FC<UnderStandingAdaptiveProps> = ({ title, factor_analysis_desc, factor_analysis_sub_desc, basket_title, basket }) => {
+export const UnderStandingAdaptive: React.FC<UnderStandingAdaptiveProps> = ({ title, factor_analysis_desc, factor_analysis_sub, basket_title, basket }) => {
 
 
     return (
@@ -46,7 +46,7 @@ export const UnderStandingAdaptive: React.FC<UnderStandingAdaptiveProps> = ({ ti
 
                         {/* Bullet Points */}
                         <ul className="[&_li]:pl-6 [&_li]:relative [&_li]:before:content-[''] [&_li]:before:w-[10px] [&_li]:before:h-[10px] [&_li]:before:bg-black-200 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-[6px] [&_li]:before:rounded-full space-y-2">
-                            {factor_analysis_sub_desc?.map((item, index) => (
+                            {factor_analysis_sub?.map((item, index) => (
                                 <li key={index} >
                                     {item.title && (
                                         <RichText data={item.title} enableGutter={false} enableProse={false} className="inline-block" />
