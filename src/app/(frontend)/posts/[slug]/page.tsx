@@ -5,6 +5,7 @@ import React from 'react'
 import { notFound } from 'next/navigation'
 import BlogSingleClient from './BlogSingleClient'
 import PageClient from './page.client'
+import { generatePostSchema } from '@/utilities/generateSchema'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -32,6 +33,10 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generatePostSchema(post)) }}
+      />
       <PageClient />
       <BlogSingleClient post={post} />
     </>

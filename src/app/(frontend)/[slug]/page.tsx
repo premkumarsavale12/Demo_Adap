@@ -11,6 +11,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
+import { generatePageSchema } from '@/utilities/generateSchema'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
 export async function generateStaticParams() {
@@ -64,11 +65,15 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const {  layout } = page
+  const { layout } = page
 
   return (
     <article className="">
       <PageClient />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generatePageSchema(page)) }}
+      />
       {/* Allows redirects for valid pages too */}
       <PayloadRedirects disableNotFound url={url} />
 

@@ -12,6 +12,8 @@ import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 
+import { generateWebinarSchema } from '@/utilities/generateSchema'
+
 export async function generateStaticParams() {
     const payload = await getPayload({ config: configPromise })
     const webinars = await payload.find({
@@ -53,6 +55,11 @@ export default async function WebinarPage({ params: paramsPromise }: Args) {
         <article className="">
             {/* Allows redirects for valid pages too */}
             <PayloadRedirects disableNotFound url={url} />
+
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(generateWebinarSchema(webinar)) }}
+            />
 
             {draft && <LivePreviewListener />}
 
