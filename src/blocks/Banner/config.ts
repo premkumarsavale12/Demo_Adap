@@ -21,7 +21,7 @@ export const Banner: Block = {
         { label: 'Error', value: 'error' },
         { label: 'Success', value: 'success' },
       ],
-      required: true,
+
     },
     {
       name: 'content',
@@ -32,7 +32,7 @@ export const Banner: Block = {
         },
       }),
       label: false,
-      required: true,
+   
     },
   ],
   interfaceName: 'BannerBlock',

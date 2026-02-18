@@ -78,7 +78,7 @@ export const Posts: CollectionConfig = {
     defaultColumns: ['title', 'author', 'status', 'createdAt'],
   },
   fields: [
-    { name: 'title', type: 'text', required: true },
+    { name: 'title', type: 'text' },
     { name: 'slug', type: 'text', unique: true, index: true },
     { name: 'content', type: 'richText' },
     { name: 'author', type: 'relationship', relationTo: 'users' },
@@ -100,7 +100,7 @@ export const Users: CollectionConfig = {
       hasMany: true,
       options: ['admin', 'editor', 'user'],
       defaultValue: ['user'],
-      required: true,
+     
       saveToJWT: true, // Include in JWT for fast access checks
       access: {
         update: ({ req: { user } }) => user?.roles?.includes('admin'),

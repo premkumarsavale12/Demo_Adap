@@ -17,7 +17,7 @@ export const What_is_market: Block = {
         {
             name: 'title',
             type: 'text',
-            required: true,
+   
 
         },
 
@@ -82,7 +82,7 @@ export const What_is_market: Block = {
             name: 'imageSrc',
             type: 'upload',
             relationTo: 'media',
-            required: true,
+
 
         },
     ],

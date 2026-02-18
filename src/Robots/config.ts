@@ -18,7 +18,7 @@ export const Robots: GlobalConfig = {
                     type: 'text',
                     label: 'User Agent',
                     defaultValue: '*',
-                    required: true,
+
                 },
                 {
                     name: 'allow',
@@ -29,7 +29,7 @@ export const Robots: GlobalConfig = {
                             name: 'path',
                             type: 'text',
                             label: 'Path',
-                            required: true,
+
                         },
                     ],
                 },
@@ -42,7 +42,7 @@ export const Robots: GlobalConfig = {
                             name: 'path',
                             type: 'text',
                             label: 'Path',
-                            required: true,
+
                         },
                     ],
                 },
@@ -57,7 +57,7 @@ export const Robots: GlobalConfig = {
                     name: 'url',
                     type: 'text',
                     label: 'Sitemap URL',
-                    required: true,
+
                 },
             ],
         },

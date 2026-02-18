@@ -42,7 +42,6 @@ export const Market_Shield_for_Individual: Block = {
       type: 'upload',
       relationTo: 'media',
       label: 'Image Upload',
-      required: true,
     },
   ],
 }

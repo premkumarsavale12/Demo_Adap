@@ -16,13 +16,13 @@ export const UnderStanding_Adaptive: Block = {
         {
             name: "title",
             type: "richText",
-            required: true,
+
         },
 
         {
             name: "factor_analysis_desc",
             type: "richText",
-            required: true,
+
         },
 
         {
@@ -36,7 +36,7 @@ export const UnderStanding_Adaptive: Block = {
                 {
                     name: "title",
                     type: "richText",
-                    required: true,
+
                 },
             ],
         },
@@ -44,7 +44,7 @@ export const UnderStanding_Adaptive: Block = {
         {
             name: "basket_title",
             type: "richText",
-            required: true,
+
         },
 
         {
@@ -58,12 +58,12 @@ export const UnderStanding_Adaptive: Block = {
                 {
                     name: "title",
                     type: "text",
-                    required: true,
+
                 },
                 {
                     name: "desc",
                     type: "richText",
-                    required: true,
+
                 },
             ],
         },

@@ -16,7 +16,6 @@ export const HorizontalContent: Block = {
         {
             name: 'items',
             type: 'array',
-            required: true,
             label: 'Content Rows',
             fields: [
                 {
@@ -28,10 +27,7 @@ export const HorizontalContent: Block = {
                     name: 'subtitle',
                     type: 'text',
                 },
-                // {
-                //     name: 'description',
-                //     type: 'textarea',
-                // },
+               
                 {
                     name: 'richText',
                     type: 'richText',

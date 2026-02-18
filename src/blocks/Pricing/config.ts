@@ -14,7 +14,7 @@ export const Pricing: Block = {
         {
             name: 'pricing_main_title',
             type: 'textarea',
-            required: true,
+        
         },
 
 
@@ -49,7 +49,7 @@ export const Pricing: Block = {
                     name: 'headers',
                     type: 'array',
                     fields: [
-                        { name: 'plan_title', type: 'text', required: true },
+                        { name: 'plan_title', type: 'text' },
 
                         // { name: 'plan_description', type: 'text' },  
 
@@ -70,14 +70,14 @@ export const Pricing: Block = {
                         },
 
 
-                        { name: 'cta_text', type: 'text', required: true },
+                        { name: 'cta_text', type: 'text' },
                     ],
                 },
                 {
                     name: 'features',
                     type: 'array',
                     fields: [
-                        { name: 'feature_name', type: 'textarea', required: true },
+                        { name: 'feature_name', type: 'textarea' },
                         { name: 'feature_hover_name', type: 'text' },
                         { name: 'investor_plan', type: 'text' },
                         { name: 'advisor_plan', type: 'text' },
@@ -96,7 +96,7 @@ export const Pricing: Block = {
                     name: 'headers',
                     type: 'array',
                     fields: [
-                        { name: 'plan_title', type: 'text', required: true },
+                        { name: 'plan_title', type: 'text' },
                         // { name: 'plan_description', type: 'text' }, 
                         {
                             name: 'plan_description',
@@ -113,14 +113,14 @@ export const Pricing: Block = {
                             }),
                             label: false,
                         },
-                        { name: 'cta_text', type: 'text', required: true },
+                        { name: 'cta_text', type: 'text'},
                     ],
                 },
                 {
                     name: 'features',
                     type: 'array',
                     fields: [
-                        { name: 'feature_name', type: 'textarea', required: true },
+                        { name: 'feature_name', type: 'textarea' },
                         { name: 'feature_hover_name', type: 'text' },
                         { name: 'investor_plan', type: 'text' },
                         { name: 'advisor_plan', type: 'text' },

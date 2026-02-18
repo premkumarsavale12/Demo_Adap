@@ -19,7 +19,6 @@ export const Faq: Block = {
     {
       name: "faq_title",
       type: "text",
-      required: true,
       label: "Main Title",
     },
     {
@@ -39,24 +38,23 @@ export const Faq: Block = {
       name: "categories",
       type: "array",
       label: "FAQ Categories",
-      required: true,
+
       fields: [
         {
           name: "name",
           type: "text",
-          required: true,
           label: "Category Name",
         },
         {
           name: "posts",
           type: "array",
           label: "Questions",
-          required: true,
+
           fields: [
             {
               name: "title",
               type: "text",
-              required: true,
+
               label: "Question",
             },
             {

@@ -107,7 +107,6 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       name: 'title',
       type: 'text',
-      required: true,
     },
     {
       type: 'tabs',
@@ -176,7 +175,7 @@ export const Pages: CollectionConfig<'pages'> = {
 
 
               ],
-              required: false,
+      
               admin: {
                 initCollapsed: true,
               },

@@ -1,8 +1,6 @@
 import { FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Block } from "payload";
 
-
-
 export const Effortless: Block = {
     slug: 'effortless',
   imageURL: '/block-previews/effortless.png',
