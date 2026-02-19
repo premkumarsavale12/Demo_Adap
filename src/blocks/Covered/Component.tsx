@@ -32,14 +32,14 @@ export const Covered: React.FC<CoveredProps> = ({ Heading, richText, SubHeading,
                         <div className="tool-content font-inter md:space-y-8 space-y-6">
                             <div className="md:text-h3 text-h4">
                                 <p>
-                                    <strong>   {Heading} </strong> 
+                                    <strong>   {Heading} </strong>
                                 </p>
                             </div>
 
                             <div
-                                className="*:text-black-300 space-y-2"
+                                className="*:text-black-300"
 
-                            >      {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}     </div>
+                            >      {richText && <RichText data={richText} enableGutter={false} />}     </div>
                             <div className="features">
                                 <div className="flex xl:gap-16 gap-8 lg:flex-row flex-col">
                                     <div className="md:space-y-8 space-y-6 lg:w-[50%] w-full">
