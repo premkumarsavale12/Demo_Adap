@@ -95,11 +95,11 @@ export const What_is_market: React.FC<WhatIsMarketProps> = ({
     typeof imageSrc === "string" ? imageSrc : imageSrc?.url;
 
   return (
-    <section className="t-section market-section lg:py-[150px] md:py-[80px] sm:py-[50px] py-6 w-full border-b border-black-200">
+    <section className="t-section market-section lg:py[150px] md:py-[80px] sm:py-[50px] py-6 w-full border-b-[1px] border-b-black-200 border-b-solid">
       <div className="container">
         <div className="inner md:space-y-[48px] space-y-6">
 
-          {/* ============== TITLE + DESCRIPTION ============= */}
+
           <div className="top text-left space-y-8">
             <div className="title flex justify-start items-start">
               <h2 className="text-h2 font-ivy font-semibold relative before:content-[''] before:w-[67px] before:h-[67px] before:rounded-full before:bg-pink before:absolute before:top-[-12px] before:left-0 before:opacity-20 before:z-0 text-black">
@@ -112,22 +112,23 @@ export const What_is_market: React.FC<WhatIsMarketProps> = ({
             </div>
           </div>
 
-          {/* ========= CONTENT SECTION ========== */}
+
           <div
-            className={`flex items-start lg:gap-[64px] gap-8 lg:flex-row flex-col-reverse ${reverse ? "lg:flex-row-reverse" : ""
+            className={`protection-text flex justify-start items-start lg:gap-[64px] gap-8 lg:flex-row flex-col-reverse ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"
               }`}
           >
 
-            {/* LEFT SIDE TEXT */}
+
             {protectionDetails && (
-              <div className="font-inter space-y-4 text-black-300 lg:w-[58%] w-full">
+              <div
+                className="p-text-left font-inter space-y-4 !text-black-300 lg:w-[58%] w-full">
                 {renderLexical(protectionDetails?.root?.children)}
               </div>
             )}
 
-            {/* LIST ARRAY */}
+
             {protectionDetailsArray && (
-              <ul className="pl-6 space-y-2 list-disc">
+              <ul className="[&amp;_li]:pl-8 [&amp;_li]:relative [&amp;_li]:before:content-[''] [&amp;_li]:before:w-[10px] [&amp;_li]:before:h-[10px] [&amp;_li]:before:bg-black-200 [&amp;_li]:before:absolute [&amp;_li]:before:left-0 [&amp;_li]:before:top-[6px] [&amp;_li]:before:rounded-full space-y-2">
                 {protectionDetailsArray.map((item, i) => (
                   <li key={i}>
                     {renderLexical(item.content?.root?.children)}
@@ -136,15 +137,15 @@ export const What_is_market: React.FC<WhatIsMarketProps> = ({
               </ul>
             )}
 
-            {/* IMAGE */}
+
             {imageUrl && (
-              <div className="lg:w-[42%] w-full">
+              <div className="p-text-right lg:w-[42%] w-full">
                 <Image
                   src={imageUrl}
                   width={598}
                   height={294}
                   alt="market image"
-                  className="w-full h-auto lg:aspect-[2/1] object-cover"
+                  className="w-full h-auto lg:aspect-[2/1] inset-0 aspect-auto object-cover"
                 />
               </div>
             )}
