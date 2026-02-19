@@ -159,7 +159,6 @@ const BlogSection = ({
 // --- Main BlogTab Component ---
 export const BlogTab = ({
     allPosts,
- 
 }: {
     allPosts: Post[]
     allCategories: Category[]

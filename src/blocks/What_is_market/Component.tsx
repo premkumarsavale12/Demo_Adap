@@ -41,7 +41,7 @@ interface WhatIsMarketProps {
 }
 
 export const What_is_market: React.FC<WhatIsMarketProps> = ({ title, description, protectionDetails, protectionDetailsArray, imageSrc, reverse = false }) => {
-  
+
   const imageUrl =
     typeof imageSrc === "string" ? imageSrc : imageSrc?.url;
 
