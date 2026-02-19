@@ -67,7 +67,7 @@ export const Understanding_Risk: React.FC<UnderstandingRiskProps> = ({
                       href={button.url}
                       target={button.target ?? "_self"}
                       className="btn-green text-[18px]"
-   
+
                     >
                       {button.label}
                     </Link>

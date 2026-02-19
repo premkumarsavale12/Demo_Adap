@@ -3,8 +3,8 @@ import { Block } from "payload";
 
 export const Understanding_Risk: Block = {
     slug: 'understanding_risk',
-  imageURL: '/block-previews/understanding_risk.png',
-  imageAltText: 'understanding_risk preview',
+    imageURL: '/block-previews/understanding_risk.png',
+    imageAltText: 'understanding_risk preview',
     interfaceName: 'understanding_risk',
     labels: {
         singular: 'understanding_risk',
@@ -84,7 +84,7 @@ export const Understanding_Risk: Block = {
             type: 'upload',
             relationTo: 'media',
         },
-         
+
 
 
         {
@@ -113,9 +113,9 @@ export const Understanding_Risk: Block = {
             name: 'list',
             type: 'richText',
             editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
+                features: ({ defaultFeatures }) => {
                     return [
-                        ...rootFeatures,
+                        ...defaultFeatures,
                         HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
                         FixedToolbarFeature(),
                         InlineToolbarFeature(),
