@@ -1,8 +1,8 @@
-import RichText from '@/components/RichText'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
+import type { SerializedLexicalNode, SerializedTextNode } from 'lexical'
 
 type Button = {
     title: string
@@ -28,6 +28,36 @@ type Props = {
     box2_BTN?: Button
 }
 
+const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
+    if (!nodes) return null
+
+    return nodes.map((node: any, index: number) => {
+        if (node.type === 'text') {
+            let textElement: React.ReactNode = node.text
+
+            if (node.format & 1) {
+                textElement = <strong key={index} className="font-bold">{textElement}</strong>
+            }
+
+            if (node.format & 2) {
+                textElement = <em key={index}>{textElement}</em>
+            }
+
+            return <React.Fragment key={index}>{textElement}</React.Fragment>
+        }
+
+        if (node.type === 'paragraph') {
+            return (
+                <p key={index}>
+                    {renderLexical(node.children)}
+                </p>
+            )
+        }
+
+        return null
+    })
+}
+
 export const Personalize = ({
     box1_title,
     box1_description,
@@ -40,7 +70,7 @@ export const Personalize = ({
     box2_BTN,
 }: Props) => {
     return (
-        <section className="t-section lg:py[150px] md:py-[80px] py-[50px] w-full border-b-[1px] border-b-black-200 border-b-solid">
+        <section className="t-section lg:py-[150px] md:py-[80px] py-[50px] w-full border-b-[1px] border-b-black-200 border-b-solid">
             <div className="container">
                 <div className="inner md:space-y-[48px] space-y-6">
                     <div className="top text-left md:space-y-8 space-y-6">
@@ -48,16 +78,16 @@ export const Personalize = ({
                             <div className="basket-block grid md:grid-cols-2 grid-cols-1 lg:gap-16 md:gap-8 gap-4">
                                 <div className="b-block flex flex-col md:space-y-8 space-y-4 md:p-8 sm:p-6 p-4 bg-white-100">
 
-                                    <span className="text-h5 font-[600]">
-                                        <RichText data={box1_title} className='text-[20px]' />
-                                    </span>
+                                    <div className="text-h5 font-[600] text-[20px]">
+                                        {renderLexical(box1_title?.root?.children)}
+                                    </div>
 
                                     <div className="para space-y-4">
-                                        <RichText data={box1_description} />
+                                        {renderLexical(box1_description?.root?.children)}
                                     </div>
 
                                     <div className="font-bold">
-                                        <RichText data={box1_personalize_content} />
+                                        {renderLexical(box1_personalize_content?.root?.children)}
                                     </div>
 
                                     {box1_BTN?.url && (
@@ -71,12 +101,12 @@ export const Personalize = ({
                                 {/* BOX 2 */}
                                 <div className="b-block flex flex-col md:space-y-8 space-y-4 md:p-8 sm:p-6 p-4 bg-white-100">
 
-                                    <div className="text-h5 font-[600]">
-                                        <RichText data={box2_title} className='text-[20px]' />
+                                    <div className="text-h5 font-[600] text-[20px]">
+                                        {renderLexical(box2_title?.root?.children)}
                                     </div>
 
                                     <div className="para space-y-4">
-                                        <RichText data={box2_description} />
+                                        {renderLexical(box2_description?.root?.children)}
                                     </div>
 
                                     <div className="space-y-2">
@@ -94,7 +124,7 @@ export const Personalize = ({
                                     </div>
 
                                     <div className="font-bold">
-                                        <RichText data={automate_sub_title} />
+                                        {renderLexical(automate_sub_title?.root?.children)}
                                     </div>
 
                                     {box2_BTN?.url && (
