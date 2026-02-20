@@ -16,7 +16,7 @@ const SearchInput = ({
     setSearchTerm: (v: string) => void
     placeholder: string
 }) => (
-    <div className="w-full flex justify-start items-center mb-4 xmd:mt-0 mt-4">
+    <div className="w-full flex justify-start items-center mb-4 xmd:mt-0 sticky top-[120px] z-20 bg-white-100 pb-2 pt-6 xmd:pt-2 before:content-[''] before:absolute before:bottom-full before:left-0 before:w-full before:h-12 before:bg-white-100 before:z-20">
         <div className="flex relative group lg:w-1/4 sm:w-1/3 xsm:w-1/2 w-[95%]">
             <button
                 aria-label="search button"
