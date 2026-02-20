@@ -249,12 +249,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                             dropdown-content
                             static lg:absolute
                             left-1/2 top-full
-                            lg:bg-white bg-transparent
+                         bg-white lg:bg-white bg-transparent
                             rounded
                             overflow-hidden
                             transition-all duration-300 ease-out
                             max-h-0
-                        lg:-translate-x-[60%] lg:shadow-xl shadow-[0px_4px_10px_rgba(255,255,255,0.5)] opacity-0 invisible
+                          lg:-translate-x-[60%] lg:shadow-xl shadow-[0px_4px_10px_rgba(255,255,255,0.5)] opacity-0 invisible
                             z-10
                            border-t border-t-black-200
                             ${layout === 'mega' ? `${widthClass} lg:-translate-x-[60%]` : 'lg:w-[20vw] lg:-translate-x-[60%]'}
@@ -272,7 +272,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                           >
                             {/* ===== SINGLE DROPDOWN ===== */}
                             {layout === 'single' && (
-                               <ul className="flex flex-col p-4 space-y-4 text-white">
+                              <ul className="flex flex-col p-4 space-y-4 text-black">
                                 {menu.submenus?.map((submenu, subIndex) =>
                                   submenu.links?.map((item, itemIndex) => (
                                     <li key={`${subIndex}-${itemIndex}`}>
