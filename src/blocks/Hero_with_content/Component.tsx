@@ -32,7 +32,7 @@ export const Hero_with_content: React.FC<Hero_with_contentProps> = ({
     let element: React.ReactNode = node.text
 
     if (node.format & 1) {
-      element = <strong key={`b-${key}`}>{element}</strong>
+      element = <strong key={`b-${key}`} className="block text-black">{element}</strong>
     }
     if (node.format & 2) {
       element = <em key={`i-${key}`}>{element}</em>
@@ -53,6 +53,9 @@ export const Hero_with_content: React.FC<Hero_with_contentProps> = ({
     return children.map((child, index) => {
       if (child.type === 'text') {
         return renderTextNode(child as SerializedTextNode, index)
+      }
+      if (child.type === 'linebreak') {
+        return <br key={index} className="hidden" />
       }
       return null
     })
