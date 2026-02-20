@@ -29,7 +29,7 @@ export const Code: Block = {
       name: 'code',
       type: 'code',
       label: false,
-      required: true,
+   
     },
   ],
 }

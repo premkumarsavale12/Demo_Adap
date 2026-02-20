@@ -95,7 +95,6 @@ export const Hero_Image: Block = {
       type: 'upload',
       label: 'Hero Image',
       relationTo: 'media',
-      required: false,
     },
   ],
 }

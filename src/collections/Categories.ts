@@ -19,7 +19,7 @@ export const Categories: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
-      required: true,
+
     },
     slugField({
       position: undefined,

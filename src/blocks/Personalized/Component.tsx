@@ -16,6 +16,38 @@ interface PersonalizedProps {
   }[],
 }
 
+import type { SerializedLexicalNode, SerializedTextNode } from "lexical";
+
+const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
+  if (!nodes) return null
+
+  return nodes.map((node: any, index: number) => {
+    if (node.type === 'text') {
+      let textElement: React.ReactNode = node.text
+
+      if (node.format & 1) {
+        textElement = <strong key={index} className="font-bold">{textElement}</strong>
+      }
+
+      if (node.format & 2) {
+        textElement = <em key={index}>{textElement}</em>
+      }
+
+      return <React.Fragment key={index}>{textElement}</React.Fragment>
+    }
+
+    if (node.type === 'paragraph') {
+      return (
+        <p key={index}>
+          {renderLexical(node.children)}
+        </p>
+      )
+    }
+
+    return null
+  })
+}
+
 export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
   return (
     <section className="tools-section">
@@ -40,21 +72,8 @@ export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
                     </h3>
                   )}
 
-
-
                   <div className="space-y-4">
-                    {item.richText?.root?.children?.map((block, i: number) => {
-                      const b = block as { type: string; children?: { text?: string }[] };
-                      if (b.type !== "paragraph") return null;
-
-                      return (
-                        <p key={i}>
-                          {b.children?.map((child, j) => (
-                            <span key={j}>{child.text}</span>
-                          ))}
-                        </p>
-                      );
-                    })}
+                    {renderLexical(item.richText?.root?.children as SerializedLexicalNode[])}
                   </div>
 
 

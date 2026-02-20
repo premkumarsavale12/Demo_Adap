@@ -74,7 +74,7 @@ export const Posts: CollectionConfig<'posts'> = {
     {
       name: 'title',
       type: 'text',
-      required: true,
+
     },
     {
       type: 'tabs',
@@ -90,7 +90,7 @@ export const Posts: CollectionConfig<'posts'> = {
             {
               name: "tag",
               type: "text",
-              required: true,
+          
             },
 
 
@@ -98,12 +98,12 @@ export const Posts: CollectionConfig<'posts'> = {
             {
               name: "date",
               type: "date",
-              required: true,
+          
             },
             {
               name: "Heading",
               type: "text",
-              required: true,
+          
             },
 
 
@@ -123,7 +123,7 @@ export const Posts: CollectionConfig<'posts'> = {
                 },
               }),
               label: false,
-              required: true,
+        
             },
 
             {
@@ -140,7 +140,7 @@ export const Posts: CollectionConfig<'posts'> = {
             {
               name: "link",
               type: "text",
-              required: true,
+            
             },
 
 

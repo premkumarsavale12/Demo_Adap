@@ -295,15 +295,15 @@ export default function AddUser(props) {
                                 </div> */}
 
                                 <div className="tickcon">
-  <Image
-    className="tick"
-    src="/app/Assets/tick-mark.png"
-    alt="Tick mark"
-    width={24}     // set your actual size
-    height={24}
-    priority
-  />
-</div>
+                                    <Image
+                                        className="tick"
+                                        src="/app/Assets/tick-mark.png"
+                                        alt="Tick mark"
+                                        width={24}     // set your actual size
+                                        height={24}
+                                        priority
+                                    />
+                                </div>
 
                                 <div className="popuptext">
                                     <div className="userselection">

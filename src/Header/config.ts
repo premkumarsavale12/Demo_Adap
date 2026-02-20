@@ -12,7 +12,6 @@ export const Header: GlobalConfig = {
     {
       name: 'title',
       type: 'text',
-      required: false,
       label: 'title',
     },
     {
@@ -20,7 +19,7 @@ export const Header: GlobalConfig = {
       type: 'text',
 
       unique: true,
- 
+
       label: 'slug',
       hooks: {
         beforeValidate: [
@@ -42,7 +41,7 @@ export const Header: GlobalConfig = {
     {
       name: 'Announcement_Heading',
       type: 'text',
-      
+
       label: { en: 'Announcement Heading', de: 'Ankündigung Überschrift' },
     },
     {
@@ -77,14 +76,12 @@ export const Header: GlobalConfig = {
       type: 'upload',
       label: 'logo',
       relationTo: 'media',
-      required: false,
     },
     {
       name: 'Mobile_Header_Logo',
       type: 'upload',
       label: 'mobile logo',
       relationTo: 'media',
-      required: false,
     },
     {
       name: 'menus',
@@ -215,7 +212,7 @@ export const Header: GlobalConfig = {
             },
           ],
         },
-      ],  
+      ],
     },
     {
       name: 'link',
@@ -273,7 +270,7 @@ export const Header: GlobalConfig = {
           value: 'lowImpact',
         },
       ],
-      required: false,
+
     },
     {
       name: 'media',
@@ -283,7 +280,7 @@ export const Header: GlobalConfig = {
         condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
       },
       relationTo: 'media',
-      required: false,
+
     },
   ],
   hooks: {

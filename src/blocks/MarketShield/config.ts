@@ -78,7 +78,6 @@ export const MarketShield: Block = {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
-          required: true,
         },
       ],
     },

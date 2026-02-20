@@ -51,50 +51,36 @@ export const ToolSection: Block = {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
-          required: true,
-        },
 
-        // {
-        //     name: 'ButtonText',
-        //     type: 'text',
-        //     label: 'Button Name',
-        // },
-        // {
-        //     name: 'ButtonLink',
-        //     type: 'text',
-        //     label: 'Button Url',
-        // },
-
- {
-      name: 'ButtonText',
-      type: 'group',
-      label: 'hero link',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          label: 'Button Name ',
         },
         {
-          name: 'url',
-          type: 'text',
-          label: 'Url',
-        },
-        {
-          name: 'target',
-          type: 'select',
-          label: 'target',
-          options: [
-            { label: 'Same Tab', value: '_self' },
-            { label: 'New Tab', value: '_blank' },
+          name: 'ButtonText',
+          type: 'group',
+          label: 'hero link',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Button Name ',
+            },
+            {
+              name: 'url',
+              type: 'text',
+              label: 'Url',
+            },
+            {
+              name: 'target',
+              type: 'select',
+              label: 'target',
+              options: [
+                { label: 'Same Tab', value: '_self' },
+                { label: 'New Tab', value: '_blank' },
+              ],
+              defaultValue: '_self',
+            },
           ],
-          defaultValue: '_self',
         },
-      ],
-    },
-
-        
-        {
+       {
           name: 'Subheading',
           type: 'text',
           label: 'Heading',

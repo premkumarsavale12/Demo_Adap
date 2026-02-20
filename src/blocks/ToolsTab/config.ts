@@ -4,8 +4,8 @@ import { Block } from "payload";
 
 export const ToolsTab: Block = {
      slug: 'toolstab',
-  imageURL: '/block-previews/toolstab.png',
-  imageAltText: 'toolstab preview',
+     imageURL: '/block-previews/toolstab.png',
+     imageAltText: 'toolstab preview',
      interfaceName: 'toolstab',
      labels: {
           singular: 'toolstab',
@@ -15,12 +15,12 @@ export const ToolsTab: Block = {
           {
                name: "tabs",
                type: "array",
-               required: true,
+
                fields: [
                     {
                          name: "label",
                          type: "text",
-                         required: true,
+
                     },
                     {
                          name: 'Url',

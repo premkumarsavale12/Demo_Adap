@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
+    "postbuild": "echo 'No postbuild'",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
@@ -69,6 +69,7 @@
     "eslint": "^9.16.0",
     "eslint-config-next": "15.4.7",
     "postcss": "^8.5.6",
+    "schema-dts": "^1.1.5",
     "tailwindcss": "^3.4.17",
     "typescript": "5.7.3"
   },

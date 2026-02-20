@@ -76,7 +76,7 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
       blockName: 'full-name',
       blockType: 'text',
       label: 'Full Name',
-      required: true,
+
       width: 100,
     },
     {
@@ -84,7 +84,7 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
       blockName: 'email',
       blockType: 'email',
       label: 'Email',
-      required: true,
+
       width: 100,
     },
     {
@@ -92,7 +92,6 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
       blockName: 'phone',
       blockType: 'number',
       label: 'Phone',
-      required: false,
       width: 100,
     },
     {
@@ -100,7 +99,6 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
       blockName: 'message',
       blockType: 'textarea',
       label: 'Message',
-      required: true,
       width: 100,
     },
   ],

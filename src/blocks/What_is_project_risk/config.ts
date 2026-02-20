@@ -20,21 +20,6 @@ export const What_is_project_risk: Block = {
             type: 'text',
             label: 'Heading'
         },
-        // {
-        //     name: 'richText',
-        //     type: 'richText',
-        //     editor: lexicalEditor({
-        //         features: ({ rootFeatures }) => {
-        //             return [
-        //                 ...rootFeatures,
-        //                 HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-        //                 FixedToolbarFeature(),
-        //                 InlineToolbarFeature(),
-        //             ]
-        //         },
-        //     }),
-        //     label: ' Add  Content',
-        // },
 
         {
             name: 'descritpion',

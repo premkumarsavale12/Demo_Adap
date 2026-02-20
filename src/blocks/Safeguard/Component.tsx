@@ -1,8 +1,8 @@
-import RichText from "@/components/RichText";
 import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { SerializedLexicalNode } from "lexical";
 
 interface Button {
     url: string;
@@ -24,6 +24,40 @@ interface SafeguardProps {
     button?: Button;
 }
 
+const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
+    if (!nodes) return null
+
+    return nodes.map((node: any, index: number) => {
+        if (node.type === 'text') {
+            let textElement: React.ReactNode = node.text
+
+            if (node.format & 1) {
+                textElement = <strong key={index} className="font-bold text-black">{textElement}</strong>
+            }
+
+            if (node.format & 2) {
+                textElement = <em key={index}>{textElement}</em>
+            }
+
+            return <React.Fragment key={index}>{textElement}</React.Fragment>
+        }
+
+        if (node.type === 'paragraph') {
+            return (
+                <p key={index} className="mb-0">
+                    {renderLexical(node.children)}
+                </p>
+            )
+        }
+
+        if (node.type === 'linebreak') {
+            return <br key={index} />
+        }
+
+        return null
+    })
+}
+
 
 export const Safeguard: React.FC<SafeguardProps> = ({ Heading, richText, Items, button }) => {
 
@@ -42,9 +76,9 @@ export const Safeguard: React.FC<SafeguardProps> = ({ Heading, richText, Items, 
                                 >  {Heading}</h2>
                             </div>
                             <div
-                                className="text-center text-body font-inter font-normal text-black-300 space-y-2"
+                                className="text-center text-body font-inter font-normal text-black-300 space-y-1"
 
-                            >      {richText && <RichText className="mb-0" data={richText} enableGutter={false} />}   </div>
+                            >      {richText && renderLexical(richText.root.children)}   </div>
                         </div>
 
                         {/* Grid Section */}
@@ -68,7 +102,11 @@ export const Safeguard: React.FC<SafeguardProps> = ({ Heading, richText, Items, 
                                             className="text-h5 font-semibold"
 
                                         >   {box.Heading}  </h3>
-                                        {box.richText && <RichText className="mb-0" data={box.richText} enableGutter={false} />}
+                                        {box.richText && (
+                                            <div className="rich-text-content">
+                                                {renderLexical(box.richText.root.children)}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             ))}

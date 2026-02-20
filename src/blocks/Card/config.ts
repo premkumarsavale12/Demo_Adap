@@ -18,7 +18,6 @@ export const Card: Block = {
     {
       name: 'heading',
       type: 'text',
-      required: true,
     },
     {
       name: 'richText',

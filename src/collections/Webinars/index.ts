@@ -67,7 +67,7 @@ export const Webinars: CollectionConfig<'webinars'> = {
         {
             name: 'title',
             type: 'text',
-            required: true,
+        
         },
         {
             type: 'tabs',
@@ -82,17 +82,17 @@ export const Webinars: CollectionConfig<'webinars'> = {
                         {
                             name: 'tag',
                             type: 'text',
-                            required: true,
+                            
                         },
                         {
                             name: 'date',
                             type: 'text',
-                            required: true,
+                          
                         },
                         {
                             name: 'Heading',
                             type: 'text',
-                            required: true,
+                          
                         },
                         {
                             name: 'content',
@@ -108,12 +108,12 @@ export const Webinars: CollectionConfig<'webinars'> = {
                                 ],
                             }),
                             label: false,
-                            required: true,
+                            
                         },
                         {
                             name: 'link',
                             type: 'text',
-                            required: true,
+                            
                         },
                     ],
                     label: 'Content',

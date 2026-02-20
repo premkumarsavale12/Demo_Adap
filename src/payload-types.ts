@@ -116,10 +116,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    robots: Robot;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    robots: RobotsSelect<false> | RobotsSelect<true>;
   };
   locale: null;
   user: User;
@@ -158,17 +160,16 @@ export interface UserAuthOperations {
  */
 export interface Page {
   id: number;
-  title: string;
+  title?: string | null;
   layout?:
     | (
-        | ArchiveBlock
         | HeroImage
         | HorizontalContent
         | MarketShield
         | OurFreeTools
         | LeaderShip
         | {
-            heading: string;
+            heading?: string | null;
             richText?: {
               root: {
                 type: string;
@@ -223,11 +224,6 @@ export interface Page {
         | Toolstab
         | ProtectionCalculator
         | ForwardTest
-        | CallToActionBlock
-        | ContentBlock
-        | MediaBlock
-        | FormBlock
-        | CodeBlock
         | ToolsSection
         | IntelligencesReport
         | CtaSection
@@ -254,10 +250,11 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock".
+ * via the `definition` "hero_image".
  */
-export interface ArchiveBlock {
-  introContent?: {
+export interface HeroImage {
+  heading?: string | null;
+  richText?: {
     root: {
       type: string;
       children: {
@@ -272,127 +269,20 @@ export interface ArchiveBlock {
     };
     [k: string]: unknown;
   } | null;
-  populateBy?: ('collection' | 'selection') | null;
-  relationTo?: ('posts' | 'webinars' | 'promotion') | null;
-  categories?: (number | Category)[] | null;
-  limit?: number | null;
-  selectedDocs?:
-    | (
-        | {
-            relationTo: 'posts';
-            value: number | Post;
-          }
-        | {
-            relationTo: 'webinars';
-            value: number | Webinar;
-          }
-        | {
-            relationTo: 'promotion';
-            value: number | Promotion;
-          }
-      )[]
-    | null;
+  button1?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
+  button2?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
+  heroImage?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'archive';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  title: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  parent?: (number | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  tag: string;
-  date: string;
-  Heading: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  author_avatar?: (number | null) | Media;
-  author_name?: string | null;
-  link: string;
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  pagecontent?: {
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    Gutenberg_html?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  blockType: 'hero_image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -515,135 +405,13 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "horizontalContent".
  */
-export interface User {
-  id: number;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
+export interface HorizontalContent {
+  items?:
     | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "webinars".
- */
-export interface Webinar {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  tag: string;
-  date: string;
-  Heading: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  link: string;
-  relatedPosts?: (number | Webinar)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "promotion".
- */
-export interface Promotion {
-  id: number;
-  title: string;
-  Component?: {};
-  layout?: (ForFeature | HorizontalContent | ToolsSection | IntelligencesReport | CtaSection | MediaSection)[] | null;
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "for_feature".
- */
-export interface ForFeature {
-  Heading?: string | null;
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  Items?:
-    | {
-        Image?: (number | null) | Media;
-        Heading?: string | null;
+        title?: string | null;
+        subtitle?: string | null;
         richText?: {
           root: {
             type: string;
@@ -659,182 +427,15 @@ export interface ForFeature {
           };
           [k: string]: unknown;
         } | null;
+        buttonText?: string | null;
+        buttonUrl?: string | null;
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
-  button?: {
-    label?: string | null;
-    url?: string | null;
-    target?: ('_self' | '_blank') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'for_feature';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "horizontalContent".
- */
-export interface HorizontalContent {
-  items: {
-    title?: string | null;
-    subtitle?: string | null;
-    richText?: {
-      root: {
-        type: string;
-        children: {
-          type: any;
-          version: number;
-          [k: string]: unknown;
-        }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    buttonText?: string | null;
-    buttonUrl?: string | null;
-    image?: (number | null) | Media;
-    id?: string | null;
-  }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'horizontalContent';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tools_section".
- */
-export interface ToolsSection {
-  toolsHeading?: string | null;
-  useAlternateLayout?: boolean | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  image?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'tools_section';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "intelligences_report".
- */
-export interface IntelligencesReport {
-  intelligences?:
-    | {
-        intelligenceHeading?: string | null;
-        description?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'intelligences_report';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cta_section".
- */
-export interface CtaSection {
-  ctaHeading?: string | null;
-  descrip?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  button?: {
-    label?: string | null;
-    url?: string | null;
-    target?: ('_self' | '_blank') | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta_section';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_section".
- */
-export interface MediaSection {
-  video?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'media_section';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hero_image".
- */
-export interface HeroImage {
-  heading?: string | null;
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  button1?: {
-    label?: string | null;
-    url?: string | null;
-    target?: ('_self' | '_blank') | null;
-  };
-  button2?: {
-    label?: string | null;
-    url?: string | null;
-    target?: ('_self' | '_blank') | null;
-  };
-  heroImage?: (number | null) | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hero_image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -878,7 +479,7 @@ export interface MarketShield {
           };
           [k: string]: unknown;
         } | null;
-        image: number | Media;
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -926,7 +527,7 @@ export interface OurFreeTools {
   tools?:
     | {
         label?: string | null;
-        image: number | Media;
+        image?: (number | null) | Media;
         ButtonText?: {
           label?: string | null;
           url?: string | null;
@@ -1438,6 +1039,58 @@ export interface EnterpriseSoluctuon {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "for_feature".
+ */
+export interface ForFeature {
+  Heading?: string | null;
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  Items?:
+    | {
+        Image?: (number | null) | Media;
+        Heading?: string | null;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  button?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'for_feature';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "how_to_manage".
  */
 export interface HowToManage {
@@ -1472,7 +1125,7 @@ export interface HowToManage {
     };
     [k: string]: unknown;
   } | null;
-  image: number | Media;
+  image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'how_to_manage';
@@ -1591,7 +1244,7 @@ export interface MeasureRisk {
  * via the `definition` "personalize".
  */
 export interface Personalize {
-  box1_title: {
+  box1_title?: {
     root: {
       type: string;
       children: {
@@ -1605,8 +1258,8 @@ export interface Personalize {
       version: number;
     };
     [k: string]: unknown;
-  };
-  box1_description: {
+  } | null;
+  box1_description?: {
     root: {
       type: string;
       children: {
@@ -1620,8 +1273,8 @@ export interface Personalize {
       version: number;
     };
     [k: string]: unknown;
-  };
-  box1_personalize_content: {
+  } | null;
+  box1_personalize_content?: {
     root: {
       type: string;
       children: {
@@ -1635,12 +1288,12 @@ export interface Personalize {
       version: number;
     };
     [k: string]: unknown;
+  } | null;
+  box1_BTN?: {
+    title?: string | null;
+    url?: string | null;
   };
-  box1_BTN: {
-    title: string;
-    url: string;
-  };
-  box2_title: {
+  box2_title?: {
     root: {
       type: string;
       children: {
@@ -1654,8 +1307,8 @@ export interface Personalize {
       version: number;
     };
     [k: string]: unknown;
-  };
-  box2_description: {
+  } | null;
+  box2_description?: {
     root: {
       type: string;
       children: {
@@ -1669,15 +1322,15 @@ export interface Personalize {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   box2_automate_list?:
     | {
-        condition_image: number | Media;
-        condition_items: string;
+        condition_image?: (number | null) | Media;
+        condition_items?: string | null;
         id?: string | null;
       }[]
     | null;
-  automate_sub_title: {
+  automate_sub_title?: {
     root: {
       type: string;
       children: {
@@ -1691,10 +1344,10 @@ export interface Personalize {
       version: number;
     };
     [k: string]: unknown;
-  };
-  box2_BTN: {
-    title: string;
-    url: string;
+  } | null;
+  box2_BTN?: {
+    title?: string | null;
+    url?: string | null;
   };
   id?: string | null;
   blockName?: string | null;
@@ -1723,7 +1376,7 @@ export interface Personalized {
           };
           [k: string]: unknown;
         } | null;
-        image: number | Media;
+        image?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1956,7 +1609,7 @@ export interface ThePutBuying {
  * via the `definition` "understanding_adaptive".
  */
 export interface UnderstandingAdaptive {
-  title: {
+  title?: {
     root: {
       type: string;
       children: {
@@ -1970,8 +1623,8 @@ export interface UnderstandingAdaptive {
       version: number;
     };
     [k: string]: unknown;
-  };
-  factor_analysis_desc: {
+  } | null;
+  factor_analysis_desc?: {
     root: {
       type: string;
       children: {
@@ -1985,10 +1638,10 @@ export interface UnderstandingAdaptive {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   factor_analysis_sub?:
     | {
-        title: {
+        title?: {
           root: {
             type: string;
             children: {
@@ -2002,11 +1655,11 @@ export interface UnderstandingAdaptive {
             version: number;
           };
           [k: string]: unknown;
-        };
+        } | null;
         id?: string | null;
       }[]
     | null;
-  basket_title: {
+  basket_title?: {
     root: {
       type: string;
       children: {
@@ -2020,11 +1673,11 @@ export interface UnderstandingAdaptive {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   basket?:
     | {
-        title: string;
-        desc: {
+        title?: string | null;
+        desc?: {
           root: {
             type: string;
             children: {
@@ -2038,7 +1691,7 @@ export interface UnderstandingAdaptive {
             version: number;
           };
           [k: string]: unknown;
-        };
+        } | null;
         id?: string | null;
       }[]
     | null;
@@ -2143,7 +1796,7 @@ export interface UnderstandingRisk {
  * via the `definition` "what_is_market".
  */
 export interface WhatIsMarket {
-  title: string;
+  title?: string | null;
   description?: {
     root: {
       type: string;
@@ -2194,7 +1847,7 @@ export interface WhatIsMarket {
         id?: string | null;
       }[]
     | null;
-  imageSrc: number | Media;
+  imageSrc?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'what_is_market';
@@ -2289,7 +1942,7 @@ export interface MarketShieldForIndividual {
     };
     [k: string]: unknown;
   } | null;
-  image: number | Media;
+  image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
   blockType: 'market_shield_for_individual';
@@ -2330,7 +1983,7 @@ export interface HeroSection_2 {
  * via the `definition` "FaqBlock".
  */
 export interface FaqBlock {
-  faq_title: string;
+  faq_title?: string | null;
   faq_desc?: {
     root: {
       type: string;
@@ -2346,29 +1999,33 @@ export interface FaqBlock {
     };
     [k: string]: unknown;
   } | null;
-  categories: {
-    name: string;
-    posts: {
-      title: string;
-      content?: {
-        root: {
-          type: string;
-          children: {
-            type: any;
-            version: number;
-            [k: string]: unknown;
-          }[];
-          direction: ('ltr' | 'rtl') | null;
-          format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-          indent: number;
-          version: number;
-        };
-        [k: string]: unknown;
-      } | null;
-      id?: string | null;
-    }[];
-    id?: string | null;
-  }[];
+  categories?:
+    | {
+        name?: string | null;
+        posts?:
+          | {
+              title?: string | null;
+              content?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: any;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'faq';
@@ -2378,7 +2035,7 @@ export interface FaqBlock {
  * via the `definition` "pricing".
  */
 export interface Pricing {
-  pricing_main_title: string;
+  pricing_main_title?: string | null;
   pricing_description?: {
     root: {
       type: string;
@@ -2397,7 +2054,7 @@ export interface Pricing {
   monthly?: {
     headers?:
       | {
-          plan_title: string;
+          plan_title?: string | null;
           plan_description?: {
             root: {
               type: string;
@@ -2413,13 +2070,13 @@ export interface Pricing {
             };
             [k: string]: unknown;
           } | null;
-          cta_text: string;
+          cta_text?: string | null;
           id?: string | null;
         }[]
       | null;
     features?:
       | {
-          feature_name: string;
+          feature_name?: string | null;
           feature_hover_name?: string | null;
           investor_plan?: string | null;
           advisor_plan?: string | null;
@@ -2431,7 +2088,7 @@ export interface Pricing {
   yearly?: {
     headers?:
       | {
-          plan_title: string;
+          plan_title?: string | null;
           plan_description?: {
             root: {
               type: string;
@@ -2447,13 +2104,13 @@ export interface Pricing {
             };
             [k: string]: unknown;
           } | null;
-          cta_text: string;
+          cta_text?: string | null;
           id?: string | null;
         }[]
       | null;
     features?:
       | {
-          feature_name: string;
+          feature_name?: string | null;
           feature_hover_name?: string | null;
           investor_plan?: string | null;
           advisor_plan?: string | null;
@@ -2489,12 +2146,14 @@ export interface RiskContribution {
  * via the `definition` "toolstab".
  */
 export interface Toolstab {
-  tabs: {
-    label: string;
-    Url?: string | null;
-    target?: ('_self' | '_blank') | null;
-    id?: string | null;
-  }[];
+  tabs?:
+    | {
+        label?: string | null;
+        Url?: string | null;
+        target?: ('_self' | '_blank') | null;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'toolstab';
@@ -2519,10 +2178,12 @@ export interface ForwardTest {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
+ * via the `definition` "tools_section".
  */
-export interface CallToActionBlock {
-  richText?: {
+export interface ToolsSection {
+  toolsHeading?: string | null;
+  useAlternateLayout?: boolean | null;
+  content?: {
     root: {
       type: string;
       children: {
@@ -2537,43 +2198,20 @@ export interface CallToActionBlock {
     };
     [k: string]: unknown;
   } | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  image?: (number | null) | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'cta';
+  blockType: 'tools_section';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
+ * via the `definition` "intelligences_report".
  */
-export interface ContentBlock {
-  columns?:
+export interface IntelligencesReport {
+  intelligences?:
     | {
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
+        intelligenceHeading?: string | null;
+        description?: {
           root: {
             type: string;
             children: {
@@ -2588,51 +2226,20 @@ export interface ContentBlock {
           };
           [k: string]: unknown;
         } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
         id?: string | null;
       }[]
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'content';
+  blockType: 'intelligences_report';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
+ * via the `definition` "cta_section".
  */
-export interface MediaBlock {
-  media: number | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock".
- */
-export interface FormBlock {
-  form: number | Form;
-  enableIntro?: boolean | null;
-  introContent?: {
+export interface CtaSection {
+  ctaHeading?: string | null;
+  descrip?: {
     root: {
       type: string;
       children: {
@@ -2647,9 +2254,254 @@ export interface FormBlock {
     };
     [k: string]: unknown;
   } | null;
+  button?: {
+    label?: string | null;
+    url?: string | null;
+    target?: ('_self' | '_blank') | null;
+  };
   id?: string | null;
   blockName?: string | null;
-  blockType: 'formBlock';
+  blockType: 'cta_section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_section".
+ */
+export interface MediaSection {
+  video?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'media_section';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title?: string | null;
+  heroImage?: (number | null) | Media;
+  tag?: string | null;
+  date?: string | null;
+  Heading?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  author_avatar?: (number | null) | Media;
+  author_name?: string | null;
+  link?: string | null;
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  pagecontent?: {
+    richText?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    Gutenberg_html?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title?: string | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  parent?: (number | null) | Category;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "webinars".
+ */
+export interface Webinar {
+  id: number;
+  title?: string | null;
+  heroImage?: (number | null) | Media;
+  tag?: string | null;
+  date?: string | null;
+  Heading?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  link?: string | null;
+  relatedPosts?: (number | Webinar)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "promotion".
+ */
+export interface Promotion {
+  id: number;
+  title?: string | null;
+  Component?: {};
+  layout?: (ForFeature | HorizontalContent | ToolsSection | IntelligencesReport | CtaSection | MediaSection)[] | null;
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number;
+  /**
+   * You will need to rebuild the website when changing this field.
+   */
+  from: string;
+  to?: {
+    type?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2822,43 +2674,6 @@ export interface Form {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "redirects".
- */
-export interface Redirect {
-  id: number;
-  /**
-   * You will need to rebuild the website when changing this field.
-   */
-  from: string;
-  to?: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-  };
   updatedAt: string;
   createdAt: string;
 }
@@ -3125,7 +2940,6 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        archive?: T | ArchiveBlockSelect<T>;
         hero_image?: T | HeroImageSelect<T>;
         horizontalContent?: T | HorizontalContentSelect<T>;
         marketShield?: T | MarketShieldSelect<T>;
@@ -3174,11 +2988,6 @@ export interface PagesSelect<T extends boolean = true> {
         toolstab?: T | ToolstabSelect<T>;
         protection_calculator?: T | ProtectionCalculatorSelect<T>;
         forward_test?: T | ForwardTestSelect<T>;
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
-        code?: T | CodeBlockSelect<T>;
         tools_section?: T | ToolsSectionSelect<T>;
         intelligences_report?: T | IntelligencesReportSelect<T>;
         cta_section?: T | CtaSectionSelect<T>;
@@ -3197,20 +3006,6 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock_select".
- */
-export interface ArchiveBlockSelect<T extends boolean = true> {
-  introContent?: T;
-  populateBy?: T;
-  relationTo?: T;
-  categories?: T;
-  limit?: T;
-  selectedDocs?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3971,86 +3766,6 @@ export interface ForwardTestSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock_select".
- */
-export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
- */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FormBlock_select".
- */
-export interface FormBlockSelect<T extends boolean = true> {
-  form?: T;
-  enableIntro?: T;
-  introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock_select".
- */
-export interface CodeBlockSelect<T extends boolean = true> {
-  language?: T;
-  code?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tools_section_select".
  */
 export interface ToolsSectionSelect<T extends boolean = true> {
@@ -4689,11 +4404,11 @@ export interface Footer {
   footerlogo?: (number | null) | Media;
   navigation?:
     | {
-        heading: string;
+        heading?: string | null;
         menus?:
           | {
-              label: string;
-              url: string;
+              label?: string | null;
+              url?: string | null;
               id?: string | null;
             }[]
           | null;
@@ -4701,6 +4416,39 @@ export interface Footer {
       }[]
     | null;
   copyright?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "robots".
+ */
+export interface Robot {
+  id: number;
+  rules?:
+    | {
+        userAgent?: string | null;
+        allow?:
+          | {
+              path?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        disallow?:
+          | {
+              path?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  sitemaps?:
+    | {
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -4795,6 +4543,39 @@ export interface FooterSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "robots_select".
+ */
+export interface RobotsSelect<T extends boolean = true> {
+  rules?:
+    | T
+    | {
+        userAgent?: T;
+        allow?:
+          | T
+          | {
+              path?: T;
+              id?: T;
+            };
+        disallow?:
+          | T
+          | {
+              path?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  sitemaps?:
+    | T
+    | {
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskSchedulePublish".
  */
 export interface TaskSchedulePublish {
@@ -4828,8 +4609,8 @@ export interface TaskSchedulePublish {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
+  style?: ('info' | 'warning' | 'error' | 'success') | null;
+  content?: {
     root: {
       type: string;
       children: {
@@ -4843,10 +4624,31 @@ export interface BannerBlock {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'banner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock".
+ */
+export interface CodeBlock {
+  language?: ('typescript' | 'javascript' | 'css') | null;
+  code?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'code';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

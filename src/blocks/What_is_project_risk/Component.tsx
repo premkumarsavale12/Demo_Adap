@@ -3,6 +3,7 @@ import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import {
   SerializedLexicalNode,
 } from "lexical";
+import RichText from "@/components/RichText";
 
 const extractTextFromLexical = (
   nodes?: SerializedLexicalNode[]
@@ -64,8 +65,9 @@ export const What_is_project_risk: React.FC<WhatIsProjectRiskProps> = ({ Heading
             </div>
 
             <div className="text text-body font-inter font-normal space-y-4">
-              {extractTextFromLexical(descritpion?.root?.children)}
+              {descritpion && <RichText className="mb-0" data={descritpion} enableGutter={false} />}
             </div>
+
           </div>
 
           {/* ===== RISK ITEMS ===== */}

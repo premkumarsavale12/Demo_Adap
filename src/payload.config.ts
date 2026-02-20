@@ -11,6 +11,7 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { Robots } from './Robots/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 
@@ -77,7 +78,7 @@ export default buildConfig({
     process.env.NEXT_PUBLIC_SERVER_URL,
   ].filter(Boolean) as string[],
 
-  globals: [Header, Footer],
+  globals: [Header, Footer, Robots],
 
   plugins,
 

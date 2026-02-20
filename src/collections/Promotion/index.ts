@@ -51,7 +51,7 @@ export const Promotion: CollectionConfig<'promotion'> = {
         {
             name: 'title',
             type: 'text',
-            required: true,
+           
         },
         {
             type: 'tabs',

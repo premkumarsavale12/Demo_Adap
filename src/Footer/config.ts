@@ -15,7 +15,6 @@ export const Footer: GlobalConfig = {
     {
       name: 'title',
       type: 'text',
-      required: false,
       label: {
         en: 'Title',
         de: 'Titel',
@@ -51,7 +50,6 @@ export const Footer: GlobalConfig = {
         de: 'Fußzeilen-Logo',
       },
       relationTo: 'media',
-      required: false,
     },
     {
       name: 'navigation',
@@ -72,7 +70,7 @@ export const Footer: GlobalConfig = {
             en: 'Heading',
             de: 'Überschrift',
           },
-          required: true,
+
         },
         {
           name: 'menus',
@@ -89,7 +87,7 @@ export const Footer: GlobalConfig = {
                 en: 'Link Label',
                 de: 'Linktext',
               },
-              required: true,
+
             },
             {
               name: 'url',
@@ -98,7 +96,7 @@ export const Footer: GlobalConfig = {
                 en: 'URL',
                 de: 'URL',
               },
-              required: true,
+
             },
           ],
         },

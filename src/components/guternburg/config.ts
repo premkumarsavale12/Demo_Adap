@@ -46,7 +46,7 @@ export const GuternContents: Field = {
         de: 'Beitragsbild',
       },
       relationTo: 'media',
-      required: false,
+     
     },
     {
       name: 'type',
@@ -74,7 +74,7 @@ export const GuternContents: Field = {
           value: 'lowImpact',
         },
       ],
-      required: false,
+    
     },
     {
       name: 'media',
@@ -88,7 +88,7 @@ export const GuternContents: Field = {
           ['highImpact', 'mediumImpact'].includes(type),
       },
       relationTo: 'media',
-      required: false,
+     
     },
   ],
 }

@@ -47,7 +47,7 @@ export const Personalized: Block = {
                     name: 'image',
                     type: 'upload',
                     relationTo: 'media',
-                    required: true,
+                 
                 },
             ]
         }

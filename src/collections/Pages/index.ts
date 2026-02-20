@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-import { Archive } from '../../blocks/ArchiveBlock/config'
+
 
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -45,11 +45,6 @@ import { risk_weather } from '@/blocks/risk_weather/config'
 import { risk_contribution } from '@/blocks/risk_contribution/config'
 import { Protection_Calculator } from '@/blocks/protection-calculator/config'
 import { Forward_Test } from '@/blocks/Forward_Test/config'
-import { CallToAction } from '@/blocks/CallToAction/config'
-import { Content } from '@/blocks/Content/config'
-import { MediaBlock } from '@/blocks/MediaBlock/config'
-import { FormBlock } from '@/blocks/Form/config'
-import { Code } from '@/blocks/Code/config'
 import { Tools_Section } from '@/blocks/Tools_Section/config'
 import { Intelligence_report } from '@/blocks/Intelligence_report/config'
 import { Cta_Section } from '@/blocks/Cta_Section/config'
@@ -107,7 +102,6 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       name: 'title',
       type: 'text',
-      required: true,
     },
     {
       type: 'tabs',
@@ -122,7 +116,7 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                Archive,
+
                 Hero_Image,
                 HorizontalContent,
                 MarketShield,
@@ -164,11 +158,6 @@ export const Pages: CollectionConfig<'pages'> = {
                 ToolsTab,
                 Protection_Calculator,
                 Forward_Test,
-                CallToAction,
-                Content,
-                MediaBlock,
-                FormBlock,
-                Code,
                 Tools_Section,
                 Intelligence_report,
                 Cta_Section,
@@ -176,7 +165,7 @@ export const Pages: CollectionConfig<'pages'> = {
 
 
               ],
-              required: false,
+
               admin: {
                 initCollapsed: true,
               },
