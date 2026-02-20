@@ -249,14 +249,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                             dropdown-content
                             static lg:absolute
                             left-1/2 top-full
-                            bg-white lg:bg-white bg-transparent
+                            lg:bg-white bg-transparent
                             rounded
                             overflow-hidden
                             transition-all duration-300 ease-out
                             max-h-0
-                            lg:-translate-x-[60%] lg:shadow-xl shadow-[0px_4px_10px_rgba(255,255,255,0.5)] opacity-0 invisible
+                        lg:-translate-x-[60%] lg:shadow-xl shadow-[0px_4px_10px_rgba(255,255,255,0.5)] opacity-0 invisible
                             z-10
-                            border-t border-t-black-200
+                           border-t border-t-black-200
                             ${layout === 'mega' ? `${widthClass} lg:-translate-x-[60%]` : 'lg:w-[20vw] lg:-translate-x-[60%]'}
                           `}
                             ref={(el) => {
@@ -272,7 +272,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                           >
                             {/* ===== SINGLE DROPDOWN ===== */}
                             {layout === 'single' && (
-                              <ul className="flex flex-col p-4 space-y-4 text-black">
+                               <ul className="flex flex-col p-4 space-y-4 text-white">
                                 {menu.submenus?.map((submenu, subIndex) =>
                                   submenu.links?.map((item, itemIndex) => (
                                     <li key={`${subIndex}-${itemIndex}`}>
@@ -293,10 +293,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                             {/* ===== MEGA MENU ===== */}
                             {layout === 'mega' && (
                               <div
-                                className="grid gap-x-10 gap-y-4 p-6 text-black"
-                                style={{
+                                className="flex flex-col lg:grid gap-x-10 gap-y-4 p-6 lg:text-black text-white"
+                                style={!isMobile() ? {
                                   gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
-                                }}
+                                } : {}}
                               >
                                 {menu.submenus?.map((submenu, subIndex) =>
                                   submenu.links?.map((item, itemIndex) => (
@@ -347,7 +347,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             </div>
           </div>
         </div>
-      </header>
+      </header >
     </>
   )
 }
