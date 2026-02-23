@@ -16,7 +16,7 @@ interface PersonalizedProps {
   }[],
 }
 
-import type { SerializedLexicalNode, SerializedTextNode } from "lexical";
+import type { SerializedLexicalNode } from "lexical";
 
 const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
   if (!nodes) return null

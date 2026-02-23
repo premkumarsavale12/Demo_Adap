@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
-import type { SerializedLexicalNode, SerializedTextNode } from 'lexical'
+import type { SerializedLexicalNode } from 'lexical'
 
 type Button = {
     title: string

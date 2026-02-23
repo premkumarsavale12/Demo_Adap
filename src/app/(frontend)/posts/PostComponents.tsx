@@ -71,7 +71,7 @@ const BlogCard = ({ blog }: { blog: Post }) => {
                 ) : blog.heroImage && typeof blog.heroImage === 'object' ? (
                     <Image
                         src={blog.heroImage.url || ''}
-                        alt={blog.title}
+                        alt={blog.title || ''}
                         width={600}
                         height={400}
                         className="w-full md:h-[240px] object-cover"
@@ -184,8 +184,8 @@ export const BlogTab = ({
             const q = searchTerm.toLowerCase()
             posts = posts.filter(
                 (blog) =>
-                    blog.title.toLowerCase().includes(q) ||
-                    blog.tag?.toLowerCase().includes(q)
+                    (blog.title || '').toLowerCase().includes(q) ||
+                    (blog.tag || '').toLowerCase().includes(q)
             )
         }
 

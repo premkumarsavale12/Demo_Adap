@@ -1,4 +1,3 @@
-import RichText from "@/components/RichText";
 import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import React from "react";
 import NextImage from "next/image";

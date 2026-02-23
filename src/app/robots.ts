@@ -19,12 +19,12 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
 
     const rules =
         robotsQuery?.rules?.map((rule) => ({
-            userAgent: rule.userAgent,
-            allow: rule.allow?.map((a) => a.path),
-            disallow: rule.disallow?.map((d) => d.path),
+            userAgent: rule.userAgent ?? '*',
+            allow: rule.allow?.map((a) => a.path).filter((p): p is string => !!p),
+            disallow: rule.disallow?.map((d) => d.path).filter((p): p is string => !!p),
         })) || []
 
-    const sitemaps = robotsQuery?.sitemaps?.map((s) => s.url) || []
+    const sitemaps = robotsQuery?.sitemaps?.map((s) => s.url).filter((url): url is string => !!url) || []
 
     return {
         rules,

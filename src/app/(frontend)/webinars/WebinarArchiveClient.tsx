@@ -99,7 +99,7 @@ export default function WebinarArchiveClient({
 
   const filteredWebinars = useMemo(() => {
     return initialWebinars.filter((item) => {
-      const matchesSearch = item.title
+      const matchesSearch = (item.title || '')
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
 
@@ -192,7 +192,7 @@ export default function WebinarArchiveClient({
         <div className="flex items-center justify-center px-2 pb-6 pt-8 xl:w-[20%] xmd:w-[30%] w-full sticky xmd:top-[120px] top-[112px] shadow-lg xmd:shadow-none xmd:bg-transparent bg-white-100 ">
           <div className="container">
             <div className="main-btns flex xmd:flex-col flex-row sm:gap-2 gap-6 overflow-x-auto no-scrollbar">
-              {["All", "On Demand", ...categories.map((cat) => cat.title)].map((cat) => (
+              {["All", "On Demand", ...categories.filter((cat) => cat.title).map((cat) => cat.title as string)].map((cat) => (
 
                 <button
                   key={cat}
@@ -253,7 +253,7 @@ export default function WebinarArchiveClient({
                   <div className="bg-white p-4 border border-black-200 flex flex-col flex-1 ">
                     {isYoutube ? (
                       <iframe
-                        src={getEmbedUrl(item.link)}
+                        src={getEmbedUrl(item.link || '')}
                         title={`YouTube video ${i}`}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -310,7 +310,7 @@ export default function WebinarArchiveClient({
 
                       {/* Description */}
                       <div className="line-clamp-4">
-                        <RichText data={item.content} enableGutter={false} enableProse={false} />
+                        {item.content && <RichText data={item.content} enableGutter={false} enableProse={false} />}
                       </div>
                     </div>
 

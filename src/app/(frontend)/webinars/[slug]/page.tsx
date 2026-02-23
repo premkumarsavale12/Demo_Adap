@@ -105,7 +105,9 @@ export default async function WebinarPage({ params: paramsPromise }: Args) {
                         </div>
                     </div>
 
-                    <RichText className="max-w-[48rem] mx-auto" data={webinar.content} enableGutter={false} />
+                    {webinar.content && (
+                        <RichText className="max-w-[48rem] mx-auto" data={webinar.content} enableGutter={false} />
+                    )}
                     {webinar.relatedPosts && webinar.relatedPosts.length > 0 && (
                         <RelatedPosts
                             className="mt-12 max-w-[52rem]"

@@ -262,7 +262,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                   : post.tag}
               </span>
               <span className="text-sm font-semibold">
-                {new Date(post.date).toLocaleDateString('en-GB', {
+                {post.date && new Date(post.date).toLocaleDateString('en-GB', {
                   day: 'numeric',
                   month: 'short',
                   year: 'numeric',
@@ -417,7 +417,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                             : item.tag}
                         </span>
                         <span className="text-[12px] font-semibold">
-                          {new Date(item.date).toLocaleDateString('en-GB', {
+                          {item.date && new Date(item.date).toLocaleDateString('en-GB', {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric',
@@ -427,11 +427,11 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                       <div className="main space-y-4 text-body">
                         <h3
                           className="font-semibold w-[90%]"
-                          dangerouslySetInnerHTML={{ __html: item.title }}
+                          dangerouslySetInnerHTML={{ __html: item.title || '' }}
                         ></h3>
                         <div className="para line-clamp-4">
                           {item.content &&
-                            (item.content as Post['content']).root.children.map((block: LexicalNode, index: number) => {
+                            (item.content as any)?.root?.children?.map((block: LexicalNode, index: number) => {
                               if (block.type === 'list') {
                                 return (
                                   <ul
@@ -474,7 +474,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                     <div className="view w-full flex justify-between items-center sm:flex-nowrap flex-wrap gap-3">
                       <div className="left flex gap-3 justify-start items-center text-body">
                         {item?.author_avatar &&
-                          typeof item.author_avatar !== 'string' &&
+                          typeof item.author_avatar === 'object' &&
                           item.author_avatar.url ? (
                           <Image
                             src={item.author_avatar.url}

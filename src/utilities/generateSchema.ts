@@ -1,4 +1,4 @@
-import type { WithContext, WebPage, BlogPosting, Organization, WebSite, Graph, BreadcrumbList, FAQPage, Question, Event } from 'schema-dts'
+import type { Graph, BreadcrumbList, FAQPage } from 'schema-dts'
 import { Page, Post, Webinar, Media } from '@/payload-types'
 import { getServerSideURL } from './getURL'
 
