@@ -5,6 +5,7 @@ import {
   SerializedLinkNode,
   type DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
+import type { ComponentProps } from 'react'
 import {
   JSXConvertersFunction,
   LinkJSXConverter,
@@ -13,18 +14,12 @@ import {
 
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 
-import type {
-  BannerBlock as BannerBlockProps,
-  CallToActionBlock as CTABlockProps,
-  MediaBlock as MediaBlockProps,
-} from '@/payload-types'
+// Use generic record types for block fields to avoid dependency on generated payload types
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { cn } from '@/utilities/ui'
 
-type NodeTypes =
-  | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+type NodeTypes = DefaultNodeTypes | SerializedBlockNode<Record<string, unknown> | CodeBlockProps>
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!
@@ -41,19 +36,28 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
-    mediaBlock: ({ node }) => (
+    banner: ({ node }: { node: SerializedBlockNode<Record<string, unknown>> }) => (
+      <BannerBlock
+        className="col-start-2 mb-4"
+        {...(node.fields as unknown as ComponentProps<typeof BannerBlock>)}
+      />
+    ),
+    mediaBlock: ({ node }: { node: SerializedBlockNode<Record<string, unknown>> }) => (
       <MediaBlock
         className="col-start-1 col-span-3"
         imgClassName="m-0"
-        {...node.fields}
+        {...(node.fields as unknown as ComponentProps<typeof MediaBlock>)}
         captionClassName="mx-auto max-w-[48rem]"
         enableGutter={false}
         disableInnerContainer={true}
       />
     ),
-    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    code: ({ node }: { node: SerializedBlockNode<Record<string, unknown> & CodeBlockProps> }) => (
+      <CodeBlock className="col-start-2" {...(node.fields as unknown as ComponentProps<typeof CodeBlock>)} />
+    ),
+    cta: ({ node }: { node: SerializedBlockNode<Record<string, unknown>> }) => (
+      <CallToActionBlock {...(node.fields as unknown as ComponentProps<typeof CallToActionBlock>)} />
+    ),
   },
 })
 

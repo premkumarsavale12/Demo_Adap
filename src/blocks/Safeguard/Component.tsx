@@ -2,7 +2,12 @@ import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SerializedLexicalNode } from "lexical";
+import type {
+    SerializedLexicalNode,
+    SerializedTextNode,
+    SerializedParagraphNode,
+    SerializedLineBreakNode,
+} from "lexical";
 
 interface Button {
     url: string;
@@ -24,40 +29,74 @@ interface SafeguardProps {
     button?: Button;
 }
 
-const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
-    if (!nodes) return null
+/* ---------------- Type Guards ---------------- */
 
-    return nodes.map((node: any, index: number) => {
-        if (node.type === 'text') {
-            let textElement: React.ReactNode = node.text
+const isTextNode = (
+    node: SerializedLexicalNode
+): node is SerializedTextNode => {
+    return node.type === "text";
+};
+
+const isParagraphNode = (
+    node: SerializedLexicalNode
+): node is SerializedParagraphNode => {
+    return node.type === "paragraph";
+};
+
+const isLineBreakNode = (
+    node: SerializedLexicalNode
+): node is SerializedLineBreakNode => {
+    return node.type === "linebreak";
+};
+
+/* ---------------- Lexical Renderer ---------------- */
+
+const renderLexical = (
+    nodes?: SerializedLexicalNode[]
+): React.ReactNode => {
+    if (!nodes) return null;
+
+    return nodes.map((node, index) => {
+        /* ---------- Text ---------- */
+        if (isTextNode(node)) {
+            let content: React.ReactNode = node.text;
 
             if (node.format & 1) {
-                textElement = <strong key={index} className="font-bold text-black">{textElement}</strong>
+                content = (
+                    <strong className="font-bold text-black">
+                        {content}
+                    </strong>
+                );
             }
 
             if (node.format & 2) {
-                textElement = <em key={index}>{textElement}</em>
+                content = <em>{content}</em>;
             }
 
-            return <React.Fragment key={index}>{textElement}</React.Fragment>
+            if (node.format & 8) {
+                content = <u>{content}</u>;
+            }
+
+            return <React.Fragment key={index}>{content}</React.Fragment>;
         }
 
-        if (node.type === 'paragraph') {
+        /* ---------- Paragraph ---------- */
+        if (isParagraphNode(node)) {
             return (
                 <p key={index} className="mb-0">
                     {renderLexical(node.children)}
                 </p>
-            )
+            );
         }
 
-        if (node.type === 'linebreak') {
-            return <br key={index} />
+        /* ---------- Line Break ---------- */
+        if (isLineBreakNode(node)) {
+            return <br key={index} />;
         }
 
-        return null
-    })
-}
-
+        return null;
+    });
+};
 
 export const Safeguard: React.FC<SafeguardProps> = ({ Heading, richText, Items, button }) => {
 

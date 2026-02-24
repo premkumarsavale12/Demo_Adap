@@ -5,10 +5,8 @@ type ContactArgs = {
   contactForm: Form
 }
 
-export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'pages'> = ({
-  contactForm,
-}) => {
-  return {
+export const contact = ({ contactForm }: ContactArgs): RequiredDataFromCollectionSlug<'pages'> => {
+  return ({
     slug: 'contact',
     _status: 'published',
     hero: {
@@ -52,5 +50,5 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'pag
       },
     ],
     title: 'Contact',
-  }
+  } as unknown) as RequiredDataFromCollectionSlug<'pages'>
 }

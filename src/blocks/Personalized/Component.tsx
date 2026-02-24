@@ -1,52 +1,76 @@
-
-
 import { Media } from "@/payload-types";
 import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
 import Image from "next/image";
 import React from "react";
-
+import type {
+  SerializedLexicalNode,
+  SerializedParagraphNode,
+  SerializedTextNode,
+} from "lexical";
 
 interface PersonalizedProps {
-
   Items?: {
-    Heading?: string,
-    richText: DefaultTypedEditorState,
-    image: Media,
-    bgClass?: string
-  }[],
+    Heading?: string;
+    richText: DefaultTypedEditorState;
+    image: Media;
+    bgClass?: string;
+  }[];
 }
 
-import type { SerializedLexicalNode } from "lexical";
+/* ---------------- Type Guards ---------------- */
 
-const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
-  if (!nodes) return null
+const isTextNode = (
+  node: SerializedLexicalNode
+): node is SerializedTextNode => {
+  return node.type === "text";
+};
 
-  return nodes.map((node: any, index: number) => {
-    if (node.type === 'text') {
-      let textElement: React.ReactNode = node.text
+const isParagraphNode = (
+  node: SerializedLexicalNode
+): node is SerializedParagraphNode => {
+  return node.type === "paragraph";
+};
+
+/* ---------------- Lexical Renderer ---------------- */
+
+const renderLexical = (
+  nodes?: SerializedLexicalNode[]
+): React.ReactNode => {
+  if (!nodes) return null;
+
+  return nodes.map((node, index) => {
+    /* ---------- Text ---------- */
+    if (isTextNode(node)) {
+      let content: React.ReactNode = node.text;
 
       if (node.format & 1) {
-        textElement = <strong key={index} className="font-bold">{textElement}</strong>
+        content = <strong className="font-bold">{content}</strong>;
       }
 
       if (node.format & 2) {
-        textElement = <em key={index}>{textElement}</em>
+        content = <em>{content}</em>;
       }
 
-      return <React.Fragment key={index}>{textElement}</React.Fragment>
+      if (node.format & 8) {
+        content = <u>{content}</u>;
+      }
+
+      return <React.Fragment key={index}>{content}</React.Fragment>;
     }
 
-    if (node.type === 'paragraph') {
+    /* ---------- Paragraph ---------- */
+    if (isParagraphNode(node)) {
       return (
         <p key={index}>
           {renderLexical(node.children)}
         </p>
-      )
+      );
     }
 
-    return null
-  })
-}
+    return null;
+  });
+};
+
 
 export const Personalized: React.FC<PersonalizedProps> = ({ Items = [] }) => {
   return (

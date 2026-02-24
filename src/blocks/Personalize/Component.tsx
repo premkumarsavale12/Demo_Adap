@@ -1,62 +1,90 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
-import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
-import type { SerializedLexicalNode } from 'lexical'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
+import type {
+    SerializedLexicalNode,
+    SerializedParagraphNode,
+    SerializedTextNode,
+} from "lexical";
 
 type Button = {
-    title: string
-    url: string
-}
+    title: string;
+    url: string;
+};
 
 type AutomateItem = {
     condition_image: {
-        url: string
-    }
-    condition_items: string
-}
+        url: string;
+    };
+    condition_items: string;
+};
 
 type Props = {
-    box1_title: DefaultTypedEditorState
-    box1_description: DefaultTypedEditorState
-    box1_personalize_content: DefaultTypedEditorState
-    box1_BTN?: Button
-    box2_title: DefaultTypedEditorState
-    box2_description: DefaultTypedEditorState
-    box2_automate_list?: AutomateItem[]
-    automate_sub_title: DefaultTypedEditorState
-    box2_BTN?: Button
-}
+    box1_title: DefaultTypedEditorState;
+    box1_description: DefaultTypedEditorState;
+    box1_personalize_content: DefaultTypedEditorState;
+    box1_BTN?: Button;
+    box2_title: DefaultTypedEditorState;
+    box2_description: DefaultTypedEditorState;
+    box2_automate_list?: AutomateItem[];
+    automate_sub_title: DefaultTypedEditorState;
+    box2_BTN?: Button;
+};
 
-const renderLexical = (nodes?: SerializedLexicalNode[]): React.ReactNode => {
-    if (!nodes) return null
+/* ---------------- Type Guards ---------------- */
 
-    return nodes.map((node: any, index: number) => {
-        if (node.type === 'text') {
-            let textElement: React.ReactNode = node.text
+const isTextNode = (
+    node: SerializedLexicalNode
+): node is SerializedTextNode => {
+    return node.type === "text";
+};
+
+const isParagraphNode = (
+    node: SerializedLexicalNode
+): node is SerializedParagraphNode => {
+    return node.type === "paragraph";
+};
+
+/* ---------------- Lexical Renderer ---------------- */
+
+const renderLexical = (
+    nodes?: SerializedLexicalNode[]
+): React.ReactNode => {
+    if (!nodes) return null;
+
+    return nodes.map((node, index) => {
+        /* ---------- Text Node ---------- */
+        if (isTextNode(node)) {
+            let content: React.ReactNode = node.text;
 
             if (node.format & 1) {
-                textElement = <strong key={index} className="font-bold">{textElement}</strong>
+                content = <strong className="font-bold">{content}</strong>;
             }
 
             if (node.format & 2) {
-                textElement = <em key={index}>{textElement}</em>
+                content = <em>{content}</em>;
             }
 
-            return <React.Fragment key={index}>{textElement}</React.Fragment>
+            if (node.format & 8) {
+                content = <u>{content}</u>;
+            }
+
+            return <React.Fragment key={index}>{content}</React.Fragment>;
         }
 
-        if (node.type === 'paragraph') {
+        /* ---------- Paragraph Node ---------- */
+        if (isParagraphNode(node)) {
             return (
                 <p key={index}>
                     {renderLexical(node.children)}
                 </p>
-            )
+            );
         }
 
-        return null
-    })
-}
+        return null;
+    });
+};
 
 export const Personalize = ({
     box1_title,

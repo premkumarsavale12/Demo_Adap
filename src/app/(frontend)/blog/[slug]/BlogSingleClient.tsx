@@ -431,7 +431,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                         ></h3>
                         <div className="para line-clamp-4">
                           {item.content &&
-                            (item.content as any)?.root?.children?.map((block: LexicalNode, index: number) => {
+                            (item.content as unknown as { root?: { children?: LexicalNode[] } })?.root?.children?.map((block: LexicalNode, index: number) => {
                               if (block.type === 'list') {
                                 return (
                                   <ul
@@ -470,6 +470,7 @@ const BlogSingleClient = ({ post, RelatedPoste }: BlogSingleClientProps) => {
                         </div>
                       </div>
                     </div>
+                  
 
                     <div className="view w-full flex justify-between items-center sm:flex-nowrap flex-wrap gap-3">
                       <div className="left flex gap-3 justify-start items-center text-body">

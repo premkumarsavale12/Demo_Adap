@@ -1,12 +1,22 @@
-import type { Post, Webinar, Promotion, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { Post, Webinar, Promotion } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { CardPostData } from '@/components/Card'
+
+type ArchiveBlockProps = {
+  introContent?: DefaultTypedEditorState
+  populateBy?: 'collection' | 'selection'
+  relationTo?: 'posts' | 'webinars' | 'promotion'
+  categories?: (number | { id: number })[]
+  limit?: number
+  selectedDocs?: { relationTo: 'posts' | 'webinars' | 'promotion'; value: number | { id: number } }[]
+}
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {

@@ -52,7 +52,7 @@ export const Card: React.FC<CardBlockProps> = ({ heading, richText }) => {
 
   const blogPosts = posts;
 
-  const renderRichText = (state?: DefaultTypedEditorState) => {
+  const renderRichText = (state?: DefaultTypedEditorState | null) => {
     if (!state) return null
 
     // Render a single serialized node

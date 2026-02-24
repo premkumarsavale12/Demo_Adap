@@ -4,7 +4,7 @@ import { getServerSideURL } from './getURL'
 
 export const generateOrganizationSchema = (): Graph => {
     const serverUrl = getServerSideURL()
-    return {
+    return ({
         '@context': 'https://schema.org',
         '@graph': [
             {
@@ -18,8 +18,8 @@ export const generateOrganizationSchema = (): Graph => {
                     '@id': `${serverUrl}/#logo`,
                     url: `${serverUrl}/api/media/file/Adaptive-Logo.svg`,
                     contentUrl: `${serverUrl}/api/media/file/Adaptive-Logo.svg`,
-                    width: 512 as any,
-                    height: 512 as any,
+                    width: 512,
+                    height: 512,
                     caption: 'Adaptive'
                 },
                 image: {
@@ -61,12 +61,12 @@ export const generateOrganizationSchema = (): Graph => {
                         '@type': 'EntryPoint',
                         urlTemplate: `${serverUrl}/search?q={search_term_string}`,
                     },
-                    'query-input': 'required name=search_term_string',
-                } as any,
+                    ['query-input']: 'required name=search_term_string',
+                },
                 inLanguage: 'en-US'
             },
         ],
-    }
+    } as unknown) as Graph
 }
 
 export const generateBreadcrumbSchema = (items: { name: string; url: string }[]): BreadcrumbList => {
@@ -105,7 +105,7 @@ export const generatePageSchema = (page: Partial<Page>, faqs?: { question: strin
         breadcrumbs.push({ name: page.title || 'Page', url })
     }
 
-    const graph: any[] = [
+    const graph: Record<string, unknown>[] = [
         {
             '@type': 'WebPage',
             '@id': `${url}/#webpage`,
@@ -115,8 +115,8 @@ export const generatePageSchema = (page: Partial<Page>, faqs?: { question: strin
             isPartOf: { '@id': `${serverUrl}/#website` },
             breadcrumb: { '@id': `${url}/#breadcrumb` },
             publisher: { '@id': `${serverUrl}/#organization` },
-            datePublished: (page as any).createdAt,
-            dateModified: (page as any).updatedAt,
+            datePublished: page.createdAt,
+            dateModified: page.updatedAt,
             inLanguage: 'en-US'
         },
         {
@@ -130,12 +130,13 @@ export const generatePageSchema = (page: Partial<Page>, faqs?: { question: strin
             ...generateFAQSchema(faqs),
             '@id': `${url}/#faq`,
         })
+
     }
 
-    return {
+    return ({
         '@context': 'https://schema.org',
         '@graph': graph,
-    }
+    } as unknown) as Graph
 }
 
 export const generatePostSchema = (post: Partial<Post>, faqs?: { question: string; answer: string }[]): Graph => {
@@ -147,7 +148,7 @@ export const generatePostSchema = (post: Partial<Post>, faqs?: { question: strin
         { name: post.title || 'Post', url },
     ]
 
-    const graph: any[] = [
+    const graph: Record<string, unknown>[] = [
         {
             '@type': 'BlogPosting',
             '@id': `${url}/#post`,
@@ -157,14 +158,14 @@ export const generatePostSchema = (post: Partial<Post>, faqs?: { question: strin
                 typeof post.meta?.image === 'object' && (post.meta.image as Media)?.url
                     ? `${serverUrl}${(post.meta.image as Media).url}`
                     : undefined,
-            datePublished: post.publishedAt || (post as any).createdAt,
-            dateModified: (post as any).updatedAt || post.publishedAt,
+            datePublished: post.publishedAt || post.createdAt,
+            dateModified: post.updatedAt || post.publishedAt,
             author:
                 post.populatedAuthors && post.populatedAuthors.length > 0
                     ? {
                         '@type': 'Person',
                         name: post.populatedAuthors[0].name || '',
-                        // url: `${serverUrl}/authors/${(post.populatedAuthors[0] as any).slug || ''}` // Assuming authors have slug if needed, otherwise omit
+                        // url: `${serverUrl}/authors/${post.populatedAuthors?.[0]?.slug || ''}` // Assuming authors have slug if needed, otherwise omit
                     }
                     : undefined,
             publisher: { '@id': `${serverUrl}/#organization` },
@@ -192,10 +193,10 @@ export const generatePostSchema = (post: Partial<Post>, faqs?: { question: strin
         })
     }
 
-    return {
+    return ({
         '@context': 'https://schema.org',
         '@graph': graph,
-    }
+    } as unknown) as Graph
 }
 
 export const generateWebinarSchema = (webinar: Partial<Webinar>, faqs?: { question: string; answer: string }[]): Graph => {
@@ -207,13 +208,13 @@ export const generateWebinarSchema = (webinar: Partial<Webinar>, faqs?: { questi
         { name: webinar.title || 'Webinar', url },
     ]
 
-    const graph: any[] = [
+    const graph: Record<string, unknown>[] = [
         {
             '@type': 'Event',
             '@id': `${url}/#webinar`,
             name: webinar.title || '',
             description: webinar.meta?.description || '',
-            startDate: webinar.date || webinar.publishedAt || (webinar as any).createdAt,
+            startDate: webinar.date || webinar.publishedAt || webinar.createdAt,
             image:
                 typeof webinar.heroImage === 'object' && (webinar.heroImage as Media)?.url
                     ? `${serverUrl}${(webinar.heroImage as Media).url}`
@@ -253,8 +254,8 @@ export const generateWebinarSchema = (webinar: Partial<Webinar>, faqs?: { questi
         })
     }
 
-    return {
+    return ({
         '@context': 'https://schema.org',
         '@graph': graph,
-    }
+    } as unknown) as Graph
 }

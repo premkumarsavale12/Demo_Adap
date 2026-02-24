@@ -1,10 +1,17 @@
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
-
-import type { ContentBlock as ContentBlockProps } from '@/payload-types'
-
+import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { CMSLink } from '../../components/Link'
+
+type ContentBlockProps = {
+  columns?: {
+    enableLink?: boolean
+    link?: Record<string, unknown>
+    richText?: DefaultTypedEditorState | null
+    size?: 'full' | 'half' | 'oneThird' | 'twoThirds'
+  }[]
+}
 
 export const ContentBlock: React.FC<ContentBlockProps> = (props) => {
   const { columns } = props
